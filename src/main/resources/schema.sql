@@ -1,144 +1,89 @@
-CREATE TABLE IF NOT EXISTS cart_products
-(
-    quantity
-    INTEGER,
-    cart_product_id
-    BIGSERIAL
-    NOT
-    NULL,
-    product_id
-    BIGINT
-    NOT
-    NULL,
-    PRIMARY
-    KEY
-(
-    cart_product_id
-)
-    );
+CREATE TABLE Recipe (
+                        recipe_id SERIAL PRIMARY KEY,
+                        general_recipe_id INTEGER,
+                        name VARCHAR,
+                        description VARCHAR,
+                        dietType VARCHAR,
+                        CONSTRAINT fk_general_recipe FOREIGN KEY (general_recipe_id) REFERENCES GeneralRecipe(id)
+);
 
-CREATE TABLE IF NOT EXISTS carts
-(
-    cart_id
-    BIGSERIAL
-    NOT
-    NULL,
-    PRIMARY
-    KEY
-(
-    cart_id
-)
-    );
+CREATE TABLE Contains (
+                          id SERIAL PRIMARY KEY,
+                          name VARCHAR,
+                          recipe_id INTEGER,
+                          ingredient_id INTEGER,
+                          CONSTRAINT fk_recipe_contains FOREIGN KEY (recipe_id) REFERENCES Recipe(recipe_id),
+                          CONSTRAINT fk_contains_ingredient FOREIGN KEY (ingredient_id) REFERENCES Ingredient(id_ingredient)
+);
 
-CREATE TABLE IF NOT EXISTS carts_products
-(
-    cart_cart_id
-    BIGINT
-    NOT
-    NULL,
-    products_cart_product_id
-    BIGINT
-    NOT
-    NULL
-    UNIQUE,
-    CONSTRAINT
-    FKhlf6ykg255bee1d1p0so9378i
-    FOREIGN
-    KEY
-(
-    products_cart_product_id
-) REFERENCES cart_products,
-    CONSTRAINT FK9hfmdik2aam15udyoqdf4819 FOREIGN KEY
-(
-    cart_cart_id
-) REFERENCES carts
-    );
+CREATE TABLE Ingredient (
+                            id_ingredient SERIAL PRIMARY KEY,
+                            name VARCHAR,
+                            fat FLOAT,
+                            protein FLOAT,
+                            carbohydrate FLOAT,
+                            kcal FLOAT,
+                            is_vegan BOOLEAN,
+                            is_glutenfree BOOLEAN
+);
 
-CREATE TABLE IF NOT EXISTS customers
-(
-    account_enable
-    BOOLEAN,
-    account_expired
-    BOOLEAN,
-    account_locked
-    BOOLEAN,
-    credentials_expired
-    BOOLEAN,
-    cart_id
-    BIGINT
-    UNIQUE,
-    customer_id
-    BIGSERIAL
-    NOT
-    NULL,
-    email
-    VARCHAR
-(
-    255
-) NOT NULL UNIQUE,
-    password VARCHAR
-(
-    255
-) NOT NULL,
-    PRIMARY KEY
-(
-    customer_id
-),
-    CONSTRAINT FKihj385ysmggb5xuqydq8nb33e FOREIGN KEY
-(
-    cart_id
-) REFERENCES carts
-    );
+CREATE TABLE Substitute (
+                            id SERIAL PRIMARY KEY,
+                            id_ingredient1 INTEGER,
+                            id_ingredient2 INTEGER,
+                            proportion_i1_i2 FLOAT,
+                            CONSTRAINT fk_ingredient1 FOREIGN KEY (id_ingredient1) REFERENCES Ingredient(id_ingredient),
+                            CONSTRAINT fk_ingredient2 FOREIGN KEY (id_ingredient2) REFERENCES Ingredient(id_ingredient)
+);
 
-CREATE TABLE IF NOT EXISTS products
-(
-    price
-    NUMERIC
-(
-    38,
-    2
-),
-    quantity_available INTEGER,
-    product_id BIGSERIAL NOT NULL,
-    title VARCHAR
-(
-    255
-),
-    PRIMARY KEY
-(
-    product_id
-)
-    );
+CREATE TABLE Review (
+                        id SERIAL PRIMARY KEY,
+                        user_id INTEGER,
+                        recipe_id INTEGER,
+                        rating INTEGER,
+                        opinion VARCHAR,
+                        CONSTRAINT fk_review_user FOREIGN KEY (user_id) REFERENCES "User"(id),
+                        CONSTRAINT fk_review_recipe FOREIGN KEY (recipe_id) REFERENCES Recipe(recipe_id)
+);
 
-CREATE TABLE IF NOT EXISTS roles
-(
-    customer_id
-    BIGINT
-    NOT
-    NULL,
-    role_id
-    BIGSERIAL
-    NOT
-    NULL,
-    role
-    VARCHAR
-(
-    255
-) CHECK
-(
-    role
-    IN
-(
-    'ADMIN',
-    'ANONYMOUS',
-    'USER'
-)),
-    PRIMARY KEY
-(
-    role_id
-),
-    CONSTRAINT role_customer_fk FOREIGN KEY
-(
-    customer_id
-) REFERENCES customers
-    );
+CREATE TABLE "User" (
+                        id SERIAL PRIMARY KEY,
+                        user_name VARCHAR,
+                        email VARCHAR,
+                        password VARCHAR,
+                        birthdate TIMESTAMP,
+                        create_date TIMESTAMP,
+                        pref_is_vegan BOOLEAN,
+                        pref_is_glutenfree BOOLEAN
+);
+
+CREATE TABLE Favorites (
+                           id SERIAL PRIMARY KEY,
+                           user_id INTEGER,
+                           recipe_id INTEGER,
+                           CONSTRAINT fk_favorites_user FOREIGN KEY (user_id) REFERENCES "User"(id),
+                           CONSTRAINT fk_favorites_recipe FOREIGN KEY (recipe_id) REFERENCES Recipe(recipe_id)
+);
+
+CREATE TABLE Specific (
+                          id SERIAL PRIMARY KEY,
+                          user_id INTEGER,
+                          ingredient_id INTEGER,
+                          likes BOOLEAN,
+                          CONSTRAINT fk_specific_user FOREIGN KEY (user_id) REFERENCES "User"(id),
+                          CONSTRAINT fk_specific_ingredient FOREIGN KEY (ingredient_id) REFERENCES Ingredient(id_ingredient)
+);
+
+CREATE TABLE GeneralRecipe (
+                               id SERIAL PRIMARY KEY,
+                               name VARCHAR,
+                               is_breakfast BOOLEAN,
+                               is_dinner BOOLEAN,
+                               is_lunch BOOLEAN,
+                               is_supper BOOLEAN
+);
+
+CREATE TABLE DietType (
+                          id SERIAL PRIMARY KEY,
+                          diet_type VARCHAR
+);
