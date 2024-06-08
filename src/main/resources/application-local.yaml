@@ -1,0 +1,42 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    defer-datasource-initialization: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create-drop
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+      jakarta:
+        persistence:
+          sharedCache:
+            mode: ALL
+      javax:
+        persistence:
+          schema-generation:
+            scripts:
+              action: create
+              create-source: metadata
+              create-target: create.sql
+
+  session:
+    redis:
+      cleanup-cron: 0 * * * * *
+      flush-mode: on_save
+      namespace: spring:session
+    timeout: 1m
+
+  sql:
+    init:
+      continue-on-error: true
+      mode: always
+      schema-locations: classpath:schema-local.sql
+      platform: h2
