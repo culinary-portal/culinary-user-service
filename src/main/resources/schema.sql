@@ -1,32 +1,44 @@
 CREATE TABLE if not exists GeneralRecipe (
-                               id SERIAL PRIMARY KEY,
+                               general_recipe_id SERIAL PRIMARY KEY,
                                name VARCHAR,
                                is_breakfast BOOLEAN,
                                is_dinner BOOLEAN,
                                is_lunch BOOLEAN,
                                is_supper BOOLEAN
-);
+                                        );
 
 CREATE TABLE if not exists "User" (
-                        id SERIAL PRIMARY KEY,
+                        user_id SERIAL PRIMARY KEY,
                         user_name VARCHAR,
                         email VARCHAR,
                         password VARCHAR,
                         birthdate TIMESTAMP,
                         create_date TIMESTAMP,
                         pref_is_vegan BOOLEAN,
-                        pref_is_glutenfree BOOLEAN
-);
+                        pref_is_gluten_free BOOLEAN,
+                        account_enable BOOLEAN,
+                        account_expired BOOLEAN,
+                        account_locked BOOLEAN,
+                        credentials_expired BOOLEAN
+                    );
+
+CREATE TABLE if not exists Roles (
+                    role_id  SERIAL PRIMARY KEY,
+                    user_id INTEGER not null,
+                    role varchar(255) check (role in ('ADMIN','ANONYMOUS','USER')),
+                    CONSTRAINT role_customer_fk foreign key (user_id)  references "User"(user_id)
+    );
+
 
 CREATE TABLE if not exists Ingredient (
-                            id_ingredient SERIAL PRIMARY KEY,
+                            ingredient_id SERIAL PRIMARY KEY,
                             name VARCHAR,
                             fat FLOAT,
                             protein FLOAT,
                             carbohydrate FLOAT,
                             kcal FLOAT,
                             is_vegan BOOLEAN,
-                            is_glutenfree BOOLEAN
+                            is_gluten_free BOOLEAN
 );
 
 CREATE TABLE if not exists Recipe (
@@ -35,68 +47,72 @@ CREATE TABLE if not exists Recipe (
                         name VARCHAR,
                         description VARCHAR,
                         dietType VARCHAR,
-                        CONSTRAINT fk_general_recipe FOREIGN KEY (general_recipe_id) REFERENCES GeneralRecipe(id)
+                        CONSTRAINT fk_general_recipe FOREIGN KEY (general_recipe_id) REFERENCES GeneralRecipe(general_recipe_id)
 );
 
 CREATE TABLE if not exists Contains (
-                          id SERIAL PRIMARY KEY,
+                          contains_id SERIAL PRIMARY KEY,
                           name VARCHAR,
                           recipe_id INTEGER,
                           ingredient_id INTEGER,
                           CONSTRAINT fk_recipe_contains FOREIGN KEY (recipe_id) REFERENCES Recipe(recipe_id),
-                          CONSTRAINT fk_contains_ingredient FOREIGN KEY (ingredient_id) REFERENCES Ingredient(id_ingredient)
+                          CONSTRAINT fk_contains_ingredient FOREIGN KEY (ingredient_id) REFERENCES Ingredient(ingredient_id)
 );
 
 CREATE TABLE if not exists Substitute (
-                            id SERIAL PRIMARY KEY,
-                            id_ingredient1 INTEGER,
-                            id_ingredient2 INTEGER,
+                            substitude_id SERIAL PRIMARY KEY,
+                            ingredient1_id INTEGER,
+                            ingredient2_id INTEGER,
                             proportion_i1_i2 FLOAT,
-                            CONSTRAINT fk_ingredient1 FOREIGN KEY (id_ingredient1) REFERENCES Ingredient(id_ingredient),
-                            CONSTRAINT fk_ingredient2 FOREIGN KEY (id_ingredient2) REFERENCES Ingredient(id_ingredient)
+                            CONSTRAINT fk_ingredient1 FOREIGN KEY (ingredient1_id) REFERENCES Ingredient(ingredient_id),
+                            CONSTRAINT fk_ingredient2 FOREIGN KEY (ingredient2_id) REFERENCES Ingredient(ingredient_id)
 );
 
 CREATE TABLE if not exists Review (
-                        id SERIAL PRIMARY KEY,
+                        review_id SERIAL PRIMARY KEY,
                         user_id INTEGER,
                         recipe_id INTEGER,
                         rating INTEGER,
                         opinion VARCHAR,
-                        CONSTRAINT fk_review_user FOREIGN KEY (user_id) REFERENCES "User"(id),
+                        CONSTRAINT fk_review_user FOREIGN KEY (user_id) REFERENCES "User"(user_id),
                         CONSTRAINT fk_review_recipe FOREIGN KEY (recipe_id) REFERENCES Recipe(recipe_id)
 );
 
 
 CREATE TABLE if not exists Favorites (
-                           id SERIAL PRIMARY KEY,
+                           favourites_id SERIAL PRIMARY KEY,
                            user_id INTEGER,
                            recipe_id INTEGER,
-                           CONSTRAINT fk_favorites_user FOREIGN KEY (user_id) REFERENCES "User"(id),
+                           CONSTRAINT fk_favorites_user FOREIGN KEY (user_id) REFERENCES "User"(user_id),
                            CONSTRAINT fk_favorites_recipe FOREIGN KEY (recipe_id) REFERENCES Recipe(recipe_id)
 );
 
+
+
 CREATE TABLE if not exists Specific (
-                          id SERIAL PRIMARY KEY,
+                          specific_id SERIAL PRIMARY KEY,
                           user_id INTEGER,
-                          ingredient_id INTEGER,
+                          id_ingredient INTEGER,
                           likes BOOLEAN,
-                          CONSTRAINT fk_specific_user FOREIGN KEY (user_id) REFERENCES "User"(id),
-                          CONSTRAINT fk_specific_ingredient FOREIGN KEY (ingredient_id) REFERENCES Ingredient(id_ingredient)
+                          CONSTRAINT fk_specific_user FOREIGN KEY (user_id) REFERENCES "User"(user_id),
+                          CONSTRAINT fk_specific_ingredient FOREIGN KEY (id_ingredient) REFERENCES Ingredient(ingredient_id)
 );
 
 
-CREATE TABLE if not exists DietType (
-                          id SERIAL PRIMARY KEY,
+CREATE TABLE if not exists Diet_type (
+                          diet_type_id SERIAL PRIMARY KEY,
                           diet_type VARCHAR
 );
 
-drop table GeneralRecipe;
-drop table "User";
-drop table Ingredient;
-drop table Recipe;
-drop table Contains;
-drop table Substitute;
-drop table Review;
-drop table Favorites;
+
+drop table Diet_type;
 drop table Specific;
-drop table DietType;
+drop table Favorites;
+drop table Review;
+drop table Substitute;
+drop table Contains;
+drop table Recipe;
+drop table Ingredient;
+drop table Roles;
+drop table "User";
+drop table GeneralRecipe;
