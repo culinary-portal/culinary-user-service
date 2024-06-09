@@ -26,12 +26,12 @@ public class Role implements Serializable {
 
     @ManyToOne
     @JoinColumn(
-            name = "customer_id",
+            name = "user_id",
             nullable = false,
-            referencedColumnName = "customer_id",
-            foreignKey = @ForeignKey(name = "role_customer_fk")
+            referencedColumnName = "user_id",
+            foreignKey = @ForeignKey(name = "role_user_fk")
     )
-    private Customer customer;
+    private User user;
 
     public Role(RoleEnum roleEnum) {
         this.roleEnum = roleEnum;

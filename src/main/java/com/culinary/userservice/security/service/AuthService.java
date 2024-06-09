@@ -2,10 +2,10 @@ package com.culinary.userservice.security.service;
 
 import com.culinary.userservice.security.dto.AuthDTO;
 import com.culinary.userservice.user.enumeration.RoleEnum;
-import com.culinary.userservice.user.exception.CustomerAlreadyExistsException;
-import com.culinary.userservice.user.model.Customer;
+import com.culinary.userservice.user.exception.UserAlreadyExistsException;
 import com.culinary.userservice.user.model.Role;
-import com.culinary.userservice.user.repository.CustomerRepository;
+import com.culinary.userservice.user.model.User;
+import com.culinary.userservice.user.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.Setter;
@@ -38,7 +38,7 @@ public class AuthService {
     private final AuthenticationManager authManager;
     private final RedisIndexedSessionRepository redisIndexedSessionRepository;
     private final SessionRegistry sessionRegistry;
-    private final CustomerRepository customerRepository;
+    private final UserRepository userRepository;
     @Value(value = "${custom.max.session}")
     private int maxSession;
     @Value(value = "${admin.email}")
@@ -49,13 +49,13 @@ public class AuthService {
                        AuthenticationManager authManager,
                        RedisIndexedSessionRepository redisIndexedSessionRepository,
                        SessionRegistry sessionRegistry,
-                       CustomerRepository customerRepository) {
+                       UserRepository userRepository) {
         this.passwordEncoder = passwordEncoder;
         this.securityContextRepository = securityContextRepository;
         this.authManager = authManager;
         this.redisIndexedSessionRepository = redisIndexedSessionRepository;
         this.sessionRegistry = sessionRegistry;
-        this.customerRepository = customerRepository;
+        this.userRepository = userRepository;
         this.securityContextHolderStrategy = SecurityContextHolder.getContextHolderStrategy();
 
     }
@@ -63,28 +63,28 @@ public class AuthService {
     public String register(AuthDTO dto) {
         String email = dto.email().trim();
 
-        Optional<Customer> exists = customerRepository
+        Optional<User> exists = userRepository
                 .findByEmail(email);
 
         if (exists.isPresent()) {
-            throw new CustomerAlreadyExistsException("Customer already exists!");
+            throw new UserAlreadyExistsException("User already exists!");
         }
 
-        var customer = new Customer();
-        customer.setEmail(email);
-        customer.setPassword(passwordEncoder.encode(dto.password()));
-        customer.setLocked(true);
-        customer.setAccountNonExpired(true);
-        customer.setCredentialsNonExpired(true);
-        customer.setEnabled(true);
-        //  customer.setCart(new Cart());
-        customer.addRole(new Role(RoleEnum.USER));
+        var user = new User();
+        user.setEmail(email);
+        user.setPassword(passwordEncoder.encode(dto.password()));
+        user.setLocked(true);
+        user.setAccountNonExpired(true);
+        user.setCredentialsNonExpired(true);
+        user.setEnabled(true);
+        //  user.setCart(new Cart());
+        user.addRole(new Role(RoleEnum.USER));
 
         if (adminEmail != null && adminEmail.equals(email)) {
-            customer.addRole(new Role(RoleEnum.ADMIN));
+            user.addRole(new Role(RoleEnum.ADMIN));
         }
 
-        customerRepository.save(customer);
+        userRepository.save(user);
         return "Registered successfully!";
     }
 

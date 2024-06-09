@@ -5,7 +5,7 @@ import com.culinary.userservice.security.exception.AppInvalidCredentialsExceptio
 import com.culinary.userservice.user.dto.ResponseDTO;
 import com.culinary.userservice.user.exception.AppBusinessException;
 import com.culinary.userservice.user.exception.AppGenericException;
-import com.culinary.userservice.user.exception.AppNotFoundException;
+import com.culinary.userservice.user.exception.NotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -37,7 +37,7 @@ public class UserControllerAdvice {
         return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(new ResponseDTO(ex.getMessage()));
     }
 
-    @ExceptionHandler(AppNotFoundException.class)
+    @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<Object> handleAppRegisterNotFoundException(HttpServletRequest req, Exception ex) {
         log.warn("Exception intercepted: " + req.getRequestURL() + " caused by " + ex);
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseDTO(ex.getMessage()));
