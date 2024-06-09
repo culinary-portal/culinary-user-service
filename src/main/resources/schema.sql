@@ -122,6 +122,6 @@ drop table GeneralRecipe;
 
 INSERT INTO generalrecipe(name)  VALUES('exampleNAMssE');
 
-select * from generalrecipe;
+select * from ingredient;
 
 INSERT INTO generalrecipe(name) VALUES ('Spicy Arrabiata Penne');
