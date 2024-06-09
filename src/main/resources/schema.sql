@@ -1,3 +1,5 @@
+select current_database();
+
 CREATE TABLE if not exists GeneralRecipe (
                                general_recipe_id SERIAL PRIMARY KEY,
                                name VARCHAR,
@@ -104,6 +106,7 @@ CREATE TABLE if not exists Diet_type (
                           diet_type VARCHAR
 );
 
+select * from Roles;
 
 drop table Diet_type;
 drop table Specific;
@@ -116,3 +119,9 @@ drop table Ingredient;
 drop table Roles;
 drop table "User";
 drop table GeneralRecipe;
+
+INSERT INTO generalrecipe(name)  VALUES('exampleNAMssE');
+
+select * from generalrecipe;
+
+INSERT INTO generalrecipe(name) VALUES ('Spicy Arrabiata Penne');
