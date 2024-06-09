@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS roles
     CONSTRAINT fk_user_roles FOREIGN KEY
 (
     user_id
-) REFERENCES app_user
+) REFERENCES "user"
 (
     user_id
 )
@@ -208,7 +208,7 @@ CREATE TABLE IF NOT EXISTS review
     KEY
 (
     user_id
-) REFERENCES app_user
+) REFERENCES "user"
 (
     user_id
 ),
@@ -237,7 +237,7 @@ CREATE TABLE IF NOT EXISTS favorites
     KEY
 (
     user_id
-) REFERENCES app_user
+) REFERENCES "user"
 (
     user_id
 ),
@@ -268,7 +268,7 @@ CREATE TABLE IF NOT EXISTS specific
     KEY
 (
     user_id
-) REFERENCES app_user
+) REFERENCES "user"
 (
     user_id
 ),

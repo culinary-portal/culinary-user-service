@@ -36,7 +36,7 @@ public class AuthController {
         return new ResponseEntity<>(authService.login(authDTO, request, response), OK);
     }
 
-    @GetMapping(path = "/authenticated")
+    @GetMapping(path = "/user")
     public String checkAuthentication(Authentication authentication) {
         return "An Admin or User can hit this rout. User name is " + authentication.getName();
     }
