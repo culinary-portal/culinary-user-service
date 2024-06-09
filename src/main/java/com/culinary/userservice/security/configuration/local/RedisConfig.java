@@ -11,7 +11,7 @@ import java.io.IOException;
 @Configuration
 public class RedisConfig {
 
-    private RedisServer redisServer;
+    private final RedisServer redisServer;
 
     public RedisConfig() throws IOException {
         this.redisServer = new RedisServer(6379);

@@ -1,7 +1,7 @@
 package com.culinary.userservice.user.model.userdetail;
 
 
-import com.culinary.userservice.user.repository.CustomerRepository;
+import com.culinary.userservice.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,16 +10,16 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service(value = "detailService")
-public class CustomerDetailService implements UserDetailsService {
+public class UserDetailService implements UserDetailsService {
 
-    private final CustomerRepository customerRepository;
+    private final UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String principal) throws UsernameNotFoundException {
         return this
-                .customerRepository
+                .userRepository
                 .findByEmail(principal)
-                .map(CustomerDetails::new) //
+                .map(CulinaryUserDetails::new) //
                 .orElseThrow(() -> new UsernameNotFoundException(principal + " not found"));
     }
 }

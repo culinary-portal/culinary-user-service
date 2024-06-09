@@ -1,7 +1,7 @@
 package com.culinary.userservice.security.configuration;
 
 import com.culinary.userservice.security.security.CustomLogoutHandler;
-import com.culinary.userservice.user.model.userdetail.CustomerDetailService;
+import com.culinary.userservice.user.model.userdetail.UserDetailService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -37,7 +37,7 @@ public class SecurityConfig {
     private final RedisIndexedSessionRepository redisIndexedSessionRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationEntryPoint authEntryPoint;
-    private final CustomerDetailService detailService;
+    private final UserDetailService detailService;
     @Value(value = "${custom.max.session}")
     private int maxSession;
 
@@ -45,7 +45,7 @@ public class SecurityConfig {
             RedisIndexedSessionRepository redisIndexedSessionRepository,
             PasswordEncoder passwordEncoder,
             @Qualifier(value = "authEntryPoint") AuthenticationEntryPoint authEntryPoint,
-            @Qualifier(value = "detailService") CustomerDetailService detailsService
+            @Qualifier(value = "detailService") UserDetailService detailsService
     ) {
         this.redisIndexedSessionRepository = redisIndexedSessionRepository;
         this.passwordEncoder = passwordEncoder;

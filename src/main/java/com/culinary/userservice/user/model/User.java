@@ -18,15 +18,15 @@ import java.util.stream.Collectors;
 import static jakarta.persistence.CascadeType.*;
 import static jakarta.persistence.FetchType.EAGER;
 
-@Table(name = "customers")
+@Table(name = "user")
 @Entity
 @NoArgsConstructor
 @Getter
 @Setter
-public class Customer implements Serializable {
+public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "customer_id")
+    @Column(name = "user_id")
     private Long id;
 
     @Column(name = "email", nullable = false, unique = true)
@@ -36,7 +36,7 @@ public class Customer implements Serializable {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "account_enable")
+    @Column(name = "account_enabled")
     private boolean enabled;
 
     @Column(name = "credentials_expired")
@@ -49,7 +49,7 @@ public class Customer implements Serializable {
     private boolean locked;
 
     @JsonIgnore
-    @OneToMany(cascade = {PERSIST, MERGE, REMOVE}, fetch = EAGER, mappedBy = "customer", orphanRemoval = true)
+    @OneToMany(cascade = {PERSIST, MERGE, REMOVE}, fetch = EAGER, mappedBy = "user", orphanRemoval = true)
     private Set<Role> roles = new HashSet<>();
 //    @JsonManagedReference
 //    @OneToOne(cascade = CascadeType.ALL, fetch = EAGER)
@@ -58,7 +58,7 @@ public class Customer implements Serializable {
 
     public void addRole(Role role) {
         this.roles.add(role);
-        role.setCustomer(this);
+        role.setUser(this);
     }
 
     public Collection<? extends GrantedAuthority> getAuthorities() {

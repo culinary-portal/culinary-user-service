@@ -7,10 +7,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
@@ -35,5 +34,16 @@ public class AuthController {
             HttpServletResponse response
     ) {
         return new ResponseEntity<>(authService.login(authDTO, request, response), OK);
+    }
+
+    @GetMapping(path = "/authenticated")
+    public String checkAuthentication(Authentication authentication) {
+        return "An Admin or User can hit this rout. User name is " + authentication.getName();
+    }
+
+    @GetMapping(path = "/authenticated")
+    @PreAuthorize(value = "hasAuthority('ADMIN')")
+    public String getAuthenticated(Authentication authentication) {
+        return "Admin name is " + authentication.getName();
     }
 }
