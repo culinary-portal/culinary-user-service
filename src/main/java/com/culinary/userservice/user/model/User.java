@@ -1,9 +1,9 @@
 package com.culinary.userservice.user.model;
 
 
+import com.culinary.userservice.ingridient.Specific;
 import com.culinary.userservice.recipe.diet.Favorite;
 import com.culinary.userservice.recipe.diet.Review;
-import com.culinary.userservice.ingridient.Specific;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
