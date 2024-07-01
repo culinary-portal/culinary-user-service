@@ -24,9 +24,9 @@ import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.session.data.redis.RedisIndexedSessionRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.sql.Date;
+import java.time.Instant;
+import java.util.*;
 
 @Service
 @Setter
@@ -77,8 +77,14 @@ public class AuthService {
         user.setAccountNonExpired(true);
         user.setCredentialsNonExpired(true);
         user.setEnabled(true);
-        //  user.setCart(new Cart());
         user.addRole(new Role(RoleEnum.USER));
+        user.setBirthdate(Date.valueOf(String.valueOf(Instant.now())));
+        user.setCreateDate(Date.valueOf(String.valueOf(Instant.now())));
+        user.setReviews(new ArrayList<>());
+        user.setFavorites(new ArrayList<>());
+        user.setSpecifics(new ArrayList<>());
+        user.setPrefIsVegan(false);
+        user.setPrefIsGlutenFree(false);
 
         if (adminEmail != null && adminEmail.equals(email)) {
             user.addRole(new Role(RoleEnum.ADMIN));
