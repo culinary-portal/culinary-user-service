@@ -10,7 +10,7 @@ import java.io.IOException;
 
 
 @Configuration
-@Profile({"local"})
+@Profile({"local", "test"})
 public class RedisConfig {
 
     private final RedisServer redisServer;
