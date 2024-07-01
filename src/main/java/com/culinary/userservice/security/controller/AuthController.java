@@ -46,4 +46,15 @@ public class AuthController {
     public String getAuthenticated(Authentication authentication) {
         return "Admin name is " + authentication.getName();
     }
+
+    @PutMapping("/password/{id}")
+    public String updatePassword(@PathVariable Long id, @RequestBody String password) {
+        return authService.changePassword(id, password);
+    }
+
+    @GetMapping("/logout")
+    public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response) {
+        authService.logout(request , response);
+        return ResponseEntity.ok().build();
+    }
 }

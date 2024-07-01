@@ -3,11 +3,13 @@ package com.culinary.userservice.security.service;
 import com.culinary.userservice.security.dto.AuthDTO;
 import com.culinary.userservice.user.enumeration.RoleEnum;
 import com.culinary.userservice.user.exception.UserAlreadyExistsException;
+import com.culinary.userservice.user.exception.UserNotFoundException;
 import com.culinary.userservice.user.model.Role;
 import com.culinary.userservice.user.model.User;
 import com.culinary.userservice.user.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -60,6 +62,23 @@ public class AuthService {
 
     }
 
+    public void logout(HttpServletRequest request, HttpServletResponse response) {
+        SecurityContext context = securityContextHolderStrategy.getContext();
+        Authentication authentication = context.getAuthentication();
+
+        if (authentication != null) {
+            securityContextHolderStrategy.clearContext();
+            // Invalidate the session
+            HttpSession session = request.getSession(false);
+            if (session != null) {
+                session.invalidate();
+            }
+
+            securityContextRepository.saveContext(SecurityContextHolder.createEmptyContext(), request, response);
+        }
+    }
+
+
     public String register(AuthDTO dto) {
         String email = dto.email().trim();
 
@@ -78,8 +97,8 @@ public class AuthService {
         user.setCredentialsNonExpired(true);
         user.setEnabled(true);
         user.addRole(new Role(RoleEnum.USER));
-        user.setBirthdate(Date.valueOf(String.valueOf(Instant.now())));
-        user.setCreateDate(Date.valueOf(String.valueOf(Instant.now())));
+        user.setBirthdate(new Date(System.currentTimeMillis()));
+        user.setCreateDate(new Date(System.currentTimeMillis()));
         user.setReviews(new ArrayList<>());
         user.setFavorites(new ArrayList<>());
         user.setSpecifics(new ArrayList<>());
@@ -91,7 +110,7 @@ public class AuthService {
         }
 
         userRepository.save(user);
-        return "Registered successfully!";
+        return "Registered successfully with id --> " + user.getId();
     }
 
 
@@ -111,6 +130,22 @@ public class AuthService {
         return sessionId;
     }
 
+    public String changePassword(Long id, String password) {
+        String newPassword = password.trim();
+
+        Optional<User> userOptional = userRepository.findById(id);
+
+        if (userOptional.isEmpty()) {
+            throw new UserNotFoundException("User not found!");
+        }
+
+        User user = userOptional.get();
+        user.setPassword(passwordEncoder.encode(newPassword));
+
+        userRepository.save(user);
+
+        return "Password changed successfully!";
+    }
 
     private void validateMaxSession(Authentication authentication) {
         if (maxSession <= 0) {
