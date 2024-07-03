@@ -1,9 +1,9 @@
 package com.culinary.userservice.security.controller;
 
-import com.culinary.userservice.security.configuration.TestConfig;
 import com.culinary.userservice.security.dto.AuthDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,9 +16,10 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.nio.charset.StandardCharsets;
 import java.util.Random;
 
-@SpringBootTest(classes = {TestConfig.class})
+@SpringBootTest
 @AutoConfigureMockMvc
-@ActiveProfiles("test")
+@ActiveProfiles("integration")
+@EnabledIfEnvironmentVariable(named = "INTEGRATION_ENABLED", matches = "true")
 class AuthControllerTest {
 
     @Autowired
