@@ -1,7 +1,6 @@
 package com.culinary.userservice.ingridient.model;
 
 import com.culinary.userservice.ingridient.Specific;
-import com.culinary.userservice.ingridient.model.Substitute;
 import com.culinary.userservice.recipe.diet.Contains;
 import jakarta.persistence.*;
 import lombok.Data;
