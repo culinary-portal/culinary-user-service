@@ -1,0 +1,34 @@
+server:
+  port: 8080
+  servlet:
+    session:
+      cookie:
+        domain: localhost
+        http-only: true
+        max-age: 600
+        name: JSESSIONID
+        path: /
+        same-site: strict
+        secure: false
+      timeout: 1m
+      tracking-modes: cookie
+
+
+admin.email: admin@admin.com
+
+
+custom.max.session: 1
+
+### JDBC logs
+logging:
+  level:
+    org:
+      hibernate: ERROR
+      springframework:
+        jdbc: TRACE
+        security: TRACE
+
+
+
+
+      
