@@ -1,7 +1,7 @@
 package com.culinary.userservice.user.model;
 
 
-import com.culinary.userservice.ingridient.Specific;
+import com.culinary.userservice.ingredient.model.Specific;
 import com.culinary.userservice.recipe.diet.Favorite;
 import com.culinary.userservice.recipe.diet.Review;
 import com.fasterxml.jackson.annotation.JsonIgnore;

@@ -1,10 +1,16 @@
-package com.culinary.userservice.ingridient.model;
+package com.culinary.userservice.ingredient.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Table(name = "substitute")
 public class Substitute {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
