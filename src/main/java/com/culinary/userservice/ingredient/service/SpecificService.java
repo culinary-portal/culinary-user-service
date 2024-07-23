@@ -5,6 +5,7 @@ import com.culinary.userservice.ingredient.mapper.SpecificMapper;
 import com.culinary.userservice.ingredient.model.Specific;
 import com.culinary.userservice.ingredient.repository.IngredientRepository;
 import com.culinary.userservice.ingredient.repository.SpecificRepository;
+import com.culinary.userservice.user.exception.NotFoundException;
 import com.culinary.userservice.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,7 @@ public class SpecificService {
     @Transactional(readOnly = true)
     public SpecificDTO findById(int id) {
         Specific specific = specificRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Specific not found"));
+                .orElseThrow(() -> new NotFoundException("Specific not found"));
         return SpecificMapper.toDto(specific);
     }
 
@@ -39,8 +40,8 @@ public class SpecificService {
     public SpecificDTO save(SpecificDTO specificDto) {
         Specific specific = SpecificMapper.toEntity(
                 specificDto,
-                userRepository.findById(specificDto.getUserId()).orElseThrow(() -> new IllegalArgumentException("User not found")),
-                ingredientRepository.findById(specificDto.getIngredientId()).orElseThrow(() -> new IllegalArgumentException("Ingredient not found"))
+                userRepository.findById(specificDto.getUserId()).orElseThrow(() -> new NotFoundException("User not found")),
+                ingredientRepository.findById(specificDto.getIngredientId()).orElseThrow(() -> new NotFoundException("Ingredient not found"))
         );
         Specific savedSpecific = specificRepository.save(specific);
         return SpecificMapper.toDto(savedSpecific);
@@ -49,7 +50,7 @@ public class SpecificService {
     @Transactional
     public SpecificDTO update(int id, SpecificDTO specificDto) {
         Specific specific = specificRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Specific not found"));
+                .orElseThrow(() -> new NotFoundException("Specific not found"));
         specific.setLikes(specificDto.getLikes());
         Specific updatedSpecific = specificRepository.save(specific);
         return SpecificMapper.toDto(updatedSpecific);

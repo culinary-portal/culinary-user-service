@@ -4,6 +4,7 @@ import com.culinary.userservice.ingredient.dto.IngredientDTO;
 import com.culinary.userservice.ingredient.mapper.IngredientMapper;
 import com.culinary.userservice.ingredient.model.Ingredient;
 import com.culinary.userservice.ingredient.repository.IngredientRepository;
+import com.culinary.userservice.user.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,39 +21,35 @@ public class IngredientService {
     @Transactional(readOnly = true)
     public List<IngredientDTO> findAll() {
         return ingredientRepository.findAll().stream()
-                .map(this::convertToDto)
+                .map(IngredientMapper::toDto)
                 .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
     public IngredientDTO findById(int id) {
         Ingredient ingredient = ingredientRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Ingredient not found"));
-        return convertToDto(ingredient);
+                .orElseThrow(() -> new NotFoundException("Ingredient not found"));
+        return IngredientMapper.toDto(ingredient);
     }
 
     @Transactional
     public IngredientDTO save(IngredientDTO ingredientDto) {
         Ingredient ingredient = IngredientMapper.toEntity(ingredientDto);
         Ingredient savedIngredient = ingredientRepository.save(ingredient);
-        return convertToDto(savedIngredient);
+        return IngredientMapper.toDto(savedIngredient);
     }
 
     @Transactional
     public IngredientDTO update(int id, IngredientDTO ingredientDto) {
         Ingredient ingredient = ingredientRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Ingredient not found"));
+                .orElseThrow(() -> new NotFoundException("Ingredient not found"));
         IngredientMapper.updateEntityFromDto(ingredient, ingredientDto);
         Ingredient updatedIngredient = ingredientRepository.save(ingredient);
-        return convertToDto(updatedIngredient);
+        return IngredientMapper.toDto(updatedIngredient);
     }
 
     @Transactional
     public void delete(int id) {
         ingredientRepository.deleteById(id);
-    }
-
-    private IngredientDTO convertToDto(Ingredient ingredient) {
-        return new IngredientDTO(ingredient.getIngredientId(), ingredient.getName(), ingredient.getFat(), ingredient.getProtein(), ingredient.getCarbohydrate(), ingredient.getKcal(), ingredient.getIsVegan(), ingredient.getIsGlutenFree());
     }
 }

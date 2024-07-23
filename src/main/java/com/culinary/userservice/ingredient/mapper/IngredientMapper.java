@@ -26,4 +26,9 @@ public class IngredientMapper {
         ingredient.setIsVegan(ingredientDto.getIsVegan());
         ingredient.setIsGlutenFree(ingredientDto.getIsGlutenFree());
     }
+
+    public static IngredientDTO toDto(Ingredient ingredient) {
+        return new IngredientDTO(ingredient.getIngredientId(),
+                ingredient.getName(), ingredient.getFat(), ingredient.getProtein(), ingredient.getCarbohydrate(), ingredient.getKcal(), ingredient.getIsVegan(), ingredient.getIsGlutenFree());
+    }
 }
