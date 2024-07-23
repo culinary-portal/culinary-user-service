@@ -1,15 +1,20 @@
-package com.culinary.userservice.ingridient.model;
+package com.culinary.userservice.ingredient.model;
 
-import com.culinary.userservice.ingridient.Specific;
 import com.culinary.userservice.recipe.diet.Contains;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Entity
 @Data
 @Table(name = "ingredient")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Ingredient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
