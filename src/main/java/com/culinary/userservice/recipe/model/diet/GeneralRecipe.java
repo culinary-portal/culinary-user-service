@@ -1,13 +1,19 @@
-package com.culinary.userservice.recipe.diet;
+package com.culinary.userservice.recipe.model.diet;
 
 import com.culinary.userservice.recipe.model.Recipe;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Table(name = "general_recipe")
 public class GeneralRecipe {
     @Id

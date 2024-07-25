@@ -1,9 +1,9 @@
 package com.culinary.userservice.recipe.model;
 
-import com.culinary.userservice.recipe.diet.Contains;
-import com.culinary.userservice.recipe.diet.Favorite;
-import com.culinary.userservice.recipe.diet.GeneralRecipe;
-import com.culinary.userservice.recipe.diet.Review;
+import com.culinary.userservice.recipe.model.diet.Contains;
+import com.culinary.userservice.recipe.model.diet.Favorite;
+import com.culinary.userservice.recipe.model.diet.GeneralRecipe;
+import com.culinary.userservice.recipe.model.diet.Review;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -22,6 +22,9 @@ public class Recipe {
     @JoinColumn(name = "general_recipe_id", referencedColumnName = "general_recipe_id")
     private GeneralRecipe generalRecipe;
 
+    @Basic
+    @Column(name = "photo_url")
+    private String protoUrl;
     @Basic
     @Column(name = "name")
     private String name;
