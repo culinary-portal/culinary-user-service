@@ -9,9 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class RecipeDTO {
-    private String name;
-    private String description;
+public class DietTypeDTO {
     private String dietType;
-    private String photoUrl;
 }

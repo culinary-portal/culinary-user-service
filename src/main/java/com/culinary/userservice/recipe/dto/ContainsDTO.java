@@ -9,9 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class RecipeDTO {
+public class ContainsDTO {
     private String name;
-    private String description;
-    private String dietType;
-    private String photoUrl;
+    private int recipeId;
+    private int ingredientId;
 }

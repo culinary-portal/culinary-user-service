@@ -5,13 +5,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class RecipeDTO {
+public class GeneralRecipeDTO {
     private String name;
-    private String description;
-    private String dietType;
-    private String photoUrl;
+    private Boolean isBreakfast;
+    private Boolean isDinner;
+    private Boolean isLunch;
+    private Boolean isSupper;
+    private List<RecipeDTO> recipes;
 }
