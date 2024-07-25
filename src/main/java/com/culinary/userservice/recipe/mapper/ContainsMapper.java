@@ -3,7 +3,7 @@ package com.culinary.userservice.recipe.mapper;
 import com.culinary.userservice.ingredient.model.Ingredient;
 import com.culinary.userservice.recipe.dto.ContainsDTO;
 import com.culinary.userservice.recipe.model.Recipe;
-import com.culinary.userservice.recipe.model.diet.Contains;
+import com.culinary.userservice.recipe.model.Contains;
 
 public class ContainsMapper {
 

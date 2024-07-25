@@ -1,9 +1,5 @@
 package com.culinary.userservice.recipe.model;
 
-import com.culinary.userservice.recipe.model.diet.Contains;
-import com.culinary.userservice.recipe.model.diet.Favorite;
-import com.culinary.userservice.recipe.model.diet.GeneralRecipe;
-import com.culinary.userservice.recipe.model.diet.Review;
 import jakarta.persistence.*;
 import lombok.Data;
 

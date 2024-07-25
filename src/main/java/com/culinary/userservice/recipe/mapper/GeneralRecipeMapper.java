@@ -2,7 +2,7 @@ package com.culinary.userservice.recipe.mapper;
 
 
 import com.culinary.userservice.recipe.dto.GeneralRecipeDTO;
-import com.culinary.userservice.recipe.model.diet.GeneralRecipe;
+import com.culinary.userservice.recipe.model.GeneralRecipe;
 
 import java.util.stream.Collectors;
 

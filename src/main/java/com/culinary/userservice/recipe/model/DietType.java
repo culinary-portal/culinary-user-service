@@ -1,4 +1,4 @@
-package com.culinary.userservice.recipe.model.diet;
+package com.culinary.userservice.recipe.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

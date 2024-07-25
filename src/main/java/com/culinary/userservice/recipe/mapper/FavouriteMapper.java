@@ -2,7 +2,7 @@ package com.culinary.userservice.recipe.mapper;
 
 import com.culinary.userservice.recipe.dto.FavouriteDTO;
 import com.culinary.userservice.recipe.model.Recipe;
-import com.culinary.userservice.recipe.model.diet.Favorite;
+import com.culinary.userservice.recipe.model.Favorite;
 import com.culinary.userservice.user.model.User;
 
 

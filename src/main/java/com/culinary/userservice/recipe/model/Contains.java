@@ -1,7 +1,6 @@
-package com.culinary.userservice.recipe.model.diet;
+package com.culinary.userservice.recipe.model;
 
 import com.culinary.userservice.ingredient.model.Ingredient;
-import com.culinary.userservice.recipe.model.Recipe;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
