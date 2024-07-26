@@ -1,6 +1,7 @@
 package com.culinary.userservice.recipe.service;
 
 import com.culinary.userservice.recipe.dto.ReviewDTO;
+import com.culinary.userservice.recipe.dto.UpdateReviewDTO;
 import com.culinary.userservice.recipe.mapper.ReviewMapper;
 import com.culinary.userservice.recipe.model.Review;
 import com.culinary.userservice.recipe.repository.ReviewRepository;
@@ -30,15 +31,12 @@ public class ReviewService {
     }
 
     @Transactional
-    public ReviewDTO updateReview(int id, ReviewDTO reviewDTO) {
+    public ReviewDTO updateReview(int id, UpdateReviewDTO dto) {
         Review review = reviewRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Review not found"));
 
-//        review.setOpinion(reviewDTO.getTitle());
-//        review.setContent(reviewDTO.getContent());
-        review.setRating(reviewDTO.getRating());
-        // Update other fields as necessary
-
+        review.setOpinion(dto.opinion());
+        review.setRating(dto.rating());
         Review updatedReview = reviewRepository.save(review);
         return ReviewMapper.toDto(updatedReview);
     }
