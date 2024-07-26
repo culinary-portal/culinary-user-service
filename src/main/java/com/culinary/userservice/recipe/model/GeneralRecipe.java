@@ -1,13 +1,18 @@
-package com.culinary.userservice.recipe.diet;
+package com.culinary.userservice.recipe.model;
 
-import com.culinary.userservice.recipe.model.Recipe;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Table(name = "general_recipe")
 public class GeneralRecipe {
     @Id
@@ -18,6 +23,10 @@ public class GeneralRecipe {
     @Basic
     @Column(name = "name")
     private String name;
+
+    @Basic
+    @Column(name = "photo_url")
+    private String photoUrl;
 
     @Basic
     @Column(name = "is_breakfast")
@@ -35,6 +44,6 @@ public class GeneralRecipe {
     @Column(name = "is_supper")
     private Boolean isSupper;
 
-    @OneToMany(mappedBy = "generalRecipe")
+    @OneToMany(mappedBy = "generalRecipe", fetch = FetchType.EAGER)
     private List<Recipe> recipes;
 }

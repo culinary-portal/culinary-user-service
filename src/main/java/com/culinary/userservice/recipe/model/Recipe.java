@@ -1,13 +1,12 @@
 package com.culinary.userservice.recipe.model;
 
-import com.culinary.userservice.recipe.diet.Contains;
-import com.culinary.userservice.recipe.diet.Favorite;
-import com.culinary.userservice.recipe.diet.GeneralRecipe;
-import com.culinary.userservice.recipe.diet.Review;
+import com.culinary.userservice.user.model.User;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -30,9 +29,9 @@ public class Recipe {
     @Column(name = "description")
     private String description;
 
-    @Basic
-    @Column(name = "diet_type")
-    private String dietType;
+    @ManyToOne
+    @JoinColumn(name = "diet_type_id", referencedColumnName = "diet_type_id")
+    private DietType dietType;
 
     @OneToMany(mappedBy = "recipe")
     private List<Contains> contains;
@@ -40,6 +39,6 @@ public class Recipe {
     @OneToMany(mappedBy = "recipe")
     private List<Review> reviews;
 
-    @OneToMany(mappedBy = "recipe")
-    private List<Favorite> favorites;
+    @ManyToMany(mappedBy = "favoriteRecipes")
+    private Set<User> usersWhoFavorited = new HashSet<>();
 }

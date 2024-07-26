@@ -2,6 +2,8 @@ package com.culinary.userservice.security.controller;
 
 import com.culinary.userservice.security.dto.AuthDTO;
 import com.culinary.userservice.security.service.AuthService;
+import com.culinary.userservice.user.dto.UserNoDetailsDTO;
+import com.culinary.userservice.user.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -11,6 +13,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 
@@ -19,6 +23,7 @@ import static org.springframework.http.HttpStatus.OK;
 @RequestMapping(path = "/api/auth")
 public class AuthController {
     private final AuthService authService;
+    private final UserService userService;
 
     @PostMapping(path = "/register")
     public ResponseEntity<?> register(@Valid @RequestBody AuthDTO authDTO) {
@@ -37,8 +42,9 @@ public class AuthController {
     }
 
     @GetMapping(path = "/user")
-    public String checkAuthentication(Authentication authentication) {
-        return "An Admin or User can hit this rout. User name is " + authentication.getName();
+    public ResponseEntity<List<UserNoDetailsDTO>> checkAuthentication(Authentication authentication) {
+        List<UserNoDetailsDTO> users = userService.getAllUsers();
+        return ResponseEntity.ok(users);
     }
 
     @GetMapping(path = "/authenticated")
@@ -48,8 +54,8 @@ public class AuthController {
     }
 
     @PutMapping("/password/{id}")
-    public String updatePassword(@PathVariable Long id, @RequestBody String password) {
-        return authService.changePassword(id, password);
+    public String updatePassword(HttpServletRequest request, HttpServletResponse response, @PathVariable Long id, @RequestBody String password) {
+        return authService.changePassword(request, response, id, password);
     }
 
     @GetMapping("/logout")

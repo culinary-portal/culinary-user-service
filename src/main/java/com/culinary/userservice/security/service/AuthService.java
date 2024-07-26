@@ -27,10 +27,7 @@ import org.springframework.session.data.redis.RedisIndexedSessionRepository;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Setter
@@ -47,6 +44,8 @@ public class AuthService {
     private int maxSession;
     @Value(value = "${admin.email}")
     private String adminEmail;
+    @Value(value = "${default.user.photo.url}")
+    private String defaultUserPhotoUrl;
 
     public AuthService(PasswordEncoder passwordEncoder,
                        SecurityContextRepository securityContextRepository,
@@ -102,10 +101,11 @@ public class AuthService {
         user.setBirthdate(new Date(System.currentTimeMillis()));
         user.setCreateDate(new Date(System.currentTimeMillis()));
         user.setReviews(new ArrayList<>());
-        user.setFavorites(new ArrayList<>());
+        user.setFavoriteRecipes(new HashSet<>());
         user.setSpecifics(new ArrayList<>());
         user.setPrefIsVegan(false);
         user.setPrefIsGlutenFree(false);
+        user.setPhotoUrl(defaultUserPhotoUrl);
 
         if (adminEmail != null && adminEmail.equals(email)) {
             user.addRole(new Role(RoleEnum.ADMIN));
@@ -132,7 +132,8 @@ public class AuthService {
         return sessionId;
     }
 
-    public String changePassword(Long id, String password) {
+    public String changePassword(HttpServletRequest request, HttpServletResponse response,
+                                 Long id, String password) {
         String newPassword = password.trim();
 
         Optional<User> userOptional = userRepository.findById(id);
@@ -145,7 +146,7 @@ public class AuthService {
         user.setPassword(passwordEncoder.encode(newPassword));
 
         userRepository.save(user);
-
+        logout(request, response);
         return "Password changed successfully!";
     }
 
@@ -158,8 +159,8 @@ public class AuthService {
         List<SessionInformation> sessions = this.sessionRegistry.getAllSessions(principal, false);
 
         if (sessions.size() >= maxSession) {
-            sessions.stream() //
-                    .min(Comparator.comparing(SessionInformation::getLastRequest)) //
+            sessions.stream()
+                    .min(Comparator.comparing(SessionInformation::getLastRequest))
                     .ifPresent(sessionInfo -> this.redisIndexedSessionRepository.deleteById(sessionInfo.getSessionId()));
         }
     }
