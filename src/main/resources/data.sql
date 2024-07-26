@@ -3,10 +3,10 @@ VALUES ('Vegetarian'),
        ('Low-Carb'),
        ('Keto');
 
-INSERT INTO general_recipe (name, is_breakfast, is_dinner, is_lunch, is_supper)
-VALUES ('Pancakes', TRUE, FALSE, TRUE, FALSE),
-       ('Chicken Salad', FALSE, TRUE, TRUE, FALSE),
-       ('Steak Dinner', FALSE, TRUE, FALSE, TRUE);
+INSERT INTO general_recipe (name,photo_url,  is_breakfast, is_dinner, is_lunch, is_supper)
+VALUES ('Pancakes', 'http://example.com/pancakes.jpg',TRUE, FALSE, TRUE, FALSE),
+       ('Chicken Salad', 'http://example.com/chicken.jpg',FALSE, TRUE, TRUE, FALSE),
+       ('Steak Dinner', 'http://example.com/steak.jpg',FALSE, TRUE, FALSE, TRUE);
 
 INSERT INTO user (user_name, email, password, birthdate, create_date, photo_url, pref_is_vegan, pref_is_gluten_free, account_enabled, account_expired, account_locked, credentials_expired)
 VALUES ('JohnDoe', 'john.doe@example.com', 'password123', '1990-05-15', NOW(),'http://example.com/user.jpg', FALSE, TRUE, TRUE, FALSE, FALSE, FALSE),
@@ -23,10 +23,10 @@ VALUES ('Butter', 81.0, 0.85, 0.06, 717, FALSE, TRUE),
        ('Chicken Breast', 3.6, 31, 0, 165, FALSE, TRUE),
        ('Lettuce', 0.2, 1.4, 2.9, 15, TRUE, TRUE);
 
-INSERT INTO recipe (general_recipe_id, name, photo_url, description, diet_type_id)
-VALUES (1, 'Pancakes with Syrup', 'http://example.com/pancakes.jpg', 'Fluffy pancakes with maple syrup', 1),
-       (2, 'Classic Chicken Salad', 'http://example.com/chicken_salad.jpg', 'Chicken salad with lettuce and dressing', 2),
-       (3, 'Grilled Steak', 'http://example.com/steak.jpg', 'Juicy grilled steak with herbs', 3);
+INSERT INTO recipe (general_recipe_id, name, description, diet_type_id)
+VALUES (1, 'Pancakes with Syrup',  'Fluffy pancakes with maple syrup', 1),
+       (2, 'Classic Chicken Salad', 'Chicken salad with lettuce and dressing', 2),
+       (3, 'Grilled Steak', 'Juicy grilled steak with herbs', 3);
 
 INSERT INTO contains (amount, measure, recipe_id, ingredient_id)
 VALUES (123, 'grams', 1, 1),

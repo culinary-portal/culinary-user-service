@@ -25,11 +25,14 @@ public class IngredientService {
                 .collect(Collectors.toList());
     }
 
-    @Transactional(readOnly = true)
     public IngredientDTO findById(int id) {
-        Ingredient ingredient = ingredientRepository.findById(id)
+        return IngredientMapper.toDto(findEntityById(id));
+    }
+
+    @Transactional(readOnly = true)
+    public Ingredient findEntityById(int id) {
+        return ingredientRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Ingredient not found"));
-        return IngredientMapper.toDto(ingredient);
     }
 
     @Transactional

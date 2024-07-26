@@ -6,6 +6,7 @@ diet_type VARCHAR
 CREATE TABLE IF NOT EXISTS general_recipe (
 general_recipe_id SERIAL PRIMARY KEY,
 name VARCHAR,
+photo_url VARCHAR,
 is_breakfast BOOLEAN,
 is_dinner BOOLEAN,
 is_lunch BOOLEAN,
