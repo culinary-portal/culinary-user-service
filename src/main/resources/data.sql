@@ -8,10 +8,10 @@ VALUES ('Pancakes', TRUE, FALSE, TRUE, FALSE),
        ('Chicken Salad', FALSE, TRUE, TRUE, FALSE),
        ('Steak Dinner', FALSE, TRUE, FALSE, TRUE);
 
-INSERT INTO user (user_name, email, password, birthdate, create_date, pref_is_vegan, pref_is_gluten_free, account_enabled, account_expired, account_locked, credentials_expired)
-VALUES ('JohnDoe', 'john.doe@example.com', 'password123', '1990-05-15', NOW(), FALSE, TRUE, TRUE, FALSE, FALSE, FALSE),
-       ('JaneSmith', 'jane.smith@example.com', 'securePass!', '1985-10-20', NOW(), TRUE, FALSE, TRUE, FALSE, FALSE, FALSE),
-       ('AliceJones', 'alice.jones@example.com', 'alice1234', '1995-07-08', NOW(), FALSE, FALSE, TRUE, FALSE, FALSE, FALSE);
+INSERT INTO user (user_name, email, password, birthdate, create_date, photo_url, pref_is_vegan, pref_is_gluten_free, account_enabled, account_expired, account_locked, credentials_expired)
+VALUES ('JohnDoe', 'john.doe@example.com', 'password123', '1990-05-15', NOW(),'http://example.com/user.jpg', FALSE, TRUE, TRUE, FALSE, FALSE, FALSE),
+       ('JaneSmith', 'jane.smith@example.com', 'securePass!', '1985-10-20', NOW(), 'http://example.com/user.jpg', TRUE, FALSE, TRUE, FALSE, FALSE, FALSE),
+       ('AliceJones', 'alice.jones@example.com', 'alice1234', '1995-07-08', NOW(), 'http://example.com/user.jpg', FALSE, FALSE, TRUE, FALSE, FALSE, FALSE);
 
 INSERT INTO roles (user_id, role)
 VALUES (1, 'USER'),

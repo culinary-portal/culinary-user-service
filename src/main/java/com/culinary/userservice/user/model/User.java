@@ -40,6 +40,9 @@ public class User implements Serializable {
     @JsonIgnore
     @Column(name = "password", nullable = false)
     private String password;
+    @JsonIgnore
+    @Column(name = "photo_url", nullable = false)
+    private String photoUrl;
     @Column(name = "account_enabled")
     private boolean enabled;
     @Column(name = "credentials_expired")
@@ -65,7 +68,7 @@ public class User implements Serializable {
     private Set<Role> roles = new HashSet<>();
     @ManyToMany
     @JoinTable(
-            name = "favorite",
+            name = "favorites",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "recipe_id")
     )
