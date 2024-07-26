@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class FavouriteDTO {
+public class FavoriteDTO {
     private Long userId;
     private int recipeId;
 }

@@ -10,7 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class ContainsDTO {
-    private String name;
+    private float amount;
+    private String measure;
     private int recipeId;
     private int ingredientId;
 }

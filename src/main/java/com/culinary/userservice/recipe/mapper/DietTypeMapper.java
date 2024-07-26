@@ -13,6 +13,7 @@ public class DietTypeMapper {
 
     public static DietTypeDTO toDto(DietType dietType) {
         return DietTypeDTO.builder()
+                .dietTypeId(dietType.getDietTypeId())
                 .dietType(dietType.getDietType())
                 .build();
     }

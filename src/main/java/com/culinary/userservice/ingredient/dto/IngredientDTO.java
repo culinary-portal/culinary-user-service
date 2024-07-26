@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class IngredientDTO {
-    private int ingredientId;
+    private Integer ingredientId;
     private String name;
     private Double fat;
     private Double protein;

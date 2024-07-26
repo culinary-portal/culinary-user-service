@@ -9,7 +9,8 @@ public class ContainsMapper {
 
     public static Contains toEntity(ContainsDTO containsDTO, Recipe recipe, Ingredient ingredient) {
         Contains contains = new Contains();
-        contains.setName(containsDTO.getName());
+        contains.setMeasure(containsDTO.getMeasure());
+        contains.setAmount(containsDTO.getAmount());
         contains.setRecipe(recipe);
         contains.setIngredient(ingredient);
         return contains;
@@ -17,7 +18,8 @@ public class ContainsMapper {
 
     public static ContainsDTO toDto(Contains contains) {
         return ContainsDTO.builder()
-                .name(contains.getName())
+                .measure(contains.getMeasure())
+                .amount(contains.getAmount())
                 .recipeId(contains.getRecipe().getRecipeId())
                 .ingredientId(contains.getIngredient().getIngredientId())
                 .build();

@@ -19,6 +19,7 @@ public class ReviewMapper {
 
     public static ReviewDTO toDto(Review review) {
         return ReviewDTO.builder()
+                .reviewId(review.getReviewId())
                 .userId(review.getUser().getId())
                 .recipeId(review.getRecipe().getRecipeId())
                 .rating(review.getRating())

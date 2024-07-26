@@ -9,7 +9,6 @@ public class SpecificMapper {
 
     public static Specific toEntity(SpecificDTO specificDto, User user, Ingredient ingredient) {
         Specific specific = new Specific();
-        specific.setSpecificId(specificDto.getSpecificId());
         specific.setUser(user);
         specific.setIngredient(ingredient);
         specific.setLikes(specificDto.getLikes());

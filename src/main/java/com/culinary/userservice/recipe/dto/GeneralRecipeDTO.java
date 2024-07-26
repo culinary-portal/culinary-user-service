@@ -12,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class GeneralRecipeDTO {
+    private long generalRecipeId;
     private String name;
     private Boolean isBreakfast;
     private Boolean isDinner;

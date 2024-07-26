@@ -7,6 +7,7 @@ public class IngredientMapper {
 
     public static Ingredient toEntity(IngredientDTO ingredientDto) {
         return Ingredient.builder()
+                .ingredientId(ingredientDto.getIngredientId())
                 .name(ingredientDto.getName())
                 .fat(ingredientDto.getFat())
                 .protein(ingredientDto.getProtein())
@@ -28,7 +29,15 @@ public class IngredientMapper {
     }
 
     public static IngredientDTO toDto(Ingredient ingredient) {
-        return new IngredientDTO(ingredient.getIngredientId(),
-                ingredient.getName(), ingredient.getFat(), ingredient.getProtein(), ingredient.getCarbohydrate(), ingredient.getKcal(), ingredient.getIsVegan(), ingredient.getIsGlutenFree());
+        return IngredientDTO.builder()
+                .ingredientId(ingredient.getIngredientId())
+                .name(ingredient.getName())
+                .fat(ingredient.getFat())
+                .protein(ingredient.getProtein())
+                .carbohydrate(ingredient.getCarbohydrate())
+                .kcal(ingredient.getKcal())
+                .isVegan(ingredient.getIsVegan())
+                .isGlutenFree(ingredient.getIsGlutenFree())
+                .build();
     }
 }

@@ -10,5 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class DietTypeDTO {
+    private int dietTypeId;
     private String dietType;
 }
