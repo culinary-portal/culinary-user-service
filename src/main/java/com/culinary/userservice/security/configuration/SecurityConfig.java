@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.ProviderManager;
@@ -72,8 +71,16 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> {
+                    // commented for development reasons
+                    /*auth.requestMatchers("/swagger-ui/index.html", "/v3/api-docs/**", "/swagger-ui/**").permitAll();
                     auth.requestMatchers("/api/auth/register", "/api/auth/login").permitAll();
                     auth.requestMatchers(HttpMethod.GET, "/api/products").permitAll();
+                    auth.requestMatchers(HttpMethod.GET, "/api/ingredients").permitAll();
+                    auth.requestMatchers(HttpMethod.GET, "/api/specifics").permitAll();
+                    auth.requestMatchers(HttpMethod.GET, "/api/substitutes").permitAll();
+                    auth.requestMatchers("/swagger-ui/index.html", "/v3/api-docs/**", "/swagger-ui/**").permitAll();
+                    auth.requestMatchers("/api/**").permitAll();*/
+                    auth.requestMatchers("/**").permitAll();
                     auth.anyRequest().authenticated();
                 })
                 .sessionManagement(sessionManagement -> sessionManagement

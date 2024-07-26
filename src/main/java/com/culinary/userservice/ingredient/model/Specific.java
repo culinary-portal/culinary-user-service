@@ -1,6 +1,5 @@
-package com.culinary.userservice.ingridient;
+package com.culinary.userservice.ingredient.model;
 
-import com.culinary.userservice.ingridient.model.Ingredient;
 import com.culinary.userservice.user.model.User;
 import jakarta.persistence.*;
 import lombok.Data;
