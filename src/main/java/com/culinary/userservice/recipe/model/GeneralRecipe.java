@@ -40,6 +40,6 @@ public class GeneralRecipe {
     @Column(name = "is_supper")
     private Boolean isSupper;
 
-    @OneToMany(mappedBy = "generalRecipe")
+    @OneToMany(mappedBy = "generalRecipe", fetch = FetchType.EAGER)
     private List<Recipe> recipes;
 }
