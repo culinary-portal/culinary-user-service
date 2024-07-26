@@ -2,8 +2,8 @@ package com.culinary.userservice.user.model;
 
 
 import com.culinary.userservice.ingredient.model.Specific;
-import com.culinary.userservice.recipe.diet.Favorite;
-import com.culinary.userservice.recipe.diet.Review;
+import com.culinary.userservice.recipe.model.Recipe;
+import com.culinary.userservice.recipe.model.Review;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -55,8 +55,6 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "user")
     private List<Review> reviews;
     @OneToMany(mappedBy = "user")
-    private List<Favorite> favorites;
-    @OneToMany(mappedBy = "user")
     private List<Specific> specifics;
     @Column(name = "pref_is_vegan")
     private Boolean prefIsVegan;
@@ -65,6 +63,13 @@ public class User implements Serializable {
     @JsonIgnore
     @OneToMany(cascade = {PERSIST, MERGE, REMOVE}, fetch = EAGER, mappedBy = "user", orphanRemoval = true)
     private Set<Role> roles = new HashSet<>();
+    @ManyToMany
+    @JoinTable(
+            name = "favorite",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "recipe_id")
+    )
+    private Set<Recipe> favoriteRecipes = new HashSet<>();
 
 
     public void addRole(Role role) {

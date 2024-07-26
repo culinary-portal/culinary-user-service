@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -20,4 +22,6 @@ public class DietType {
     @Basic
     @Column(name = "diet_type")
     private String dietType;
+    @OneToMany(mappedBy = "dietType")
+    private List<Recipe> recipes;
 }

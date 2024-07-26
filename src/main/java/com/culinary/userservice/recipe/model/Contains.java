@@ -19,8 +19,11 @@ public class Contains {
     @Column(name = "contains_id")
     private int containsId;
     @Basic
-    @Column(name = "name")
-    private String name;
+    @Column(name = "measure")
+    private String measure;
+    @Basic
+    @Column(name = "amount")
+    private float amount;
     @ManyToOne
     @JoinColumn(name = "recipe_id")
     private Recipe recipe;
