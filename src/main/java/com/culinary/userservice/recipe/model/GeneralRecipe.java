@@ -25,6 +25,10 @@ public class GeneralRecipe {
     private String name;
 
     @Basic
+    @Column(name = "photo_url")
+    private String photoUrl;
+
+    @Basic
     @Column(name = "is_breakfast")
     private Boolean isBreakfast;
 

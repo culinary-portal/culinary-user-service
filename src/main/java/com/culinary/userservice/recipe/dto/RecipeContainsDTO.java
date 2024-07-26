@@ -11,13 +11,12 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class GeneralRecipeDTO {
-    private long generalRecipeId;
+public class RecipeContainsDTO {
+    private int recipeId;
     private String name;
-    private String photoUrl;
-    private Boolean isBreakfast;
-    private Boolean isDinner;
-    private Boolean isLunch;
-    private Boolean isSupper;
-    private List<RecipeDTO> recipes;
+    private String description;
+    private String dietType;
+    private int generalRecipeId;
+    private List<ContainsDTO> contains;
 }
+

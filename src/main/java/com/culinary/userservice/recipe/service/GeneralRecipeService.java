@@ -30,8 +30,8 @@ public class GeneralRecipeService {
     public GeneralRecipeDTO updateGeneralRecipe(int id, GeneralRecipeDTO generalRecipeDTO) {
         GeneralRecipe generalRecipe = generalRecipeRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("GeneralRecipe not found"));
-        //generalRecipe.setRecipes(generalRecipeDTO.getGeneralRecipe());
-        generalRecipe = generalRecipeRepository.save(generalRecipe);
+        generalRecipe = GeneralRecipeMapper.updateEntity(generalRecipe, generalRecipeDTO, new ArrayList<>());
+        generalRecipeRepository.save(generalRecipe);
         return GeneralRecipeMapper.toDto(generalRecipe);
     }
 
@@ -40,10 +40,13 @@ public class GeneralRecipeService {
         generalRecipeRepository.deleteById(id);
     }
 
-    public GeneralRecipeDTO getGeneralRecipeById(int id) {
-        GeneralRecipe generalRecipe = generalRecipeRepository.findById(id)
+    public GeneralRecipe getGeneralRecipeEntityById(int id) {
+        return generalRecipeRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("GeneralRecipe not found"));
-        return GeneralRecipeMapper.toDto(generalRecipe);
+    }
+
+    public GeneralRecipeDTO getGeneralRecipeById(int id) {
+        return GeneralRecipeMapper.toDto(getGeneralRecipeEntityById(id));
     }
 
     public List<GeneralRecipeDTO> getAllGeneralRecipes() {

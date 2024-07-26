@@ -23,12 +23,17 @@ public class ContainsService {
 
     @Transactional
     public ContainsDTO createContains(ContainsDTO containsDTO) {
-        Contains contains = ContainsMapper.toEntity(containsDTO,
-                recipeService.getRecipeEntityById(containsDTO.getRecipeId()),
-                ingredientService.findEntityById(containsDTO.getIngredientId()));
+        Contains contains = createContainsEntity(containsDTO);
         contains = containsRepository.save(contains);
         return ContainsMapper.toDto(contains);
     }
+
+    public Contains createContainsEntity(ContainsDTO containsDTO) {
+        return ContainsMapper.toEntity(containsDTO,
+                recipeService.getRecipeEntityById(containsDTO.getRecipeId()),
+                ingredientService.findEntityById(containsDTO.getIngredientId()));
+    }
+
 
     @Transactional
     public ContainsDTO updateContains(int id, ContainsDTO containsDTO) {

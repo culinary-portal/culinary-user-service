@@ -50,4 +50,9 @@ public class DietTypeService {
                 .map(DietTypeMapper::toDto)
                 .collect(Collectors.toList());
     }
+
+    public DietType getDietTypeEntityByType(String dietType) {
+        return dietTypeRepository.findDietTypeByDietType(dietType.toLowerCase())
+                .orElseThrow(() -> new NotFoundException("Diet type not found"));
+    }
 }

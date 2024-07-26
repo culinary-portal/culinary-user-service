@@ -14,5 +14,4 @@ public class RecipeDTO {
     private String name;
     private String description;
     private String dietType;
-    private String photoUrl;
 }

@@ -22,9 +22,6 @@ public class Recipe {
     private GeneralRecipe generalRecipe;
 
     @Basic
-    @Column(name = "photo_url")
-    private String protoUrl;
-    @Basic
     @Column(name = "name")
     private String name;
 

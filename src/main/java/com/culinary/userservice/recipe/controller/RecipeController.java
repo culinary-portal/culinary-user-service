@@ -1,6 +1,8 @@
 package com.culinary.userservice.recipe.controller;
 
+import com.culinary.userservice.recipe.dto.RecipeContainsDTO;
 import com.culinary.userservice.recipe.dto.RecipeDTO;
+import com.culinary.userservice.recipe.dto.RecipeDetailsDTO;
 import com.culinary.userservice.recipe.service.RecipeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,14 +18,14 @@ public class RecipeController {
     private final RecipeService recipeService;
 
     @PostMapping
-    public ResponseEntity<RecipeDTO> createRecipe(@RequestBody RecipeDTO recipeDTO) {
-        RecipeDTO createdRecipe = recipeService.createRecipe(recipeDTO);
+    public ResponseEntity<RecipeDTO> createRecipe(@RequestBody RecipeContainsDTO recipeContainsDTO) {
+        RecipeDTO createdRecipe = recipeService.createRecipe(recipeContainsDTO);
         return ResponseEntity.ok(createdRecipe);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<RecipeDTO> updateRecipe(@PathVariable int id, @RequestBody RecipeDTO recipeDTO) {
-        RecipeDTO updatedRecipe = recipeService.updateRecipe(id, recipeDTO);
+    public ResponseEntity<RecipeDTO> updateRecipe(@PathVariable int id, @RequestBody RecipeContainsDTO recipeContainsDTO) {
+        RecipeDTO updatedRecipe = recipeService.updateRecipe(id, recipeContainsDTO);
         return ResponseEntity.ok(updatedRecipe);
     }
 
@@ -34,8 +36,8 @@ public class RecipeController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<RecipeDTO> getRecipeById(@PathVariable int id) {
-        RecipeDTO recipe = recipeService.getRecipeById(id);
+    public ResponseEntity<RecipeDetailsDTO> getRecipeById(@PathVariable int id) {
+        RecipeDetailsDTO recipe = recipeService.getRecipeById(id);
         return ResponseEntity.ok(recipe);
     }
 
