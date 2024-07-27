@@ -106,22 +106,5 @@ CREATE TABLE if not exists Diet_type (
                           diet_type VARCHAR
 );
 
-select * from Roles;
 
-drop table Diet_type;
-drop table Specific;
-drop table Favorites;
-drop table Review;
-drop table Substitute;
-drop table Contains;
-drop table Recipe;
-drop table Ingredient;
-drop table Roles;
-drop table "User";
-drop table GeneralRecipe;
 
-INSERT INTO generalrecipe(name)  VALUES('exampleNAMssE');
-
-select * from ingredient;
-
-INSERT INTO generalrecipe(name) VALUES ('Spicy Arrabiata Penne');
