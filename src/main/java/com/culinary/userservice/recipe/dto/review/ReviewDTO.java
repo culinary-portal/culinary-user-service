@@ -1,5 +1,4 @@
-package com.culinary.userservice.recipe.dto;
-
+package com.culinary.userservice.recipe.dto.review;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,7 +9,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class FavoriteDTO {
+public class ReviewDTO {
+    private int reviewId;
     private Long userId;
     private int recipeId;
+    private Integer rating;
+    private String opinion;
 }

@@ -1,6 +1,6 @@
 package com.culinary.userservice.recipe.service;
 
-import com.culinary.userservice.recipe.dto.DietTypeDTO;
+import com.culinary.userservice.recipe.dto.type.DietTypeDTO;
 import com.culinary.userservice.recipe.mapper.DietTypeMapper;
 import com.culinary.userservice.recipe.model.DietType;
 import com.culinary.userservice.recipe.repository.DietTypeRepository;

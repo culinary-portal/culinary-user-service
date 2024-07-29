@@ -25,7 +25,7 @@ public class Recipe {
     @Column(name = "name")
     private String name;
 
-    @Basic
+    @Lob
     @Column(name = "description")
     private String description;
 

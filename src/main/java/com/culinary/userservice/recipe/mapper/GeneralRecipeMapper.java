@@ -1,7 +1,7 @@
 package com.culinary.userservice.recipe.mapper;
 
 
-import com.culinary.userservice.recipe.dto.GeneralRecipeDTO;
+import com.culinary.userservice.recipe.dto.general.GeneralRecipeDTO;
 import com.culinary.userservice.recipe.model.GeneralRecipe;
 import com.culinary.userservice.recipe.model.Recipe;
 
@@ -25,6 +25,7 @@ public class GeneralRecipeMapper {
         generalRecipe.setIsLunch(generalRecipeDTO.getIsLunch());
         generalRecipe.setIsSupper(generalRecipeDTO.getIsSupper());
         generalRecipe.setPhotoUrl(generalRecipeDTO.getPhotoUrl());
+        generalRecipe.setDescription(generalRecipeDTO.getDescription());
         generalRecipe.setRecipes(recipes != null ? recipes : new ArrayList<>());
         return generalRecipe;
     }
@@ -38,6 +39,7 @@ public class GeneralRecipeMapper {
                 .isLunch(generalRecipe.getIsLunch())
                 .isSupper(generalRecipe.getIsSupper())
                 .photoUrl(generalRecipe.getPhotoUrl())
+                .description(generalRecipe.getDescription())
                 .recipes(generalRecipe.getRecipes().stream()
                         .map(RecipeMapper::toDto)
                         .collect(Collectors.toList()))

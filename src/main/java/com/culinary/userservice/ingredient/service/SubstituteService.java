@@ -1,6 +1,6 @@
 package com.culinary.userservice.ingredient.service;
 
-import com.culinary.userservice.ingredient.dto.SubstituteDTO;
+import com.culinary.userservice.ingredient.dto.substitute.SubstituteDTO;
 import com.culinary.userservice.ingredient.mapper.SubstituteMapper;
 import com.culinary.userservice.ingredient.model.Substitute;
 import com.culinary.userservice.ingredient.repository.SubstituteRepository;

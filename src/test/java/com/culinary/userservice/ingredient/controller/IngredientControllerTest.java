@@ -1,6 +1,6 @@
 package com.culinary.userservice.ingredient.controller;
 
-import com.culinary.userservice.ingredient.dto.IngredientDTO;
+import com.culinary.userservice.ingredient.dto.ingredient.IngredientDTO;
 import com.culinary.userservice.ingredient.service.IngredientService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;

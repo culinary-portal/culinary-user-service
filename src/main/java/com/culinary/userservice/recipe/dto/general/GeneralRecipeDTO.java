@@ -1,5 +1,6 @@
-package com.culinary.userservice.recipe.dto;
+package com.culinary.userservice.recipe.dto.general;
 
+import com.culinary.userservice.recipe.dto.recipe.RecipeDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,5 +20,6 @@ public class GeneralRecipeDTO {
     private Boolean isDinner;
     private Boolean isLunch;
     private Boolean isSupper;
+    private String description;
     private List<RecipeDTO> recipes;
 }

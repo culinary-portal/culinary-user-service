@@ -1,8 +1,8 @@
 package com.culinary.userservice.recipe.mapper;
 
-import com.culinary.userservice.recipe.dto.RecipeContainsDTO;
-import com.culinary.userservice.recipe.dto.RecipeDTO;
-import com.culinary.userservice.recipe.dto.RecipeDetailsDTO;
+import com.culinary.userservice.recipe.dto.recipe.RecipeContainsDTO;
+import com.culinary.userservice.recipe.dto.recipe.RecipeDTO;
+import com.culinary.userservice.recipe.dto.recipe.RecipeDetailsDTO;
 import com.culinary.userservice.recipe.model.DietType;
 import com.culinary.userservice.recipe.model.GeneralRecipe;
 import com.culinary.userservice.recipe.model.Recipe;

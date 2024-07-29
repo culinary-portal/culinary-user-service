@@ -1,4 +1,4 @@
-package com.culinary.userservice.ingredient.dto;
+package com.culinary.userservice.ingredient.dto.specific;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

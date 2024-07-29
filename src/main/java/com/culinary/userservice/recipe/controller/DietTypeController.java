@@ -1,6 +1,6 @@
 package com.culinary.userservice.recipe.controller;
 
-import com.culinary.userservice.recipe.dto.DietTypeDTO;
+import com.culinary.userservice.recipe.dto.type.DietTypeDTO;
 import com.culinary.userservice.recipe.service.DietTypeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

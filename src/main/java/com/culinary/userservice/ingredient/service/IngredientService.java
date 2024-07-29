@@ -1,6 +1,6 @@
 package com.culinary.userservice.ingredient.service;
 
-import com.culinary.userservice.ingredient.dto.IngredientDTO;
+import com.culinary.userservice.ingredient.dto.ingredient.IngredientDTO;
 import com.culinary.userservice.ingredient.mapper.IngredientMapper;
 import com.culinary.userservice.ingredient.model.Ingredient;
 import com.culinary.userservice.ingredient.repository.IngredientRepository;

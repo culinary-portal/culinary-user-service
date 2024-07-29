@@ -24,7 +24,7 @@ public class GeneralRecipe {
     @Column(name = "name")
     private String name;
 
-    @Basic
+    @Lob
     @Column(name = "photo_url")
     private String photoUrl;
 
@@ -43,6 +43,10 @@ public class GeneralRecipe {
     @Basic
     @Column(name = "is_supper")
     private Boolean isSupper;
+
+    @Lob
+    @Column(name = "description")
+    private String description;
 
     @OneToMany(mappedBy = "generalRecipe", fetch = FetchType.EAGER)
     private List<Recipe> recipes;

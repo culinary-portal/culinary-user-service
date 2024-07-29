@@ -6,11 +6,12 @@ diet_type VARCHAR
 CREATE TABLE IF NOT EXISTS general_recipe (
 general_recipe_id SERIAL PRIMARY KEY,
 name VARCHAR,
-photo_url VARCHAR,
+photo_url TEXT,
 is_breakfast BOOLEAN,
 is_dinner BOOLEAN,
 is_lunch BOOLEAN,
-is_supper BOOLEAN
+is_supper BOOLEAN,
+description CLOB
 );
 
 CREATE TABLE IF NOT EXISTS user (
@@ -20,7 +21,7 @@ email VARCHAR,
 password VARCHAR,
 birthdate TIMESTAMP,
 create_date TIMESTAMP,
-photo_url VARCHAR,
+photo_url TEXT,
 pref_is_vegan BOOLEAN,
 pref_is_gluten_free BOOLEAN,
 account_enabled BOOLEAN,
@@ -28,6 +29,15 @@ account_expired BOOLEAN,
 account_locked BOOLEAN,
 credentials_expired BOOLEAN
 );
+
+CREATE TABLE IF NOT EXISTS user_diet_type (
+user_id INT,
+diet_type_id INT,
+PRIMARY KEY (user_id, diet_type_id),
+FOREIGN KEY (user_id) REFERENCES user (user_id),
+FOREIGN KEY (diet_type_id) REFERENCES diet_type (diet_type_id)
+);
+
 
 CREATE TABLE IF NOT EXISTS roles (
 role_id SERIAL PRIMARY KEY,
@@ -51,8 +61,7 @@ CREATE TABLE IF NOT EXISTS recipe (
 recipe_id SERIAL PRIMARY KEY,
 general_recipe_id INTEGER,
 name VARCHAR,
-photo_url VARCHAR,
-description VARCHAR,
+description CLOB,
 diet_type_id INTEGER,
 CONSTRAINT fk_general_recipe FOREIGN KEY (general_recipe_id) REFERENCES general_recipe (general_recipe_id),
 CONSTRAINT fk_diet_type FOREIGN KEY (diet_type_id) REFERENCES diet_type (diet_type_id)

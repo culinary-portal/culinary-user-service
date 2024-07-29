@@ -1,6 +1,6 @@
 package com.culinary.userservice.ingredient.controller;
 
-import com.culinary.userservice.ingredient.dto.SpecificDTO;
+import com.culinary.userservice.ingredient.dto.specific.SpecificDTO;
 import com.culinary.userservice.ingredient.service.SpecificService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

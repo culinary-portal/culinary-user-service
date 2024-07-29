@@ -1,10 +1,10 @@
 package com.culinary.userservice.recipe.service;
 
 import com.culinary.userservice.ingredient.service.IngredientService;
-import com.culinary.userservice.recipe.dto.FavoriteDTO;
-import com.culinary.userservice.recipe.dto.RecipeContainsDTO;
-import com.culinary.userservice.recipe.dto.RecipeDTO;
-import com.culinary.userservice.recipe.dto.RecipeDetailsDTO;
+import com.culinary.userservice.recipe.dto.recipe.FavoriteDTO;
+import com.culinary.userservice.recipe.dto.recipe.RecipeContainsDTO;
+import com.culinary.userservice.recipe.dto.recipe.RecipeDTO;
+import com.culinary.userservice.recipe.dto.recipe.RecipeDetailsDTO;
 import com.culinary.userservice.recipe.mapper.ContainsMapper;
 import com.culinary.userservice.recipe.mapper.RecipeMapper;
 import com.culinary.userservice.recipe.model.DietType;
