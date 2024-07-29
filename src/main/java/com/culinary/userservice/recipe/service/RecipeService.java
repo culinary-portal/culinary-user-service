@@ -1,7 +1,6 @@
 package com.culinary.userservice.recipe.service;
 
 import com.culinary.userservice.ingredient.service.IngredientService;
-import com.culinary.userservice.recipe.dto.recipe.FavoriteDTO;
 import com.culinary.userservice.recipe.dto.recipe.RecipeContainsDTO;
 import com.culinary.userservice.recipe.dto.recipe.RecipeDTO;
 import com.culinary.userservice.recipe.dto.recipe.RecipeDetailsDTO;
@@ -12,14 +11,12 @@ import com.culinary.userservice.recipe.model.GeneralRecipe;
 import com.culinary.userservice.recipe.model.Recipe;
 import com.culinary.userservice.recipe.repository.RecipeRepository;
 import com.culinary.userservice.user.exception.NotFoundException;
-import com.culinary.userservice.user.model.User;
 import com.culinary.userservice.user.repository.UserRepository;
 import com.culinary.userservice.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;

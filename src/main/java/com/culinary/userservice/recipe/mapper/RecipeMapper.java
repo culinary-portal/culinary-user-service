@@ -8,8 +8,9 @@ import com.culinary.userservice.recipe.model.GeneralRecipe;
 import com.culinary.userservice.recipe.model.Recipe;
 import com.culinary.userservice.user.mapper.UserMapper;
 
-import java.util.ArrayList;
 import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 public class RecipeMapper {
 
@@ -34,15 +35,25 @@ public class RecipeMapper {
     public static RecipeDetailsDTO toRecipeDetailsDTO(Recipe recipe) {
         return RecipeDetailsDTO.builder()
                 .recipeId(recipe.getRecipeId())
-                .generalRecipe(GeneralRecipeMapper.toDto(recipe.getGeneralRecipe()))
+                .generalRecipe(GeneralRecipeMapper.toGeneralRecipeViewDTO(recipe.getGeneralRecipe()))
                 .name(recipe.getName())
                 .description(recipe.getDescription())
                 .dietType(DietTypeMapper.toDto(recipe.getDietType()))
-                .contains(recipe.getContains().stream().map(ContainsMapper::toDto).collect(Collectors.toList()))
-                .usersWhoFavorited(recipe.getUsersWhoModified()
+                .contains(recipe.getContains().stream().map(ContainsMapper::toDto).collect(toList()))
+                .userWhoModified(recipe.getUsersWhoModified()
                         .stream()
                         .map(UserMapper::toUserNoDetailsDTO)
                         .collect(Collectors.toSet()))
+                .build();
+    }
+
+    public static RecipeContainsDTO toRecipeContainsDTO(Recipe recipe) {
+        return RecipeContainsDTO.builder()
+                .recipeId(recipe.getRecipeId())
+                .name(recipe.getName())
+                .description(recipe.getDescription())
+                .dietType(recipe.getDietType().getDietType())
+                .contains(recipe.getContains().stream().map(ContainsMapper::toDto).collect(toList()))
                 .build();
     }
 }

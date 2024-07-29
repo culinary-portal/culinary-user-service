@@ -88,7 +88,6 @@ public class User implements Serializable {
     private Set<Recipe> modifiedRecipes = new HashSet<>();
 
 
-
     public void addRole(Role role) {
         this.roles.add(role);
         role.setUser(this);
