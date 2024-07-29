@@ -45,12 +45,17 @@ VALUES (1, 3, 0.5),
        (2, 1, 1.5),
        (3, 2, 1.0);
 
-INSERT INTO review (user_id, recipe_id, rating, opinion)
+INSERT INTO review (user_id, general_recipe_id, rating, opinion)
 VALUES (1, 1, 5, 'Delicious pancakes!'),
        (2, 2, 4, 'Healthy and tasty.'),
        (3, 3, 5, 'Perfectly cooked steak.');
 
-INSERT INTO favorites (user_id, recipe_id)
+INSERT INTO favorite (user_id, general_recipe_id)
+VALUES (1, 1),
+       (2, 2),
+       (3, 3);
+
+INSERT INTO modified_recipe (user_id, recipe_id)
 VALUES (1, 1),
        (2, 2),
        (3, 3);

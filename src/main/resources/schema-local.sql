@@ -89,19 +89,27 @@ CONSTRAINT fk_ingredient2 FOREIGN KEY (ingredient2_id) REFERENCES ingredient (in
 CREATE TABLE IF NOT EXISTS review (
 review_id SERIAL PRIMARY KEY,
 user_id INTEGER,
-recipe_id INTEGER,
+general_recipe_id INTEGER,
 rating INTEGER,
 opinion VARCHAR,
 CONSTRAINT fk_review_user FOREIGN KEY (user_id) REFERENCES user (user_id),
-CONSTRAINT fk_review_recipe FOREIGN KEY (recipe_id) REFERENCES recipe (recipe_id)
+CONSTRAINT fk_review_general_recipe FOREIGN KEY (general_recipe_id) REFERENCES general_recipe (general_recipe_id)
 );
 
-CREATE TABLE IF NOT EXISTS favorites (
+CREATE TABLE IF NOT EXISTS favorite (
 favorites_id SERIAL PRIMARY KEY,
 user_id INTEGER,
-recipe_id INTEGER,
+general_recipe_id INTEGER,
 CONSTRAINT fk_favorites_user FOREIGN KEY (user_id) REFERENCES user (user_id),
-CONSTRAINT fk_favorites_recipe FOREIGN KEY (recipe_id) REFERENCES recipe (recipe_id)
+CONSTRAINT fk_favorites_recipe FOREIGN KEY (general_recipe_id) REFERENCES general_recipe (general_recipe_id)
+);
+
+CREATE TABLE IF NOT EXISTS modified_recipe (
+modified_recipe_id SERIAL PRIMARY KEY,
+user_id INTEGER,
+recipe_id INTEGER,
+CONSTRAINT fk_modified_user FOREIGN KEY (user_id) REFERENCES user (user_id),
+CONSTRAINT fk_modified_recipe FOREIGN KEY (recipe_id) REFERENCES recipe (recipe_id)
 );
 
 CREATE TABLE IF NOT EXISTS specific (

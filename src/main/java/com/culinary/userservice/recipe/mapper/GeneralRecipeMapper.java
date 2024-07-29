@@ -26,6 +26,7 @@ public class GeneralRecipeMapper {
         generalRecipe.setIsSupper(generalRecipeDTO.getIsSupper());
         generalRecipe.setPhotoUrl(generalRecipeDTO.getPhotoUrl());
         generalRecipe.setDescription(generalRecipeDTO.getDescription());
+        generalRecipe.setReviews(new ArrayList<>());
         generalRecipe.setRecipes(recipes != null ? recipes : new ArrayList<>());
         return generalRecipe;
     }
@@ -40,6 +41,7 @@ public class GeneralRecipeMapper {
                 .isSupper(generalRecipe.getIsSupper())
                 .photoUrl(generalRecipe.getPhotoUrl())
                 .description(generalRecipe.getDescription())
+                .reviews(generalRecipe.getReviews().stream().map(ReviewMapper::toDto).collect(Collectors.toList()))
                 .recipes(generalRecipe.getRecipes().stream()
                         .map(RecipeMapper::toDto)
                         .collect(Collectors.toList()))

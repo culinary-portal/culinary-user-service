@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class ReviewDTO {
     private int reviewId;
     private Long userId;
-    private int recipeId;
+    private long recipeId;
     private Integer rating;
     private String opinion;
 }

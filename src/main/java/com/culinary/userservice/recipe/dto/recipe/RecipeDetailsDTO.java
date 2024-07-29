@@ -26,6 +26,5 @@ public class RecipeDetailsDTO {
     private String description;
     private DietTypeDTO dietType;
     private List<ContainsDTO> contains;
-    private List<ReviewDTO> reviews;
     private Set<UserNoDetailsDTO> usersWhoFavorited = new HashSet<>();
 }

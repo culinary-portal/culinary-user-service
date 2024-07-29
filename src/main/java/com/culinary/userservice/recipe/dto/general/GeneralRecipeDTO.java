@@ -1,6 +1,7 @@
 package com.culinary.userservice.recipe.dto.general;
 
 import com.culinary.userservice.recipe.dto.recipe.RecipeDTO;
+import com.culinary.userservice.recipe.dto.review.ReviewDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,5 +22,6 @@ public class GeneralRecipeDTO {
     private Boolean isLunch;
     private Boolean isSupper;
     private String description;
+    private List<ReviewDTO> reviews;
     private List<RecipeDTO> recipes;
 }

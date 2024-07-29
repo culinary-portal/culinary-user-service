@@ -35,19 +35,19 @@ public class RecipeService {
     private final GeneralRecipeService genRecipeService;
     private final IngredientService ingredientService;
 
-    @Transactional
-    public void addFavouriteRecipe(FavoriteDTO favoriteDTO) {
-        User user = userService.getUserEntityById(favoriteDTO.getUserId());
-        if (user == null) {
-            throw new NotFoundException("No logged in user found");
-        }
-        Recipe recipe = getRecipeEntityById(favoriteDTO.getRecipeId());
-        if (recipe == null) {
-            throw new NotFoundException("Recipe not found");
-        }
-        user.getFavoriteRecipes().add(recipe);
-        userRepository.save(user);
-    }
+//    @Transactional
+//    public void addFavouriteRecipe(FavoriteDTO favoriteDTO) {
+//        User user = userService.getUserEntityById(favoriteDTO.getUserId());
+//        if (user == null) {
+//            throw new NotFoundException("No logged in user found");
+//        }
+//        GeneralRecipe recipe = getRecipeEntityById(favoriteDTO.getRecipeId());
+//        if (recipe == null) {
+//            throw new NotFoundException("Recipe not found");
+//        }
+//        user.getFavoriteRecipes().add(recipe);
+//        userRepository.save(user);
+//    }
 
 
     @Transactional
@@ -56,7 +56,6 @@ public class RecipeService {
         GeneralRecipe generalRecipe = genRecipeService.getGeneralRecipeEntityById(dto.getGeneralRecipeId());
         Recipe recipe = RecipeMapper.toEntity(dto, dietType, generalRecipe);
 
-        recipe.setReviews(new ArrayList<>());
         Recipe finalRecipe = recipe;
         recipe.setContains(dto.getContains()
                 .stream()
