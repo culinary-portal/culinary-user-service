@@ -1,5 +1,6 @@
 package com.culinary.userservice.user.service;
 
+import com.culinary.userservice.user.dto.UserDetailsDTO;
 import com.culinary.userservice.user.dto.UserNoDetailsDTO;
 import com.culinary.userservice.user.exception.UserNotFoundException;
 import com.culinary.userservice.user.mapper.UserMapper;
@@ -9,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,6 +36,12 @@ public class UserService {
     public User getUserEntityById(Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
+    }
+
+    @Transactional
+    public UserDetailsDTO getUserDetails(long id) {
+        return UserMapper.toUserDetailsDTO(getUserEntityById(id));
+
     }
 
     public List<UserNoDetailsDTO> getAllUsers() {

@@ -1,9 +1,8 @@
 package com.culinary.userservice.recipe.dto.recipe;
 
 import com.culinary.userservice.recipe.dto.contains.ContainsDTO;
+import com.culinary.userservice.recipe.dto.general.GeneralRecipeViewDTO;
 import com.culinary.userservice.recipe.dto.type.DietTypeDTO;
-import com.culinary.userservice.recipe.dto.general.GeneralRecipeDTO;
-import com.culinary.userservice.recipe.dto.review.ReviewDTO;
 import com.culinary.userservice.user.dto.UserNoDetailsDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,10 +20,10 @@ import java.util.Set;
 @Builder
 public class RecipeDetailsDTO {
     private int recipeId;
-    private GeneralRecipeDTO generalRecipe;
+    private GeneralRecipeViewDTO generalRecipe;
     private String name;
     private String description;
     private DietTypeDTO dietType;
     private List<ContainsDTO> contains;
-    private Set<UserNoDetailsDTO> usersWhoFavorited = new HashSet<>();
+    private Set<UserNoDetailsDTO> userWhoModified = new HashSet<>();
 }
