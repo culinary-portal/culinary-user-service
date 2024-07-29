@@ -1,5 +1,6 @@
-package com.culinary.userservice.recipe.dto;
+package com.culinary.userservice.recipe.dto.recipe;
 
+import com.culinary.userservice.recipe.dto.contains.ContainsDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

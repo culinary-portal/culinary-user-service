@@ -1,4 +1,4 @@
-package com.culinary.userservice.recipe.dto;
+package com.culinary.userservice.recipe.dto.type;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

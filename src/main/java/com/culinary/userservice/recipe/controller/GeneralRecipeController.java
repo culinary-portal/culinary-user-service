@@ -1,6 +1,6 @@
 package com.culinary.userservice.recipe.controller;
 
-import com.culinary.userservice.recipe.dto.GeneralRecipeDTO;
+import com.culinary.userservice.recipe.dto.general.GeneralRecipeDTO;
 import com.culinary.userservice.recipe.service.GeneralRecipeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

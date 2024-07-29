@@ -1,12 +1,15 @@
 package com.culinary.userservice.recipe.model;
 
+import com.culinary.userservice.user.model.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -24,7 +27,7 @@ public class GeneralRecipe {
     @Column(name = "name")
     private String name;
 
-    @Basic
+    @Lob
     @Column(name = "photo_url")
     private String photoUrl;
 
@@ -44,6 +47,16 @@ public class GeneralRecipe {
     @Column(name = "is_supper")
     private Boolean isSupper;
 
+    @Lob
+    @Column(name = "description")
+    private String description;
+
     @OneToMany(mappedBy = "generalRecipe", fetch = FetchType.EAGER)
     private List<Recipe> recipes;
+
+    @OneToMany(mappedBy = "generalRecipe", fetch = FetchType.EAGER)
+    private List<Review> reviews;
+
+    @ManyToMany(mappedBy = "favoriteRecipes")
+    private Set<User> usersWhoFavorited = new HashSet<>();
 }

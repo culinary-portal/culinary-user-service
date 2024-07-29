@@ -1,8 +1,8 @@
 package com.culinary.userservice.recipe.mapper;
 
-import com.culinary.userservice.recipe.dto.RecipeContainsDTO;
-import com.culinary.userservice.recipe.dto.RecipeDTO;
-import com.culinary.userservice.recipe.dto.RecipeDetailsDTO;
+import com.culinary.userservice.recipe.dto.recipe.RecipeContainsDTO;
+import com.culinary.userservice.recipe.dto.recipe.RecipeDTO;
+import com.culinary.userservice.recipe.dto.recipe.RecipeDetailsDTO;
 import com.culinary.userservice.recipe.model.DietType;
 import com.culinary.userservice.recipe.model.GeneralRecipe;
 import com.culinary.userservice.recipe.model.Recipe;
@@ -18,7 +18,6 @@ public class RecipeMapper {
         recipe.setName(dto.getName());
         recipe.setDescription(dto.getDescription());
         recipe.setDietType(dietType);
-        recipe.setReviews(new ArrayList<>());
         recipe.setGeneralRecipe(generalRecipe);
         return recipe;
     }
@@ -40,8 +39,7 @@ public class RecipeMapper {
                 .description(recipe.getDescription())
                 .dietType(DietTypeMapper.toDto(recipe.getDietType()))
                 .contains(recipe.getContains().stream().map(ContainsMapper::toDto).collect(Collectors.toList()))
-                .reviews(recipe.getReviews().stream().map(ReviewMapper::toDto).collect(Collectors.toList()))
-                .usersWhoFavorited(recipe.getUsersWhoFavorited()
+                .usersWhoFavorited(recipe.getUsersWhoModified()
                         .stream()
                         .map(UserMapper::toUserNoDetailsDTO)
                         .collect(Collectors.toSet()))

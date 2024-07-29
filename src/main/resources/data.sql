@@ -3,15 +3,22 @@ VALUES ('Vegetarian'),
        ('Low-Carb'),
        ('Keto');
 
-INSERT INTO general_recipe (name,photo_url,  is_breakfast, is_dinner, is_lunch, is_supper)
-VALUES ('Pancakes', 'http://example.com/pancakes.jpg',TRUE, FALSE, TRUE, FALSE),
-       ('Chicken Salad', 'http://example.com/chicken.jpg',FALSE, TRUE, TRUE, FALSE),
-       ('Steak Dinner', 'http://example.com/steak.jpg',FALSE, TRUE, FALSE, TRUE);
+INSERT INTO general_recipe (name,photo_url,  is_breakfast, is_dinner, is_lunch, is_supper, description)
+VALUES ('Pancakes', 'http://example.com/pancakes.jpg',TRUE, FALSE, TRUE, FALSE, 'Fluffy pancakes with maple syrup'),
+       ('Chicken Salad', 'http://example.com/chicken.jpg',FALSE, TRUE, TRUE, FALSE, 'Chicken salad with lettuce and dressing'),
+       ('Steak Dinner', 'http://example.com/steak.jpg',FALSE, TRUE, FALSE, TRUE, 'Juicy grilled steak with herbs');
 
-INSERT INTO user (user_name, email, password, birthdate, create_date, photo_url, pref_is_vegan, pref_is_gluten_free, account_enabled, account_expired, account_locked, credentials_expired)
-VALUES ('JohnDoe', 'john.doe@example.com', 'password123', '1990-05-15', NOW(),'http://example.com/user.jpg', FALSE, TRUE, TRUE, FALSE, FALSE, FALSE),
-       ('JaneSmith', 'jane.smith@example.com', 'securePass!', '1985-10-20', NOW(), 'http://example.com/user.jpg', TRUE, FALSE, TRUE, FALSE, FALSE, FALSE),
-       ('AliceJones', 'alice.jones@example.com', 'alice1234', '1995-07-08', NOW(), 'http://example.com/user.jpg', FALSE, FALSE, TRUE, FALSE, FALSE, FALSE);
+INSERT INTO user (user_name, email, password, birthdate, create_date, photo_url, account_enabled, account_expired, account_locked, credentials_expired)
+VALUES ('JohnDoe', 'john.doe@example.com', 'password123', '1990-05-15', NOW(), 'http://example.com/user.jpg', TRUE, FALSE, FALSE, FALSE),
+       ('JaneSmith', 'jane.smith@example.com', 'securePass!', '1985-10-20', NOW(), 'http://example.com/user.jpg', TRUE, FALSE, FALSE, FALSE),
+       ('AliceJones', 'alice.jones@example.com', 'alice1234', '1995-07-08', NOW(), 'http://example.com/user.jpg', TRUE, FALSE, FALSE, FALSE);
+
+INSERT INTO user_diet_type (user_id, diet_type_id)
+VALUES
+    ((SELECT user_id FROM user WHERE user_name = 'JohnDoe'), (SELECT diet_type_id FROM diet_type WHERE diet_type = 'Low-Carb')),
+    ((SELECT user_id FROM user WHERE user_name = 'JaneSmith'), (SELECT diet_type_id FROM diet_type WHERE diet_type = 'Vegetarian')),
+    ((SELECT user_id FROM user WHERE user_name = 'JaneSmith'), (SELECT diet_type_id FROM diet_type WHERE diet_type = 'Keto')),
+    ((SELECT user_id FROM user WHERE user_name = 'AliceJones'), (SELECT diet_type_id FROM diet_type WHERE diet_type = 'Vegetarian'));
 
 INSERT INTO roles (user_id, role)
 VALUES (1, 'USER'),
@@ -38,12 +45,17 @@ VALUES (1, 3, 0.5),
        (2, 1, 1.5),
        (3, 2, 1.0);
 
-INSERT INTO review (user_id, recipe_id, rating, opinion)
+INSERT INTO review (user_id, general_recipe_id, rating, opinion)
 VALUES (1, 1, 5, 'Delicious pancakes!'),
        (2, 2, 4, 'Healthy and tasty.'),
        (3, 3, 5, 'Perfectly cooked steak.');
 
-INSERT INTO favorites (user_id, recipe_id)
+INSERT INTO favorite (user_id, general_recipe_id)
+VALUES (1, 1),
+       (2, 2),
+       (3, 3);
+
+INSERT INTO modified_recipe (user_id, recipe_id)
 VALUES (1, 1),
        (2, 2),
        (3, 3);

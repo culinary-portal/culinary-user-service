@@ -103,8 +103,7 @@ public class AuthService {
         user.setReviews(new ArrayList<>());
         user.setFavoriteRecipes(new HashSet<>());
         user.setSpecifics(new ArrayList<>());
-        user.setPrefIsVegan(false);
-        user.setPrefIsGlutenFree(false);
+        user.setPreferredDiets(new HashSet<>());
         user.setPhotoUrl(defaultUserPhotoUrl);
 
         if (adminEmail != null && adminEmail.equals(email)) {
