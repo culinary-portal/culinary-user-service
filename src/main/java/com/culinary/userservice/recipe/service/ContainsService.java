@@ -1,7 +1,7 @@
 package com.culinary.userservice.recipe.service;
 
 import com.culinary.userservice.ingredient.service.IngredientService;
-import com.culinary.userservice.recipe.dto.ContainsDTO;
+import com.culinary.userservice.recipe.dto.contains.ContainsDTO;
 import com.culinary.userservice.recipe.mapper.ContainsMapper;
 import com.culinary.userservice.recipe.model.Contains;
 import com.culinary.userservice.recipe.repository.ContainsRepository;

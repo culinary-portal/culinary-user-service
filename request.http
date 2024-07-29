@@ -1,35 +1,208 @@
-###
-
-# curl --location 'http://localhost:8080/api/auth/register'
-#--header 'Content-Type: application/json'
-#--data-raw '{ "email": "ds9@gmail.com", "password": "password" }'
-POST http://localhost:8080/api/auth/register
-Content-Type: application/json
-
-{
-  "email": "ds9@gmail.com",
-  "password": "password"
-}
-
+### Authenticated Check
+GET http://localhost:8080/api/auth/authenticated
 
 ###
 
-# curl --location 'http://localhost:8080/api/auth/login'
-#--header 'Content-Type: application/json'
-#--data-raw '{
-#  "email": "ds9@gmail.com",
-#  "password": "password"
-#}'
+### Login
 POST http://localhost:8080/api/auth/login
 Content-Type: application/json
 
 {
-  "email": "ds9@gmail.com",
-  "password": "password"
+  "email": "name",
+  "password": "surname"
 }
 
 ###
 
+### Logout
+GET http://localhost:8080/api/auth/logout
 
 ###
 
+### Update Password
+PUT http://localhost:8080/api/auth/password/0
+Content-Type: application/json
+
+"string"
+
+###
+
+### Register
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+
+{
+  "email": "",
+  "password": ""
+}
+
+###
+
+### Get User Info
+GET http://localhost:8080/api/auth/user
+
+###
+
+### Get All Substitutes
+GET http://localhost:8080/api/substitutes
+
+###
+
+### Create Substitute
+POST http://localhost:8080/api/substitutes
+Content-Type: application/json
+
+{
+  "ingredient1Id": 0,
+  "ingredient2Id": 0,
+  "proportionI1I2": 0
+}
+
+###
+
+### Get Substitute by ID
+GET http://localhost:8080/api/substitutes/0
+
+###
+
+### Update Substitute
+PUT http://localhost:8080/api/substitutes/0
+Content-Type: application/json
+
+{
+  "ingredient1Id": 0,
+  "ingredient2Id": 0,
+  "proportionI1I2": 0
+}
+
+###
+
+### Delete Substitute
+DELETE http://localhost:8080/api/substitutes/0
+
+###
+
+### Get All Specifics
+GET http://localhost:8080/api/specifics
+
+###
+
+### Create Specific
+POST http://localhost:8080/api/specifics
+Content-Type: application/json
+
+{
+  "userId": 0,
+  "ingredientId": 0,
+  "likes": true
+}
+
+###
+
+### Get Specific by ID
+GET http://localhost:8080/api/specifics/0
+
+###
+
+### Update Specific
+PUT http://localhost:8080/api/specifics/0
+Content-Type: application/json
+
+{
+  "userId": 0,
+  "ingredientId": 0,
+  "likes": true
+}
+
+###
+
+### Delete Specific
+DELETE http://localhost:8080/api/specifics/0
+
+###
+
+### Get All Ingredients
+GET http://localhost:8080/api/ingredients
+
+###
+
+### Create Ingredient
+POST http://localhost:8080/api/ingredients
+Content-Type: application/json
+
+{
+  "name": "",
+  "fat": 0,
+  "protein": 0,
+  "carbohydrate": 0,
+  "kcal": 0,
+  "isVegan": true,
+  "isGlutenFree": true
+}
+
+###
+
+### Get Ingredient by ID
+GET http://localhost:8080/api/ingredients
+
+###
+
+### Update Ingredient
+PUT http://localhost:8080/api/ingredients/0
+Content-Type: application/json
+
+{
+  "name": "",
+  "fat": 0,
+  "protein": 0,
+  "carbohydrate": 0,
+  "kcal": 0,
+  "isVegan": true,
+  "isGlutenFree": true
+}
+
+###
+
+### Delete Ingredient
+DELETE http://localhost:8080/api/ingredients/0
+
+###
+
+### Get All Recipes
+GET http://localhost:8080/api/recipes
+
+###
+
+### Create Recipe
+POST http://localhost:8080/api/recipes
+Content-Type: application/json
+
+{
+  "name": "",
+  "description": "",
+  "dietType": ""
+}
+
+###
+
+### Get Recipe by ID
+GET http://localhost:8080/api/recipes/0
+
+###
+
+### Update Recipe
+PUT http://localhost:8080/api/recipes/0
+Content-Type: application/json
+
+{
+  "name": "",
+  "description": "",
+  "dietType": ""
+}
+
+###
+
+### Delete Recipe
+DELETE http://localhost:8080/api/recipes/0
+
+###

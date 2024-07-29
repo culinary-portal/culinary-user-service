@@ -2,6 +2,8 @@ package com.culinary.userservice.user.model;
 
 
 import com.culinary.userservice.ingredient.model.Specific;
+import com.culinary.userservice.recipe.model.DietType;
+import com.culinary.userservice.recipe.model.GeneralRecipe;
 import com.culinary.userservice.recipe.model.Recipe;
 import com.culinary.userservice.recipe.model.Review;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -40,7 +42,7 @@ public class User implements Serializable {
     @JsonIgnore
     @Column(name = "password", nullable = false)
     private String password;
-    @JsonIgnore
+    @Lob
     @Column(name = "photo_url", nullable = false)
     private String photoUrl;
     @Column(name = "account_enabled")
@@ -59,20 +61,32 @@ public class User implements Serializable {
     private List<Review> reviews;
     @OneToMany(mappedBy = "user")
     private List<Specific> specifics;
-    @Column(name = "pref_is_vegan")
-    private Boolean prefIsVegan;
-    @Column(name = "pref_is_gluten_free")
-    private Boolean prefIsGlutenFree;
+    @ManyToMany
+    @JoinTable(
+            name = "user_diet_type",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "diet_type_id")
+    )
+    private Set<DietType> preferredDiets = new HashSet<>();
     @JsonIgnore
     @OneToMany(cascade = {PERSIST, MERGE, REMOVE}, fetch = EAGER, mappedBy = "user", orphanRemoval = true)
     private Set<Role> roles = new HashSet<>();
     @ManyToMany
     @JoinTable(
-            name = "favorites",
+            name = "favorite",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "general_recipe_id")
+    )
+    private Set<GeneralRecipe> favoriteRecipes = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "modified_recipe",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "recipe_id")
     )
-    private Set<Recipe> favoriteRecipes = new HashSet<>();
+    private Set<Recipe> modifiedRecipes = new HashSet<>();
+
 
 
     public void addRole(Role role) {

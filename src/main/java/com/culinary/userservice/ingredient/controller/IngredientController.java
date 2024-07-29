@@ -1,6 +1,6 @@
 package com.culinary.userservice.ingredient.controller;
 
-import com.culinary.userservice.ingredient.dto.IngredientDTO;
+import com.culinary.userservice.ingredient.dto.ingredient.IngredientDTO;
 import com.culinary.userservice.ingredient.service.IngredientService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

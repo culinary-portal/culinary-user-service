@@ -6,28 +6,36 @@ diet_type VARCHAR
 CREATE TABLE IF NOT EXISTS general_recipe (
 general_recipe_id SERIAL PRIMARY KEY,
 name VARCHAR,
-photo_url VARCHAR,
+photo_url TEXT,
 is_breakfast BOOLEAN,
 is_dinner BOOLEAN,
 is_lunch BOOLEAN,
-is_supper BOOLEAN
+is_supper BOOLEAN,
+description TEXT
 );
 
-CREATE TABLE IF NOT EXISTS users (
+CREATE TABLE IF NOT EXISTS user (
 user_id SERIAL PRIMARY KEY,
 user_name VARCHAR,
 email VARCHAR,
 password VARCHAR,
 birthdate TIMESTAMP,
 create_date TIMESTAMP,
-photo_url VARCHAR,
-photo_url VARCHAR,
+photo_url TEXT,
 pref_is_vegan BOOLEAN,
 pref_is_gluten_free BOOLEAN,
 account_enabled BOOLEAN,
 account_expired BOOLEAN,
 account_locked BOOLEAN,
 credentials_expired BOOLEAN
+);
+
+CREATE TABLE IF NOT EXISTS user_diet_type (
+user_id INT,
+diet_type_id INT,
+PRIMARY KEY (user_id, diet_type_id),
+FOREIGN KEY (user_id) REFERENCES user (user_id),
+FOREIGN KEY (diet_type_id) REFERENCES diet_type (diet_type_id)
 );
 
 CREATE TABLE IF NOT EXISTS roles (
@@ -52,7 +60,7 @@ CREATE TABLE IF NOT EXISTS recipe (
 recipe_id SERIAL PRIMARY KEY,
 general_recipe_id INTEGER,
 name VARCHAR,
-description VARCHAR,
+description TEXT,
 diet_type_id INTEGER,
 CONSTRAINT fk_general_recipe FOREIGN KEY (general_recipe_id) REFERENCES general_recipe (general_recipe_id),
 CONSTRAINT fk_diet_type FOREIGN KEY (diet_type_id) REFERENCES diet_type (diet_type_id)
@@ -80,19 +88,27 @@ CONSTRAINT fk_ingredient2 FOREIGN KEY (ingredient2_id) REFERENCES ingredient (in
 CREATE TABLE IF NOT EXISTS review (
 review_id SERIAL PRIMARY KEY,
 user_id INTEGER,
-recipe_id INTEGER,
+general_recipe_id INTEGER,
 rating INTEGER,
 opinion VARCHAR,
 CONSTRAINT fk_review_user FOREIGN KEY (user_id) REFERENCES users (user_id),
-CONSTRAINT fk_review_recipe FOREIGN KEY (recipe_id) REFERENCES recipe (recipe_id)
+CONSTRAINT fk_review_general_recipe FOREIGN KEY (general_recipe_id) REFERENCES general_recipe (general_recipe_id)
 );
 
-CREATE TABLE IF NOT EXISTS favorites (
+CREATE TABLE IF NOT EXISTS favorite (
 favorites_id SERIAL PRIMARY KEY,
 user_id INTEGER,
+general_recipe_id INTEGER,
+CONSTRAINT fk_favorites_user FOREIGN KEY (user_id) REFERENCES user (user_id),
+CONSTRAINT fk_favorites_recipe FOREIGN KEY (general_recipe_id) REFERENCES general_recipe (general_recipe_id)
+);
+
+CREATE TABLE IF NOT EXISTS modified_recipe (
+modified_recipe_id SERIAL PRIMARY KEY,
+user_id INTEGER,
 recipe_id INTEGER,
-CONSTRAINT fk_favorites_user FOREIGN KEY (user_id) REFERENCES users (user_id),
-CONSTRAINT fk_favorites_recipe FOREIGN KEY (recipe_id) REFERENCES recipe (recipe_id)
+CONSTRAINT fk_modified_user FOREIGN KEY (user_id) REFERENCES user (user_id),
+CONSTRAINT fk_modified_recipe FOREIGN KEY (recipe_id) REFERENCES recipe (recipe_id)
 );
 
 CREATE TABLE IF NOT EXISTS specific (

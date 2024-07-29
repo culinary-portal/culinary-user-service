@@ -22,8 +22,8 @@ public class Review {
     @JoinColumn(name = "user_id")
     private User user;
     @ManyToOne
-    @JoinColumn(name = "recipe_id")
-    private Recipe recipe;
+    @JoinColumn(name = "general_recipe_id")
+    private GeneralRecipe generalRecipe;
     @Basic
     @Column(name = "rating")
     private Integer rating;

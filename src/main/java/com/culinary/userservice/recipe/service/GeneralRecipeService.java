@@ -1,6 +1,6 @@
 package com.culinary.userservice.recipe.service;
 
-import com.culinary.userservice.recipe.dto.GeneralRecipeDTO;
+import com.culinary.userservice.recipe.dto.general.GeneralRecipeDTO;
 import com.culinary.userservice.recipe.mapper.GeneralRecipeMapper;
 import com.culinary.userservice.recipe.model.GeneralRecipe;
 import com.culinary.userservice.recipe.repository.GeneralRecipeRepository;

@@ -1,10 +1,10 @@
 package com.culinary.userservice.recipe.service;
 
 import com.culinary.userservice.ingredient.service.IngredientService;
-import com.culinary.userservice.recipe.dto.FavoriteDTO;
-import com.culinary.userservice.recipe.dto.RecipeContainsDTO;
-import com.culinary.userservice.recipe.dto.RecipeDTO;
-import com.culinary.userservice.recipe.dto.RecipeDetailsDTO;
+import com.culinary.userservice.recipe.dto.recipe.FavoriteDTO;
+import com.culinary.userservice.recipe.dto.recipe.RecipeContainsDTO;
+import com.culinary.userservice.recipe.dto.recipe.RecipeDTO;
+import com.culinary.userservice.recipe.dto.recipe.RecipeDetailsDTO;
 import com.culinary.userservice.recipe.mapper.ContainsMapper;
 import com.culinary.userservice.recipe.mapper.RecipeMapper;
 import com.culinary.userservice.recipe.model.DietType;
@@ -35,19 +35,19 @@ public class RecipeService {
     private final GeneralRecipeService genRecipeService;
     private final IngredientService ingredientService;
 
-    @Transactional
-    public void addFavouriteRecipe(FavoriteDTO favoriteDTO) {
-        User user = userService.getUserEntityById(favoriteDTO.getUserId());
-        if (user == null) {
-            throw new NotFoundException("No logged in user found");
-        }
-        Recipe recipe = getRecipeEntityById(favoriteDTO.getRecipeId());
-        if (recipe == null) {
-            throw new NotFoundException("Recipe not found");
-        }
-        user.getFavoriteRecipes().add(recipe);
-        userRepository.save(user);
-    }
+//    @Transactional
+//    public void addFavouriteRecipe(FavoriteDTO favoriteDTO) {
+//        User user = userService.getUserEntityById(favoriteDTO.getUserId());
+//        if (user == null) {
+//            throw new NotFoundException("No logged in user found");
+//        }
+//        GeneralRecipe recipe = getRecipeEntityById(favoriteDTO.getRecipeId());
+//        if (recipe == null) {
+//            throw new NotFoundException("Recipe not found");
+//        }
+//        user.getFavoriteRecipes().add(recipe);
+//        userRepository.save(user);
+//    }
 
 
     @Transactional
@@ -56,7 +56,6 @@ public class RecipeService {
         GeneralRecipe generalRecipe = genRecipeService.getGeneralRecipeEntityById(dto.getGeneralRecipeId());
         Recipe recipe = RecipeMapper.toEntity(dto, dietType, generalRecipe);
 
-        recipe.setReviews(new ArrayList<>());
         Recipe finalRecipe = recipe;
         recipe.setContains(dto.getContains()
                 .stream()

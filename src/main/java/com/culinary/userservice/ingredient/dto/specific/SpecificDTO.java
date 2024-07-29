@@ -1,4 +1,4 @@
-package com.culinary.userservice.recipe.dto;
+package com.culinary.userservice.ingredient.dto.specific;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ContainsDTO {
-    private float amount;
-    private String measure;
-    private int recipeId;
+public class SpecificDTO {
+    private int specificId;
+    private long userId;
     private int ingredientId;
+    private Boolean likes;
 }

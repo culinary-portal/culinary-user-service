@@ -1,6 +1,6 @@
 package com.culinary.userservice.ingredient.mapper;
 
-import com.culinary.userservice.ingredient.dto.SpecificDTO;
+import com.culinary.userservice.ingredient.dto.specific.SpecificDTO;
 import com.culinary.userservice.ingredient.model.Ingredient;
 import com.culinary.userservice.ingredient.model.Specific;
 import com.culinary.userservice.user.model.User;

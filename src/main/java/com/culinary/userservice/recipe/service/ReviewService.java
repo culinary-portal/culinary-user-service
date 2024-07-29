@@ -1,7 +1,7 @@
 package com.culinary.userservice.recipe.service;
 
-import com.culinary.userservice.recipe.dto.ReviewDTO;
-import com.culinary.userservice.recipe.dto.UpdateReviewDTO;
+import com.culinary.userservice.recipe.dto.review.ReviewDTO;
+import com.culinary.userservice.recipe.dto.review.UpdateReviewDTO;
 import com.culinary.userservice.recipe.mapper.ReviewMapper;
 import com.culinary.userservice.recipe.model.Review;
 import com.culinary.userservice.recipe.repository.ReviewRepository;

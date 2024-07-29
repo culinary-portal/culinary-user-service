@@ -25,7 +25,7 @@ public class Recipe {
     @Column(name = "name")
     private String name;
 
-    @Basic
+    @Lob
     @Column(name = "description")
     private String description;
 
@@ -36,9 +36,6 @@ public class Recipe {
     @OneToMany(mappedBy = "recipe")
     private List<Contains> contains;
 
-    @OneToMany(mappedBy = "recipe")
-    private List<Review> reviews;
-
-    @ManyToMany(mappedBy = "favoriteRecipes")
-    private Set<User> usersWhoFavorited = new HashSet<>();
+    @ManyToMany(mappedBy = "modifiedRecipes")
+    private Set<User> usersWhoModified = new HashSet<>();
 }

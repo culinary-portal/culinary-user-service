@@ -1,4 +1,4 @@
-package com.culinary.userservice.recipe.dto;
+package com.culinary.userservice.recipe.dto.review;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
