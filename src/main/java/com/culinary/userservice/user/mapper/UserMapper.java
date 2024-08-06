@@ -1,8 +1,6 @@
 package com.culinary.userservice.user.mapper;
 
 import com.culinary.userservice.ingredient.mapper.SpecificMapper;
-import com.culinary.userservice.recipe.mapper.GeneralRecipeMapper;
-import com.culinary.userservice.recipe.mapper.RecipeMapper;
 import com.culinary.userservice.user.dto.UserDetailsDTO;
 import com.culinary.userservice.user.dto.UserNoDetailsDTO;
 import com.culinary.userservice.user.model.User;
@@ -19,7 +17,6 @@ public class UserMapper {
                 .build();
     }
 
-
     public static UserDetailsDTO toUserDetailsDTO(User user) {
         return UserDetailsDTO.builder()
                 .id(user.getId())
@@ -32,22 +29,11 @@ public class UserMapper {
                 .birthdate(user.getBirthdate())
                 .userName(user.getUserName())
                 .photoUrl(user.getPhotoUrl())
-                .favoriteRecipes(user
-                        .getFavoriteRecipes()
-                        .stream()
-                        .map(GeneralRecipeMapper::toGeneralRecipeViewDTO)
-                        .collect(toSet()))
-                .modifications(user
-                        .getModifiedRecipes()
-                        .stream()
-                        .map(RecipeMapper::toRecipeContainsDTO)
-                        .collect(toSet()))
                 .specifics(user
                         .getSpecifics()
                         .stream()
                         .map(SpecificMapper::toDetailsDto)
                         .collect(toSet()))
                 .build();
-
     }
 }

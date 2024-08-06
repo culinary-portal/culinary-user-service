@@ -1,5 +1,14 @@
 package com.culinary.userservice.user.service;
 
+import com.culinary.userservice.ingredient.dto.specific.GetSpecificDTO;
+import com.culinary.userservice.ingredient.mapper.SpecificMapper;
+import com.culinary.userservice.recipe.dto.general.GeneralRecipeViewDTO;
+import com.culinary.userservice.recipe.dto.recipe.PutRecipeDTO;
+import com.culinary.userservice.recipe.dto.type.DietTypeDTO;
+import com.culinary.userservice.recipe.mapper.DietTypeMapper;
+import com.culinary.userservice.recipe.mapper.GeneralRecipeMapper;
+import com.culinary.userservice.recipe.mapper.RecipeMapper;
+import com.culinary.userservice.recipe.service.GeneralRecipeService;
 import com.culinary.userservice.user.dto.UserDetailsDTO;
 import com.culinary.userservice.user.dto.UserNoDetailsDTO;
 import com.culinary.userservice.user.exception.UserNotFoundException;
@@ -14,13 +23,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
-
+    private final GeneralRecipeService generalRecipeService;
 
     public User getLoggedUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -49,5 +59,59 @@ public class UserService {
                 .stream()
                 .map(UserMapper::toUserNoDetailsDTO)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public Set<GeneralRecipeViewDTO> getFavoriteRecipes(long userId) {
+        User user = getUserEntityById(userId);
+        return user.getFavoriteRecipes().stream()
+                .map(GeneralRecipeMapper::toGeneralRecipeViewDTO)
+                .collect(Collectors.toSet());
+    }
+
+    @Transactional(readOnly = true)
+    public List<GetSpecificDTO> getDislikedIngredients(long userId) {
+        User user = getUserEntityById(userId);
+        return user.getSpecifics().stream()
+                .map(SpecificMapper::toDetailsDto).filter(e -> !e.getLikes()).toList();
+    }
+
+    @Transactional(readOnly = true)
+    public Set<DietTypeDTO> getFavoriteDiets(long userId) {
+        User user = getUserEntityById(userId);
+        return user.getPreferredDiets().stream()
+                .map(DietTypeMapper::toDto)
+                .collect(Collectors.toSet());
+    }
+
+    @Transactional(readOnly = true)
+    public Set<PutRecipeDTO> getModifications(long userId) {
+        User user = getUserEntityById(userId);
+        return user.getModifiedRecipes().stream()
+                .map(RecipeMapper::toRecipeContainsDTO)
+                .collect(Collectors.toSet());
+    }
+
+    private User getUserEntityById(long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("User not found with id " + userId));
+    }
+
+    @Transactional(readOnly = true)
+    public UserDetailsDTO getUserByUserName(String userName) {
+        User user = userRepository.findByUserNameRegex(userName)
+                .orElseThrow(() -> new UserNotFoundException("User not found with username " + userName));
+        return UserMapper.toUserDetailsDTO(user);
+    }
+
+    @Transactional
+    public Set<GeneralRecipeViewDTO> addFavoriteRecipe(long id, int recipeId) {
+        User user = getUserEntityById(id);
+        user.getFavoriteRecipes().add(generalRecipeService.getGeneralRecipeEntityById(recipeId));
+        userRepository.save(user);
+
+        return user.getFavoriteRecipes().stream()
+                .map(GeneralRecipeMapper::toGeneralRecipeViewDTO)
+                .collect(Collectors.toSet());
     }
 }

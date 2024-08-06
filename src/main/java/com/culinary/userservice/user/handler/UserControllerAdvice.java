@@ -29,6 +29,7 @@ public class UserControllerAdvice {
 
     @ExceptionHandler(AppGenericException.class)
     public ResponseEntity<Object> handleAppGenericException(HttpServletRequest req, Exception ex) {
+        log.error("Exception intercepted -> {}  caused by -> {}", req.getRequestURL(), ex);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ResponseDTO(ex.getMessage()));
     }
 
