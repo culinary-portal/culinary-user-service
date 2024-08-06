@@ -1,5 +1,7 @@
 package com.culinary.userservice.ingredient.controller;
 
+import com.culinary.userservice.ingredient.dto.substitute.GetSubstituteDTO;
+import com.culinary.userservice.ingredient.dto.substitute.PutSubstituteDTO;
 import com.culinary.userservice.ingredient.dto.substitute.SubstituteDTO;
 import com.culinary.userservice.ingredient.service.SubstituteService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -40,8 +42,8 @@ public class SubstituteController {
             @ApiResponse(responseCode = "404", description = "Substitute not found")
     })
     @GetMapping("/{id}")
-    public ResponseEntity<SubstituteDTO> getSubstituteById(@PathVariable int id) {
-        SubstituteDTO substitute = substituteService.findById(id);
+    public ResponseEntity<GetSubstituteDTO> getSubstituteById(@PathVariable int id) {
+        GetSubstituteDTO substitute = substituteService.findById(id);
         return ResponseEntity.ok(substitute);
     }
 
@@ -51,7 +53,7 @@ public class SubstituteController {
                             schema = @Schema(implementation = SubstituteDTO.class)))
     })
     @PostMapping
-    public ResponseEntity<SubstituteDTO> createSubstitute(@RequestBody SubstituteDTO substituteDto) {
+    public ResponseEntity<SubstituteDTO> createSubstitute(@RequestBody PutSubstituteDTO substituteDto) {
         SubstituteDTO createdSubstitute = substituteService.save(substituteDto);
         return ResponseEntity.ok(createdSubstitute);
     }
@@ -63,7 +65,7 @@ public class SubstituteController {
             @ApiResponse(responseCode = "404", description = "Substitute not found")
     })
     @PutMapping("/{id}")
-    public ResponseEntity<SubstituteDTO> updateSubstitute(@PathVariable int id, @RequestBody SubstituteDTO substituteDto) {
+    public ResponseEntity<SubstituteDTO> updateSubstitute(@PathVariable int id, @RequestBody PutSubstituteDTO substituteDto) {
         SubstituteDTO updatedSubstitute = substituteService.update(id, substituteDto);
         return ResponseEntity.ok(updatedSubstitute);
     }
@@ -76,5 +78,11 @@ public class SubstituteController {
     public ResponseEntity<Void> deleteSubstitute(@PathVariable int id) {
         substituteService.delete(id);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/ingredient/{ingredientId}")
+    public ResponseEntity<List<GetSubstituteDTO>> getSubstituteByIngredientId(@PathVariable int ingredientId) {
+        List<GetSubstituteDTO> substitutes = substituteService.findSubstituteByIngredientId(ingredientId);
+        return ResponseEntity.ok(substitutes);
     }
 }
