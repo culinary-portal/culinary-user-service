@@ -1,5 +1,7 @@
 package com.culinary.userservice.ingredient.controller;
 
+import com.culinary.userservice.ingredient.dto.specific.GetSpecificDTO;
+import com.culinary.userservice.ingredient.dto.specific.PutSpecificDTO;
 import com.culinary.userservice.ingredient.dto.specific.SpecificDTO;
 import com.culinary.userservice.ingredient.service.SpecificService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -36,7 +38,7 @@ public class SpecificController {
     @Operation(summary = "Get a Specific by ID", responses = {
             @ApiResponse(responseCode = "200", description = "Found the Specific",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = SpecificDTO.class))),
+                            schema = @Schema(implementation = GetSpecificDTO.class))),
             @ApiResponse(responseCode = "404", description = "Specific not found")
     })
     @GetMapping("/{id}")
@@ -51,7 +53,7 @@ public class SpecificController {
                             schema = @Schema(implementation = SpecificDTO.class)))
     })
     @PostMapping
-    public ResponseEntity<SpecificDTO> createSpecific(@RequestBody @Parameter(description = "SpecificDTO object to create a new Specific") SpecificDTO specificDto) {
+    public ResponseEntity<SpecificDTO> createSpecific(@RequestBody @Parameter(description = "SpecificDTO object to create a new Specific") PutSpecificDTO specificDto) {
         SpecificDTO createdSpecific = specificService.save(specificDto);
         return ResponseEntity.ok(createdSpecific);
     }
@@ -62,7 +64,8 @@ public class SpecificController {
                             schema = @Schema(implementation = SpecificDTO.class)))
     })
     @PutMapping("/{id}")
-    public ResponseEntity<SpecificDTO> updateSpecific(@PathVariable @Parameter(description = "ID of the Specific to update") int id, @RequestBody @Parameter(description = "SpecificDTO object with updated data") SpecificDTO specificDto) {
+    public ResponseEntity<SpecificDTO> updateSpecific(@PathVariable @Parameter(description = "ID of the Specific to update") int id,
+                                                      @RequestBody @Parameter(description = "SpecificDTO object with updated data") PutSpecificDTO specificDto) {
         SpecificDTO updatedSpecific = specificService.update(id, specificDto);
         return ResponseEntity.ok(updatedSpecific);
     }

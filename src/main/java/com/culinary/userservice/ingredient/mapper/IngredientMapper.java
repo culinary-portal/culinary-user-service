@@ -40,4 +40,5 @@ public class IngredientMapper {
                 .isGlutenFree(ingredient.getIsGlutenFree())
                 .build();
     }
+
 }

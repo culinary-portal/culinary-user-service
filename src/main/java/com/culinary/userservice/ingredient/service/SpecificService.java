@@ -1,5 +1,6 @@
 package com.culinary.userservice.ingredient.service;
 
+import com.culinary.userservice.ingredient.dto.specific.PutSpecificDTO;
 import com.culinary.userservice.ingredient.dto.specific.SpecificDTO;
 import com.culinary.userservice.ingredient.mapper.SpecificMapper;
 import com.culinary.userservice.ingredient.model.Specific;
@@ -37,7 +38,7 @@ public class SpecificService {
     }
 
     @Transactional
-    public SpecificDTO save(SpecificDTO specificDto) {
+    public SpecificDTO save(PutSpecificDTO specificDto) {
         Specific specific = SpecificMapper.toEntity(
                 specificDto,
                 userRepository.findById(specificDto.getUserId()).orElseThrow(() -> new NotFoundException("User not found")),
@@ -48,7 +49,7 @@ public class SpecificService {
     }
 
     @Transactional
-    public SpecificDTO update(int id, SpecificDTO specificDto) {
+    public SpecificDTO update(int id, PutSpecificDTO specificDto) {
         Specific specific = specificRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Specific not found"));
         specific.setLikes(specificDto.getLikes());

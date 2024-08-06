@@ -52,7 +52,7 @@ public class DietTypeService {
     }
 
     public DietType getDietTypeEntityByType(String dietType) {
-        return dietTypeRepository.findDietTypeByDietType(dietType.toLowerCase())
+        return dietTypeRepository.findDietTypeByDietTypeIgnoreCase(dietType)
                 .orElseThrow(() -> new NotFoundException("Diet type not found"));
     }
 }

@@ -1,6 +1,6 @@
 package com.culinary.userservice.recipe.dto.general;
 
-import com.culinary.userservice.recipe.dto.recipe.PutRecipeDTO;
+import com.culinary.userservice.recipe.dto.recipe.GetRecipeDTO;
 import com.culinary.userservice.recipe.dto.recipe.RecipeDTO;
 import com.culinary.userservice.recipe.dto.review.ReviewDTO;
 import lombok.AllArgsConstructor;
@@ -14,13 +14,13 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class GeneralRecipeDTO {
+public class GetGeneralRecipeDTO {
     private long generalRecipeId;
     private String name;
     private String photoUrl;
     private String mealType;
     private String description;
-    private PutRecipeDTO baseRecipe;
+    private GetRecipeDTO baseRecipe;
     private List<ReviewDTO> reviews;
     private List<RecipeDTO> recipes;
     private Double rating;

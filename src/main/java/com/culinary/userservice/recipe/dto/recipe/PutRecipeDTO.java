@@ -12,8 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class RecipeContainsDTO {
-    private int recipeId;
+public class PutRecipeDTO {
     private String name;
     private String description;
     private String dietType;

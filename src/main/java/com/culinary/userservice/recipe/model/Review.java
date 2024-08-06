@@ -30,4 +30,13 @@ public class Review {
     @Basic
     @Column(name = "opinion")
     private String opinion;
+
+    @Override
+    public String toString() {
+        return "Review{" +
+                "reviewId=" + reviewId +
+                ", opinion='" + opinion + '\'' +
+                ", rating=" + rating +
+                '}';
+    }
 }

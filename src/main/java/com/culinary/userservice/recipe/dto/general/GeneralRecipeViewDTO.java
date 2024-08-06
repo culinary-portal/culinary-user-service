@@ -13,9 +13,6 @@ public class GeneralRecipeViewDTO {
     private long generalRecipeId;
     private String name;
     private String photoUrl;
-    private Boolean isBreakfast;
-    private Boolean isDinner;
-    private Boolean isLunch;
-    private Boolean isSupper;
+    private String mealType;
     private String description;
 }

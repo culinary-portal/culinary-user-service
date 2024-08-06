@@ -1,6 +1,6 @@
 package com.culinary.userservice.recipe.controller;
 
-import com.culinary.userservice.recipe.dto.recipe.RecipeContainsDTO;
+import com.culinary.userservice.recipe.dto.recipe.PutRecipeDTO;
 import com.culinary.userservice.recipe.dto.recipe.RecipeDTO;
 import com.culinary.userservice.recipe.dto.recipe.RecipeDetailsDTO;
 import com.culinary.userservice.recipe.service.RecipeService;
@@ -18,14 +18,14 @@ public class RecipeController {
     private final RecipeService recipeService;
 
     @PostMapping
-    public ResponseEntity<RecipeDTO> createRecipe(@RequestBody RecipeContainsDTO recipeContainsDTO) {
+    public ResponseEntity<RecipeDTO> createRecipe(@RequestBody PutRecipeDTO recipeContainsDTO) {
         RecipeDTO createdRecipe = recipeService.createRecipe(recipeContainsDTO);
         return ResponseEntity.ok(createdRecipe);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<RecipeDTO> updateRecipe(@PathVariable int id, @RequestBody RecipeContainsDTO recipeContainsDTO) {
-        RecipeDTO updatedRecipe = recipeService.updateRecipe(id, recipeContainsDTO);
+    public ResponseEntity<RecipeDTO> updateRecipe(@PathVariable int id, @RequestBody PutRecipeDTO recipeContainsDTO) {
+        RecipeDTO updatedRecipe = recipeService.updateRecipeDTO(id, recipeContainsDTO);
         return ResponseEntity.ok(updatedRecipe);
     }
 

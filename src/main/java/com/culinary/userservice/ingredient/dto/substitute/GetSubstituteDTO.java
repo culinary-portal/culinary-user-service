@@ -1,4 +1,4 @@
-package com.culinary.userservice.ingredient.dto.specific;
+package com.culinary.userservice.ingredient.dto.substitute;
 
 import com.culinary.userservice.ingredient.dto.ingredient.IngredientDTO;
 import lombok.AllArgsConstructor;
@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class SpecificDetailsDTO {
-    private int specificId;
-    private long userId;
-    private IngredientDTO ingredient;
-    private Boolean likes;
+public class GetSubstituteDTO {
+    private int substituteId;
+    private IngredientDTO ingredient1;
+    private IngredientDTO ingredient2;
+    private Float proportionI1I2;
 }
