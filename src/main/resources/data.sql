@@ -3,22 +3,29 @@ VALUES ('Vegetarian'),
        ('Low-Carb'),
        ('Keto');
 
-INSERT INTO general_recipe (name,photo_url,  is_breakfast, is_dinner, is_lunch, is_supper, description)
-VALUES ('Pancakes', 'http://example.com/pancakes.jpg',TRUE, FALSE, TRUE, FALSE, 'Fluffy pancakes with maple syrup'),
-       ('Chicken Salad', 'http://example.com/chicken.jpg',FALSE, TRUE, TRUE, FALSE, 'Chicken salad with lettuce and dressing'),
-       ('Steak Dinner', 'http://example.com/steak.jpg',FALSE, TRUE, FALSE, TRUE, 'Juicy grilled steak with herbs');
+INSERT INTO general_recipe (name, photo_url, meal_type, description)
+VALUES ('Pancakes', 'http://example.com/pancakes.jpg', 'BREAKFAST', 'Fluffy pancakes with maple syrup'),
+       ('Chicken Salad', 'http://example.com/chicken.jpg', 'LUNCH', 'Chicken salad with lettuce and dressing'),
+       ('Steak Dinner', 'http://example.com/steak.jpg', 'DINNER', 'Juicy grilled steak with herbs');
 
-INSERT INTO user (user_name, email, password, birthdate, create_date, photo_url, account_enabled, account_expired, account_locked, credentials_expired)
-VALUES ('JohnDoe', 'john.doe@example.com', 'password123', '1990-05-15', NOW(), 'http://example.com/user.jpg', TRUE, FALSE, FALSE, FALSE),
-       ('JaneSmith', 'jane.smith@example.com', 'securePass!', '1985-10-20', NOW(), 'http://example.com/user.jpg', TRUE, FALSE, FALSE, FALSE),
-       ('AliceJones', 'alice.jones@example.com', 'alice1234', '1995-07-08', NOW(), 'http://example.com/user.jpg', TRUE, FALSE, FALSE, FALSE);
+INSERT INTO user (user_name, email, password, birthdate, create_date, photo_url, account_enabled, account_expired,
+                  account_locked, credentials_expired)
+VALUES ('JohnDoe', 'john.doe@example.com', 'password123', '1990-05-15', NOW(), 'http://example.com/user.jpg', TRUE,
+        FALSE, FALSE, FALSE),
+       ('JaneSmith', 'jane.smith@example.com', 'securePass!', '1985-10-20', NOW(), 'http://example.com/user.jpg', TRUE,
+        FALSE, FALSE, FALSE),
+       ('AliceJones', 'alice.jones@example.com', 'alice1234', '1995-07-08', NOW(), 'http://example.com/user.jpg', TRUE,
+        FALSE, FALSE, FALSE);
 
 INSERT INTO user_diet_type (user_id, diet_type_id)
-VALUES
-    ((SELECT user_id FROM user WHERE user_name = 'JohnDoe'), (SELECT diet_type_id FROM diet_type WHERE diet_type = 'Low-Carb')),
-    ((SELECT user_id FROM user WHERE user_name = 'JaneSmith'), (SELECT diet_type_id FROM diet_type WHERE diet_type = 'Vegetarian')),
-    ((SELECT user_id FROM user WHERE user_name = 'JaneSmith'), (SELECT diet_type_id FROM diet_type WHERE diet_type = 'Keto')),
-    ((SELECT user_id FROM user WHERE user_name = 'AliceJones'), (SELECT diet_type_id FROM diet_type WHERE diet_type = 'Vegetarian'));
+VALUES ((SELECT user_id FROM user WHERE user_name = 'JohnDoe'),
+        (SELECT diet_type_id FROM diet_type WHERE diet_type = 'Low-Carb')),
+       ((SELECT user_id FROM user WHERE user_name = 'JaneSmith'),
+        (SELECT diet_type_id FROM diet_type WHERE diet_type = 'Vegetarian')),
+       ((SELECT user_id FROM user WHERE user_name = 'JaneSmith'),
+        (SELECT diet_type_id FROM diet_type WHERE diet_type = 'Keto')),
+       ((SELECT user_id FROM user WHERE user_name = 'AliceJones'),
+        (SELECT diet_type_id FROM diet_type WHERE diet_type = 'Vegetarian'));
 
 INSERT INTO roles (user_id, role)
 VALUES (1, 'USER'),
@@ -31,7 +38,7 @@ VALUES ('Butter', 81.0, 0.85, 0.06, 717, FALSE, TRUE),
        ('Lettuce', 0.2, 1.4, 2.9, 15, TRUE, TRUE);
 
 INSERT INTO recipe (general_recipe_id, name, description, diet_type_id)
-VALUES (1, 'Pancakes with Syrup',  'Fluffy pancakes with maple syrup', 1),
+VALUES (1, 'Pancakes with Syrup', 'Fluffy pancakes with maple syrup', 1),
        (2, 'Classic Chicken Salad', 'Chicken salad with lettuce and dressing', 2),
        (3, 'Grilled Steak', 'Juicy grilled steak with herbs', 3);
 
@@ -64,4 +71,19 @@ INSERT INTO specific (user_id, id_ingredient, likes)
 VALUES (1, 1, TRUE),
        (2, 2, FALSE),
        (3, 3, TRUE);
+
+
+UPDATE general_recipe
+SET base_recipe_id = 1
+WHERE general_recipe_id = 1;
+
+
+UPDATE general_recipe
+SET base_recipe_id = 2
+WHERE general_recipe_id = 2;
+
+
+UPDATE general_recipe
+SET base_recipe_id = 3
+WHERE general_recipe_id = 3;
 
