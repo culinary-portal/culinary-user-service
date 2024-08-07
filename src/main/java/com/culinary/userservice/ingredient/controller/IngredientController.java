@@ -1,6 +1,7 @@
 package com.culinary.userservice.ingredient.controller;
 
 import com.culinary.userservice.ingredient.dto.ingredient.IngredientDTO;
+import com.culinary.userservice.ingredient.dto.ingredient.PutIngredientDTO;
 import com.culinary.userservice.ingredient.service.IngredientService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -48,7 +49,7 @@ public class IngredientController {
                             schema = @Schema(implementation = IngredientDTO.class)))
     })
     @PostMapping
-    public ResponseEntity<IngredientDTO> createIngredient(@RequestBody IngredientDTO ingredientDto) {
+    public ResponseEntity<IngredientDTO> createIngredient(@RequestBody PutIngredientDTO ingredientDto) {
         IngredientDTO createdIngredient = ingredientService.save(ingredientDto);
         return ResponseEntity.ok(createdIngredient);
     }
@@ -59,7 +60,7 @@ public class IngredientController {
                             schema = @Schema(implementation = IngredientDTO.class)))
     })
     @PutMapping("/{id}")
-    public ResponseEntity<IngredientDTO> updateIngredient(@PathVariable int id, @RequestBody IngredientDTO ingredientDto) {
+    public ResponseEntity<IngredientDTO> updateIngredient(@PathVariable int id, @RequestBody PutIngredientDTO ingredientDto) {
         IngredientDTO updatedIngredient = ingredientService.update(id, ingredientDto);
         return ResponseEntity.ok(updatedIngredient);
     }
