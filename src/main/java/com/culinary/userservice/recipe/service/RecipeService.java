@@ -135,4 +135,16 @@ public class RecipeService {
                 .map(RecipeMapper::toRecipeContainsDTO)
                 .collect(Collectors.toSet());
     }
+
+    public Set<PutRecipeDTO> deleteModification(long userId, int recipeId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("User not found"));
+        Recipe recipe = recipeRepository.findById(recipeId)
+                .orElseThrow(() -> new NotFoundException("Recipe not found"));
+        user.getModifiedRecipes().remove(recipe);
+        userRepository.save(user);
+
+        return user.getModifiedRecipes().stream()
+                .map(RecipeMapper::toRecipeContainsDTO)
+                .collect(Collectors.toSet());
+    }
 }
