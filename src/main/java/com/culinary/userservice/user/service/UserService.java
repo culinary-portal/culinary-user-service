@@ -1,11 +1,9 @@
 package com.culinary.userservice.user.service;
 
 import com.culinary.userservice.recipe.dto.general.GeneralRecipeViewDTO;
-import com.culinary.userservice.recipe.dto.recipe.PutRecipeDTO;
 import com.culinary.userservice.recipe.dto.type.DietTypeDTO;
 import com.culinary.userservice.recipe.mapper.DietTypeMapper;
 import com.culinary.userservice.recipe.mapper.GeneralRecipeMapper;
-import com.culinary.userservice.recipe.mapper.RecipeMapper;
 import com.culinary.userservice.recipe.service.DietTypeService;
 import com.culinary.userservice.recipe.service.GeneralRecipeService;
 import com.culinary.userservice.user.dto.UserDetailsDTO;
@@ -31,6 +29,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final GeneralRecipeService generalRecipeService;
     private final DietTypeService dietTypeService;
+
 
     public User getLoggedUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -78,14 +77,6 @@ public class UserService {
                 .collect(Collectors.toSet());
     }
 
-    @Transactional(readOnly = true)
-    public Set<PutRecipeDTO> getModifications(long userId) {
-        User user = getUserEntityById(userId);
-        return user.getModifiedRecipes().stream()
-                .map(RecipeMapper::toRecipeContainsDTO)
-                .collect(Collectors.toSet());
-    }
-
     private User getUserEntityById(long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User not found with id " + userId));
@@ -113,6 +104,26 @@ public class UserService {
     public Set<DietTypeDTO> addFavoriteDiet(long userId, int dietId) {
         User user = getUserEntityById(userId);
         user.getPreferredDiets().add(dietTypeService.getDietTypeEntityById(dietId));
+        userRepository.save(user);
+
+        return user.getPreferredDiets().stream()
+                .map(DietTypeMapper::toDto)
+                .collect(Collectors.toSet());
+    }
+
+    public Set<GeneralRecipeViewDTO> deleteFavoriteRecipe(long userId, int recipeId) {
+        User user = getUserEntityById(userId);
+        user.getFavoriteRecipes().remove(generalRecipeService.getGeneralRecipeEntityById(recipeId));
+        userRepository.save(user);
+
+        return user.getFavoriteRecipes().stream()
+                .map(GeneralRecipeMapper::toGeneralRecipeViewDTO)
+                .collect(Collectors.toSet());
+    }
+
+    public Set<DietTypeDTO> deleteFavoriteDiet(long userId, int dietId) {
+        User user = getUserEntityById(userId);
+        user.getPreferredDiets().remove(dietTypeService.getDietTypeEntityById(dietId));
         userRepository.save(user);
 
         return user.getPreferredDiets().stream()

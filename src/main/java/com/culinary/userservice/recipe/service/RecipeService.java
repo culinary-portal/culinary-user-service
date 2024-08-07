@@ -20,6 +20,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -111,5 +113,26 @@ public class RecipeService {
         return recipeRepository.findAll().stream()
                 .map(RecipeMapper::toDto)
                 .collect(toList());
+    }
+
+    @Transactional(readOnly = true)
+    public Set<PutRecipeDTO> getModifications(long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("User not found"));
+        return user.getModifiedRecipes().stream()
+                .map(RecipeMapper::toRecipeContainsDTO)
+                .collect(Collectors.toSet());
+    }
+
+    public Set<PutRecipeDTO> addModification(long userId, PutRecipeDTO dto) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("User not found"));
+        GeneralRecipe generalRecipe = generalRecipeRepository.findById(dto.getGeneralRecipeId())
+                .orElseThrow(() -> new NotFoundException("GeneralRecipe not found"));
+        Recipe recipe = createRecipeEntity(dto, generalRecipe);
+        user.getModifiedRecipes().add(recipe);
+        userRepository.save(user);
+
+        return user.getModifiedRecipes().stream()
+                .map(RecipeMapper::toRecipeContainsDTO)
+                .collect(Collectors.toSet());
     }
 }

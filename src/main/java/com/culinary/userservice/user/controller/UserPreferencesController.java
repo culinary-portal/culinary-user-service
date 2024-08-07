@@ -2,7 +2,6 @@ package com.culinary.userservice.user.controller;
 
 
 import com.culinary.userservice.recipe.dto.general.GeneralRecipeViewDTO;
-import com.culinary.userservice.recipe.dto.recipe.PutRecipeDTO;
 import com.culinary.userservice.recipe.dto.type.DietTypeDTO;
 import com.culinary.userservice.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -29,12 +28,6 @@ public class UserPreferencesController {
         return ResponseEntity.ok(favoriteDiets);
     }
 
-    @GetMapping("/{userId}/modifications")
-    public ResponseEntity<Set<PutRecipeDTO>> getModifications(@PathVariable long userId) {
-        Set<PutRecipeDTO> modifications = userService.getModifications(userId);
-        return ResponseEntity.ok(modifications);
-    }
-
     @PostMapping("/{userId}/favorite-recipes/{recipeId}")
     public ResponseEntity<Set<GeneralRecipeViewDTO>> addFavoriteRecipe(@PathVariable long userId, @PathVariable int recipeId) {
         Set<GeneralRecipeViewDTO> favoriteRecipes = userService.addFavoriteRecipe(userId, recipeId);
@@ -47,4 +40,15 @@ public class UserPreferencesController {
         return ResponseEntity.ok(favoriteDiets);
     }
 
+    @DeleteMapping("/{userId}/favorite-recipes/{recipeId}")
+    public ResponseEntity<Set<GeneralRecipeViewDTO>> deleteFavoriteRecipe(@PathVariable long userId, @PathVariable int recipeId) {
+        Set<GeneralRecipeViewDTO> favoriteRecipes = userService.deleteFavoriteRecipe(userId, recipeId);
+        return ResponseEntity.ok(favoriteRecipes);
+    }
+
+    @DeleteMapping("/{userId}/favorite-diets/{dietId}")
+    public ResponseEntity<Set<DietTypeDTO>> deleteFavoriteDiet(@PathVariable long userId, @PathVariable int dietId) {
+        Set<DietTypeDTO> favoriteDiets = userService.deleteFavoriteDiet(userId, dietId);
+        return ResponseEntity.ok(favoriteDiets);
+    }
 }

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
@@ -16,6 +17,7 @@ import java.util.List;
 public class RecipeController {
 
     private final RecipeService recipeService;
+
 
     @PostMapping
     public ResponseEntity<RecipeDTO> createRecipe(@RequestBody PutRecipeDTO recipeContainsDTO) {
@@ -45,5 +47,17 @@ public class RecipeController {
     public ResponseEntity<List<RecipeDTO>> getAllRecipes() {
         List<RecipeDTO> recipes = recipeService.getAllRecipes();
         return ResponseEntity.ok(recipes);
+    }
+
+    @GetMapping("/{userId}/modifications")
+    public ResponseEntity<Set<PutRecipeDTO>> getModifications(@PathVariable long userId) {
+        Set<PutRecipeDTO> modifications = recipeService.getModifications(userId);
+        return ResponseEntity.ok(modifications);
+    }
+
+    @PostMapping("/{userId}/modifications")
+    public ResponseEntity<Set<PutRecipeDTO>> addModification(@PathVariable long userId, @RequestBody PutRecipeDTO recipeContainsDTO) {
+        Set<PutRecipeDTO> modifications = recipeService.addModification(userId, recipeContainsDTO);
+        return ResponseEntity.ok(modifications);
     }
 }
