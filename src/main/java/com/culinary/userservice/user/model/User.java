@@ -1,13 +1,14 @@
 package com.culinary.userservice.user.model;
 
-
 import com.culinary.userservice.ingredient.model.Specific;
 import com.culinary.userservice.recipe.model.DietType;
 import com.culinary.userservice.recipe.model.GeneralRecipe;
 import com.culinary.userservice.recipe.model.Recipe;
 import com.culinary.userservice.recipe.model.Review;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,18 +17,17 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static jakarta.persistence.CascadeType.*;
 import static jakarta.persistence.FetchType.EAGER;
+import static jakarta.persistence.FetchType.LAZY;
 
 @Table(name = "user")
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 public class User implements Serializable {
@@ -77,16 +77,17 @@ public class User implements Serializable {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "general_recipe_id")
     )
+    @JsonManagedReference
     private Set<GeneralRecipe> favoriteRecipes = new HashSet<>();
 
-    @ManyToMany
+    @ManyToMany(fetch = LAZY)
     @JoinTable(
             name = "modified_recipe",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "recipe_id")
     )
+    @JsonManagedReference
     private Set<Recipe> modifiedRecipes = new HashSet<>();
-
 
     public void addRole(Role role) {
         this.roles.add(role);
@@ -101,4 +102,39 @@ public class User implements Serializable {
                 .collect(Collectors.toSet());
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "createDate=" + createDate +
+                ", birthdate=" + birthdate +
+                ", locked=" + locked +
+                ", accountNonExpired=" + accountNonExpired +
+                ", credentialsNonExpired=" + credentialsNonExpired +
+                ", enabled=" + enabled +
+                ", photoUrl='" + photoUrl + '\'' +
+                ", password='" + password + '\'' +
+                ", userName='" + userName + '\'' +
+                ", email='" + email + '\'' +
+                ", id=" + id +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return enabled == user.enabled && credentialsNonExpired == user.credentialsNonExpired
+                && accountNonExpired == user.accountNonExpired && locked == user.locked
+                && Objects.equals(id, user.id) && Objects.equals(email, user.email)
+                && Objects.equals(userName, user.userName) && Objects.equals(password, user.password)
+                && Objects.equals(photoUrl, user.photoUrl) && Objects.equals(birthdate, user.birthdate)
+                && Objects.equals(createDate, user.createDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, email, userName, password, photoUrl, enabled,
+                credentialsNonExpired, accountNonExpired, locked, birthdate, createDate);
+    }
 }

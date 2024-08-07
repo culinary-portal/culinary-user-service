@@ -1,12 +1,15 @@
 package com.culinary.userservice.ingredient.service;
 
+import com.culinary.userservice.ingredient.dto.specific.GetSpecificDTO;
+import com.culinary.userservice.ingredient.dto.specific.PutSpecificDTO;
 import com.culinary.userservice.ingredient.dto.specific.SpecificDTO;
 import com.culinary.userservice.ingredient.mapper.SpecificMapper;
 import com.culinary.userservice.ingredient.model.Specific;
 import com.culinary.userservice.ingredient.repository.IngredientRepository;
 import com.culinary.userservice.ingredient.repository.SpecificRepository;
 import com.culinary.userservice.user.exception.NotFoundException;
-import com.culinary.userservice.user.repository.UserRepository;
+import com.culinary.userservice.user.model.User;
+import com.culinary.userservice.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +22,7 @@ import java.util.stream.Collectors;
 public class SpecificService {
 
     private final SpecificRepository specificRepository;
-    private final UserRepository userRepository;
+    private final UserService userService;
     private final IngredientRepository ingredientRepository;
 
     @Transactional(readOnly = true)
@@ -37,10 +40,10 @@ public class SpecificService {
     }
 
     @Transactional
-    public SpecificDTO save(SpecificDTO specificDto) {
+    public SpecificDTO save(PutSpecificDTO specificDto) {
         Specific specific = SpecificMapper.toEntity(
                 specificDto,
-                userRepository.findById(specificDto.getUserId()).orElseThrow(() -> new NotFoundException("User not found")),
+                userService.getUserEntityById(specificDto.getUserId()),
                 ingredientRepository.findById(specificDto.getIngredientId()).orElseThrow(() -> new NotFoundException("Ingredient not found"))
         );
         Specific savedSpecific = specificRepository.save(specific);
@@ -48,7 +51,7 @@ public class SpecificService {
     }
 
     @Transactional
-    public SpecificDTO update(int id, SpecificDTO specificDto) {
+    public SpecificDTO update(int id, PutSpecificDTO specificDto) {
         Specific specific = specificRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Specific not found"));
         specific.setLikes(specificDto.getLikes());
@@ -59,5 +62,12 @@ public class SpecificService {
     @Transactional
     public void delete(int id) {
         specificRepository.deleteById(id);
+    }
+
+    @Transactional(readOnly = true)
+    public List<GetSpecificDTO> getDislikedIngredients(long userId) {
+        User user = userService.getUserEntityById(userId);
+        return user.getSpecifics().stream()
+                .map(SpecificMapper::toDetailsDto).filter(e -> !e.getLikes()).toList();
     }
 }

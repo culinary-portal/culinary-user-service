@@ -29,4 +29,12 @@ public class DietType {
     private List<Recipe> recipes;
     @ManyToMany(mappedBy = "preferredDiets")
     private Set<User> users = new HashSet<>();
+
+    @Override
+    public String toString() {
+        return "DietType{" +
+                "dietType='" + dietType + '\'' +
+                ", dietTypeId=" + dietTypeId +
+                '}';
+    }
 }

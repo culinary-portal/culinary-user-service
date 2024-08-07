@@ -30,4 +30,13 @@ public class Contains {
     @ManyToOne
     @JoinColumn(name = "ingredient_id")
     private Ingredient ingredient;
+
+    @Override
+    public String toString() {
+        return "Contains{" +
+                "amount=" + amount +
+                ", measure='" + measure + '\'' +
+                ", containsId=" + containsId +
+                '}';
+    }
 }

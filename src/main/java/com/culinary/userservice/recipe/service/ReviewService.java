@@ -1,10 +1,11 @@
 package com.culinary.userservice.recipe.service;
 
+import com.culinary.userservice.recipe.dto.review.PutReviewDTO;
 import com.culinary.userservice.recipe.dto.review.ReviewDTO;
-import com.culinary.userservice.recipe.dto.review.UpdateReviewDTO;
 import com.culinary.userservice.recipe.mapper.ReviewMapper;
 import com.culinary.userservice.recipe.model.Review;
 import com.culinary.userservice.recipe.repository.ReviewRepository;
+import com.culinary.userservice.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,21 +18,22 @@ import java.util.stream.Collectors;
 public class ReviewService {
 
     private final ReviewRepository reviewRepository;
+    private final UserService userService;
+    private final GeneralRecipeService generalRecipeService;
 
     @Transactional
     public ReviewDTO createReview(ReviewDTO reviewDTO) {
         Review review = new Review();
-//        review.setTitle(reviewDTO.getTitle());
-//        review.setContent(reviewDTO.getContent());
+        review.setOpinion(reviewDTO.getOpinion());
+        review.setUser(userService.getUserEntityById(reviewDTO.getUserId()));
         review.setRating(reviewDTO.getRating());
-        // Set other fields as necessary
-
+        review.setGeneralRecipe(generalRecipeService.getGeneralRecipeEntityById((int) reviewDTO.getRecipeId()));
         Review savedReview = reviewRepository.save(review);
         return ReviewMapper.toDto(savedReview);
     }
 
     @Transactional
-    public ReviewDTO updateReview(int id, UpdateReviewDTO dto) {
+    public ReviewDTO updateReview(int id, PutReviewDTO dto) {
         Review review = reviewRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Review not found"));
 

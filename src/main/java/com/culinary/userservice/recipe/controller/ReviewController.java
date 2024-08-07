@@ -1,7 +1,7 @@
 package com.culinary.userservice.recipe.controller;
 
+import com.culinary.userservice.recipe.dto.review.PutReviewDTO;
 import com.culinary.userservice.recipe.dto.review.ReviewDTO;
-import com.culinary.userservice.recipe.dto.review.UpdateReviewDTO;
 import com.culinary.userservice.recipe.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +23,7 @@ public class ReviewController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ReviewDTO> updateReview(@PathVariable int id, @RequestBody UpdateReviewDTO updateReviewDTO) {
+    public ResponseEntity<ReviewDTO> updateReview(@PathVariable int id, @RequestBody PutReviewDTO updateReviewDTO) {
         ReviewDTO updatedReview = reviewService.updateReview(id, updateReviewDTO);
         return ResponseEntity.ok(updatedReview);
     }

@@ -1,31 +1,31 @@
 package com.culinary.userservice.ingredient.mapper;
 
 import com.culinary.userservice.ingredient.dto.ingredient.IngredientDTO;
+import com.culinary.userservice.ingredient.dto.ingredient.PutIngredientDTO;
 import com.culinary.userservice.ingredient.model.Ingredient;
 
 public class IngredientMapper {
 
-    public static Ingredient toEntity(IngredientDTO ingredientDto) {
+    public static Ingredient toEntity(PutIngredientDTO dto) {
         return Ingredient.builder()
-                .ingredientId(ingredientDto.getIngredientId())
-                .name(ingredientDto.getName())
-                .fat(ingredientDto.getFat())
-                .protein(ingredientDto.getProtein())
-                .carbohydrate(ingredientDto.getCarbohydrate())
-                .kcal(ingredientDto.getKcal())
-                .isVegan(ingredientDto.getIsVegan())
-                .isGlutenFree(ingredientDto.getIsGlutenFree())
+                .name(dto.getName())
+                .fat(dto.getFat())
+                .protein(dto.getProtein())
+                .carbohydrate(dto.getCarbohydrate())
+                .kcal(dto.getKcal())
+                .isVegan(dto.getIsVegan())
+                .isGlutenFree(dto.getIsGlutenFree())
                 .build();
     }
 
-    public static void updateEntityFromDto(Ingredient ingredient, IngredientDTO ingredientDto) {
-        ingredient.setName(ingredientDto.getName());
-        ingredient.setFat(ingredientDto.getFat());
-        ingredient.setProtein(ingredientDto.getProtein());
-        ingredient.setCarbohydrate(ingredientDto.getCarbohydrate());
-        ingredient.setKcal(ingredientDto.getKcal());
-        ingredient.setIsVegan(ingredientDto.getIsVegan());
-        ingredient.setIsGlutenFree(ingredientDto.getIsGlutenFree());
+    public static void updateEntityFromDto(Ingredient entity, PutIngredientDTO dto) {
+        entity.setName(dto.getName());
+        entity.setFat(dto.getFat());
+        entity.setProtein(dto.getProtein());
+        entity.setCarbohydrate(dto.getCarbohydrate());
+        entity.setKcal(dto.getKcal());
+        entity.setIsVegan(dto.getIsVegan());
+        entity.setIsGlutenFree(dto.getIsGlutenFree());
     }
 
     public static IngredientDTO toDto(Ingredient ingredient) {
@@ -40,4 +40,5 @@ public class IngredientMapper {
                 .isGlutenFree(ingredient.getIsGlutenFree())
                 .build();
     }
+
 }

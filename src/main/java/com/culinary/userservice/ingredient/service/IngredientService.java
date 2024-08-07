@@ -1,6 +1,7 @@
 package com.culinary.userservice.ingredient.service;
 
 import com.culinary.userservice.ingredient.dto.ingredient.IngredientDTO;
+import com.culinary.userservice.ingredient.dto.ingredient.PutIngredientDTO;
 import com.culinary.userservice.ingredient.mapper.IngredientMapper;
 import com.culinary.userservice.ingredient.model.Ingredient;
 import com.culinary.userservice.ingredient.repository.IngredientRepository;
@@ -36,14 +37,14 @@ public class IngredientService {
     }
 
     @Transactional
-    public IngredientDTO save(IngredientDTO ingredientDto) {
+    public IngredientDTO save(PutIngredientDTO ingredientDto) {
         Ingredient ingredient = IngredientMapper.toEntity(ingredientDto);
         Ingredient savedIngredient = ingredientRepository.save(ingredient);
         return IngredientMapper.toDto(savedIngredient);
     }
 
     @Transactional
-    public IngredientDTO update(int id, IngredientDTO ingredientDto) {
+    public IngredientDTO update(int id, PutIngredientDTO ingredientDto) {
         Ingredient ingredient = ingredientRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Ingredient not found"));
         IngredientMapper.updateEntityFromDto(ingredient, ingredientDto);

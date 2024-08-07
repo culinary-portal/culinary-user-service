@@ -24,4 +24,13 @@ public class Specific {
     @Basic
     @Column(name = "likes")
     private Boolean likes;
+
+    @Override
+    public String toString() {
+        return "Specific{" +
+                "likes=" + likes +
+                ", ingredient=" + ingredient +
+                ", specificId=" + specificId +
+                '}';
+    }
 }

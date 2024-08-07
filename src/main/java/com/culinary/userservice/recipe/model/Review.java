@@ -2,12 +2,10 @@ package com.culinary.userservice.recipe.model;
 
 import com.culinary.userservice.user.model.User;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -30,4 +28,13 @@ public class Review {
     @Basic
     @Column(name = "opinion")
     private String opinion;
+
+    @Override
+    public String toString() {
+        return "Review{" +
+                "reviewId=" + reviewId +
+                ", opinion='" + opinion + '\'' +
+                ", rating=" + rating +
+                '}';
+    }
 }

@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -31,32 +32,58 @@ public class GeneralRecipe {
     @Column(name = "photo_url")
     private String photoUrl;
 
-    @Basic
-    @Column(name = "is_breakfast")
-    private Boolean isBreakfast;
-
-    @Basic
-    @Column(name = "is_dinner")
-    private Boolean isDinner;
-
-    @Basic
-    @Column(name = "is_lunch")
-    private Boolean isLunch;
-
-    @Basic
-    @Column(name = "is_supper")
-    private Boolean isSupper;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "meal_type", nullable = false)
+    private MealType mealType;
 
     @Lob
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "generalRecipe", fetch = FetchType.EAGER)
+    @Lob
+    @Column(name = "steps")
+    private String steps;
+
+    @OneToOne
+    @JoinColumn(name = "base_recipe_id", referencedColumnName = "recipe_id")
+    private Recipe baseRecipe;
+
+    @OneToMany(mappedBy = "generalRecipe", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private List<Recipe> recipes;
 
-    @OneToMany(mappedBy = "generalRecipe", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "generalRecipe", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Review> reviews;
 
     @ManyToMany(mappedBy = "favoriteRecipes")
     private Set<User> usersWhoFavorited = new HashSet<>();
+
+    @Override
+    public String toString() {
+        return "GeneralRecipe{" +
+                "description='" + description + '\'' +
+                ", mealType=" + mealType +
+                ", photoUrl='" + photoUrl + '\'' +
+                ", name='" + name + '\'' +
+                ", generalRecipeId=" + generalRecipeId +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GeneralRecipe that = (GeneralRecipe) o;
+        return Objects.equals(generalRecipeId, that.generalRecipeId) && Objects.equals(name, that.name)
+                && Objects.equals(photoUrl, that.photoUrl) && mealType == that.mealType
+                && Objects.equals(description, that.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(generalRecipeId, name, photoUrl, mealType, description);
+    }
+
+    public enum MealType {
+        BREAKFAST, LUNCH, DINNER, SUPPER, DESSERT
+    }
 }

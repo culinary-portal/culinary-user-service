@@ -54,4 +54,18 @@ public class Ingredient {
 
     @OneToMany(mappedBy = "ingredient")
     private List<Specific> specifics;
+
+    @Override
+    public String toString() {
+        return "Ingredient{" +
+                "isGlutenFree=" + isGlutenFree +
+                ", isVegan=" + isVegan +
+                ", kcal=" + kcal +
+                ", carbohydrate=" + carbohydrate +
+                ", protein=" + protein +
+                ", fat=" + fat +
+                ", name='" + name + '\'' +
+                ", ingredientId=" + ingredientId +
+                '}';
+    }
 }

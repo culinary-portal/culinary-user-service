@@ -1,7 +1,9 @@
 package com.culinary.userservice.recipe.mapper;
 
+import com.culinary.userservice.ingredient.mapper.IngredientMapper;
 import com.culinary.userservice.ingredient.model.Ingredient;
 import com.culinary.userservice.recipe.dto.contains.ContainsDTO;
+import com.culinary.userservice.recipe.dto.contains.GetContainsDTO;
 import com.culinary.userservice.recipe.model.Contains;
 import com.culinary.userservice.recipe.model.Recipe;
 
@@ -22,6 +24,15 @@ public class ContainsMapper {
                 .amount(contains.getAmount())
                 .recipeId(contains.getRecipe().getRecipeId())
                 .ingredientId(contains.getIngredient().getIngredientId())
+                .build();
+    }
+
+    public static GetContainsDTO toGetDTO(Contains entity) {
+        return GetContainsDTO.builder()
+                .amount(entity.getAmount())
+                .measure(entity.getMeasure())
+                .recipeId(entity.getRecipe().getRecipeId())
+                .ingredient(IngredientMapper.toDto(entity.getIngredient()))
                 .build();
     }
 }

@@ -3,14 +3,18 @@ diet_type_id SERIAL PRIMARY KEY,
 diet_type VARCHAR
 );
 
+DO $$ BEGIN
+CREATE TYPE meal_type AS ENUM ('BREAKFAST', 'LUNCH', 'DINNER', 'SUPPER', 'DESSERT');
+EXCEPTION
+    WHEN duplicate_object THEN null;
+END $$;
+
 CREATE TABLE IF NOT EXISTS general_recipe (
 general_recipe_id SERIAL PRIMARY KEY,
-name VARCHAR,
+name VARCHAR(100) NOT NULL,
 photo_url TEXT,
-is_breakfast BOOLEAN,
-is_dinner BOOLEAN,
-is_lunch BOOLEAN,
-is_supper BOOLEAN,
+steps TEXT,
+meal_type meal_type NOT NULL,
 description TEXT
 );
 
@@ -119,3 +123,7 @@ likes BOOLEAN,
 CONSTRAINT fk_specific_user FOREIGN KEY (user_id) REFERENCES user (user_id),
 CONSTRAINT fk_specific_ingredient FOREIGN KEY (id_ingredient) REFERENCES ingredient (ingredient_id)
 );
+
+
+ALTER TABLE general_recipe
+ADD CONSTRAINT fk_base_recipe FOREIGN KEY (base_recipe_id) REFERENCES recipe (recipe_id);

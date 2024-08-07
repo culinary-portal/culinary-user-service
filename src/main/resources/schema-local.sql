@@ -5,14 +5,14 @@ diet_type VARCHAR
 
 CREATE TABLE IF NOT EXISTS general_recipe (
 general_recipe_id SERIAL PRIMARY KEY,
-name VARCHAR,
+name VARCHAR(100) NOT NULL,
 photo_url TEXT,
-is_breakfast BOOLEAN,
-is_dinner BOOLEAN,
-is_lunch BOOLEAN,
-is_supper BOOLEAN,
-description CLOB
+meal_type VARCHAR(10) NOT NULL CHECK (meal_type IN ('BREAKFAST', 'LUNCH', 'DINNER', 'SUPPER', 'DESSERT')),
+description TEXT,
+steps TEXT,
+base_recipe_id INTEGER,
 );
+
 
 CREATE TABLE IF NOT EXISTS user (
 user_id SERIAL PRIMARY KEY,
@@ -121,3 +121,5 @@ CONSTRAINT fk_specific_user FOREIGN KEY (user_id) REFERENCES user (user_id),
 CONSTRAINT fk_specific_ingredient FOREIGN KEY (id_ingredient) REFERENCES ingredient (ingredient_id)
 );
 
+ALTER TABLE general_recipe
+ADD CONSTRAINT fk_base_recipe FOREIGN KEY (base_recipe_id) REFERENCES recipe (recipe_id);
