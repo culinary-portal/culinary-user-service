@@ -74,10 +74,15 @@ public class GeneralRecipeService {
                 .collect(toList());
     }
 
-    public List<GetGeneralRecipeDTO> getFilteredGeneralRecipes(Optional<String> mealType,
+    public List<GetGeneralRecipeDTO> getFilteredGeneralRecipes(Optional<String> name,
+                                                               Optional<String> mealType,
                                                                Optional<Integer> maxCalories,
                                                                Optional<String> dietType) {
-        List<GeneralRecipe> allRecipes = generalRecipeRepository.findAll();
+        List<GeneralRecipe> allRecipes;
+
+        if (name.isPresent()) allRecipes = generalRecipeRepository.findByNameRegex(name.get());
+        else allRecipes = generalRecipeRepository.findAll();
+
 
         Predicate<GeneralRecipe> combinedPredicate = recipe -> true;
 
@@ -101,9 +106,5 @@ public class GeneralRecipeService {
                 .filter(combinedPredicate)
                 .map(GeneralRecipeMapper::toGetDTO)
                 .collect(Collectors.toList());
-    }
-
-    public List<GetGeneralRecipeDTO> getGeneralRecipesByName(String name) {
-        return generalRecipeRepository.findByNameRegex(name).stream().map(GeneralRecipeMapper::toGetDTO).collect(toList());
     }
 }

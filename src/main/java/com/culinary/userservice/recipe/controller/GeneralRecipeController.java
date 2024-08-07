@@ -43,16 +43,11 @@ public class GeneralRecipeController {
 
     @GetMapping
     public ResponseEntity<List<GetGeneralRecipeDTO>> getGeneralRecipesByFiltered(
+            @RequestParam Optional<String> name,
             @RequestParam Optional<String> mealType,
             @RequestParam Optional<Integer> maxCalories,
             @RequestParam Optional<String> dietType) {
-        List<GetGeneralRecipeDTO> generalRecipes = generalRecipeService.getFilteredGeneralRecipes(mealType, maxCalories, dietType);
+        List<GetGeneralRecipeDTO> generalRecipes = generalRecipeService.getFilteredGeneralRecipes(name, mealType, maxCalories, dietType);
         return ResponseEntity.ok(generalRecipes);
-    }
-
-    @GetMapping("/name")
-    public ResponseEntity<List<GetGeneralRecipeDTO>> getGeneralRecipeByName(@RequestParam String name) {
-        List<GetGeneralRecipeDTO> recipes = generalRecipeService.getGeneralRecipesByName(name);
-        return ResponseEntity.ok(recipes);
     }
 }
