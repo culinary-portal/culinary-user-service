@@ -14,5 +14,6 @@ public class GeneralRecipeViewDTO {
     private String name;
     private String photoUrl;
     private String mealType;
+    private String steps;
     private String description;
 }

@@ -23,6 +23,7 @@ public class GetGeneralRecipeDTO {
     private GetRecipeDTO baseRecipe;
     private List<ReviewDTO> reviews;
     private List<RecipeDTO> recipes;
+    private String steps;
     private Double rating;
     private Integer calories;
     private Double protein;

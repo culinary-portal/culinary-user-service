@@ -40,6 +40,10 @@ public class GeneralRecipe {
     @Column(name = "description")
     private String description;
 
+    @Lob
+    @Column(name = "steps")
+    private String steps;
+
     @OneToOne
     @JoinColumn(name = "base_recipe_id", referencedColumnName = "recipe_id")
     private Recipe baseRecipe;

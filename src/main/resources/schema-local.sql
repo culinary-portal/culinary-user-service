@@ -9,6 +9,7 @@ name VARCHAR(100) NOT NULL,
 photo_url TEXT,
 meal_type VARCHAR(10) NOT NULL CHECK (meal_type IN ('BREAKFAST', 'LUNCH', 'DINNER', 'SUPPER', 'DESSERT')),
 description TEXT,
+steps TEXT,
 base_recipe_id INTEGER,
 );
 

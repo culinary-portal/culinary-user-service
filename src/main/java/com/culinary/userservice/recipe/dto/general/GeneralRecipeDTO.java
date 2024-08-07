@@ -20,6 +20,7 @@ public class GeneralRecipeDTO {
     private String photoUrl;
     private String mealType;
     private String description;
+    private String steps;
     private PutRecipeDTO baseRecipe;
     private List<ReviewDTO> reviews;
     private List<RecipeDTO> recipes;

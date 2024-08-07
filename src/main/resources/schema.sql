@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS general_recipe (
 general_recipe_id SERIAL PRIMARY KEY,
 name VARCHAR(100) NOT NULL,
 photo_url TEXT,
+steps TEXT,
 meal_type meal_type NOT NULL,
 description TEXT
 );

@@ -20,6 +20,7 @@ public class GeneralRecipeMapper {
         entity.setMealType(GeneralRecipe.MealType.valueOf(dto.getMealType().toUpperCase().trim()));
         entity.setPhotoUrl(dto.getPhotoUrl());
         entity.setDescription(dto.getDescription());
+        entity.setSteps(dto.getSteps());
         entity.setBaseRecipe(baseRecipe);
         entity.setReviews(new ArrayList<>());
         return entity;
@@ -31,6 +32,7 @@ public class GeneralRecipeMapper {
                 .name(entity.getName())
                 .mealType(entity.getMealType().name())
                 .photoUrl(entity.getPhotoUrl())
+                .steps(entity.getSteps())
                 .description(entity.getDescription())
                 .baseRecipe(RecipeMapper.toRecipeContainsDTO(entity.getBaseRecipe()))
                 .reviews(entity.getReviews().stream().map(ReviewMapper::toDto).collect(Collectors.toList()))
@@ -51,6 +53,7 @@ public class GeneralRecipeMapper {
                 .name(entity.getName())
                 .mealType(entity.getMealType().name())
                 .photoUrl(entity.getPhotoUrl())
+                .steps(entity.getSteps())
                 .description(entity.getDescription())
                 .baseRecipe(RecipeMapper.toGetRecipeDTO(entity.getBaseRecipe()))
                 .reviews(entity.getReviews().stream().map(ReviewMapper::toDto).collect(Collectors.toList()))
@@ -70,6 +73,7 @@ public class GeneralRecipeMapper {
                 .generalRecipeId(entity.getGeneralRecipeId())
                 .name(entity.getName())
                 .mealType(entity.getMealType().name())
+                .steps(entity.getSteps())
                 .photoUrl(entity.getPhotoUrl())
                 .description(entity.getDescription())
                 .build();

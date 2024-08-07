@@ -3,10 +3,10 @@ VALUES ('Vegetarian'),
        ('Low-Carb'),
        ('Keto');
 
-INSERT INTO general_recipe (name, photo_url, meal_type, description)
-VALUES ('Pancakes', 'http://example.com/pancakes.jpg', 'BREAKFAST', 'Fluffy pancakes with maple syrup'),
-       ('Chicken Salad', 'http://example.com/chicken.jpg', 'LUNCH', 'Chicken salad with lettuce and dressing'),
-       ('Steak Dinner', 'http://example.com/steak.jpg', 'DINNER', 'Juicy grilled steak with herbs');
+INSERT INTO general_recipe (name, photo_url, meal_type, description, steps)
+VALUES ('Pancakes', 'http://example.com/pancakes.jpg', 'BREAKFAST', 'Fluffy pancakes with maple syrup', '1. Mix flour, sugar, baking powder, and salt. 2. Add milk, egg, and butter. 3. Cook on a hot griddle.'),
+       ('Chicken Salad', 'http://example.com/chicken.jpg', 'LUNCH', 'Chicken salad with lettuce and dressing', '1. Grill chicken. 2. Mix with lettuce and dressing.'),
+       ('Steak Dinner', 'http://example.com/steak.jpg', 'DINNER', 'Juicy grilled steak with herbs', '1. Season steak. 2. Grill to desired doneness.');
 
 INSERT INTO user (user_name, email, password, birthdate, create_date, photo_url, account_enabled, account_expired,
                   account_locked, credentials_expired)

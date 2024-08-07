@@ -15,5 +15,6 @@ public class PutGeneralRecipeDTO {
     private String photoUrl;
     private String mealType;
     private String description;
+    private String steps;
     private PutRecipeDTO baseRecipe;
 }
