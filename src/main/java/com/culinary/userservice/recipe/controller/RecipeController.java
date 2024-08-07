@@ -60,4 +60,10 @@ public class RecipeController {
         Set<PutRecipeDTO> modifications = recipeService.addModification(userId, recipeContainsDTO);
         return ResponseEntity.ok(modifications);
     }
+
+    @DeleteMapping("/{userId}/modifications/{recipeId}")
+    public ResponseEntity<Set<PutRecipeDTO>> deleteModification(@PathVariable long userId, @PathVariable int recipeId) {
+        Set<PutRecipeDTO> modifications = recipeService.deleteModification(userId, recipeId);
+        return ResponseEntity.ok(modifications);
+    }
 }
