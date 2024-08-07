@@ -39,10 +39,15 @@ public class DietTypeService {
         dietTypeRepository.deleteById(id);
     }
 
+    @Transactional
     public DietTypeDTO getDietTypeById(int id) {
-        DietType dietType = dietTypeRepository.findById(id)
+        return DietTypeMapper.toDto(getDietTypeEntityById(id));
+    }
+
+    @Transactional
+    public DietType getDietTypeEntityById(int id) {
+        return dietTypeRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("DietType not found"));
-        return DietTypeMapper.toDto(dietType);
     }
 
     public List<DietTypeDTO> getAllDietTypes() {

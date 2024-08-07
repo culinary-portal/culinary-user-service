@@ -1,6 +1,5 @@
 package com.culinary.userservice.user.service;
 
-import com.culinary.userservice.recipe.repository.ReviewRepository;
 import com.culinary.userservice.user.model.User;
 import com.culinary.userservice.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

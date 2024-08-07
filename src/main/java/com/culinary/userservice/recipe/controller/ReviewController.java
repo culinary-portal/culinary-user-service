@@ -1,7 +1,7 @@
 package com.culinary.userservice.recipe.controller;
 
-import com.culinary.userservice.recipe.dto.review.ReviewDTO;
 import com.culinary.userservice.recipe.dto.review.PutReviewDTO;
+import com.culinary.userservice.recipe.dto.review.ReviewDTO;
 import com.culinary.userservice.recipe.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
