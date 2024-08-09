@@ -8,7 +8,7 @@ VALUES ('Pancakes', 'http://example.com/pancakes.jpg', 'BREAKFAST', 'Fluffy panc
        ('Chicken Salad', 'http://example.com/chicken.jpg', 'LUNCH', 'Chicken salad with lettuce and dressing', '1. Grill chicken. 2. Mix with lettuce and dressing.'),
        ('Steak Dinner', 'http://example.com/steak.jpg', 'DINNER', 'Juicy grilled steak with herbs', '1. Season steak. 2. Grill to desired doneness.');
 
-INSERT INTO user (user_name, email, password, birthdate, create_date, photo_url, account_enabled, account_expired,
+INSERT INTO "user" (user_name, email, password, birthdate, create_date, photo_url, account_enabled, account_expired,
                   account_locked, credentials_expired)
 VALUES ('JohnDoe', 'john.doe@example.com', 'password123', '1990-05-15', NOW(), 'http://example.com/user.jpg', TRUE,
         FALSE, FALSE, FALSE),
@@ -18,13 +18,13 @@ VALUES ('JohnDoe', 'john.doe@example.com', 'password123', '1990-05-15', NOW(), '
         FALSE, FALSE, FALSE);
 
 INSERT INTO user_diet_type (user_id, diet_type_id)
-VALUES ((SELECT user_id FROM user WHERE user_name = 'JohnDoe'),
+VALUES ((SELECT user_id FROM "user" WHERE user_name = 'JohnDoe'),
         (SELECT diet_type_id FROM diet_type WHERE diet_type = 'Low-Carb')),
-       ((SELECT user_id FROM user WHERE user_name = 'JaneSmith'),
+       ((SELECT user_id FROM "user" WHERE user_name = 'JaneSmith'),
         (SELECT diet_type_id FROM diet_type WHERE diet_type = 'Vegetarian')),
-       ((SELECT user_id FROM user WHERE user_name = 'JaneSmith'),
+       ((SELECT user_id FROM "user" WHERE user_name = 'JaneSmith'),
         (SELECT diet_type_id FROM diet_type WHERE diet_type = 'Keto')),
-       ((SELECT user_id FROM user WHERE user_name = 'AliceJones'),
+       ((SELECT user_id FROM "user" WHERE user_name = 'AliceJones'),
         (SELECT diet_type_id FROM diet_type WHERE diet_type = 'Vegetarian'));
 
 INSERT INTO roles (user_id, role)
