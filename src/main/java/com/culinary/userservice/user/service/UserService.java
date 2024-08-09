@@ -6,6 +6,7 @@ import com.culinary.userservice.recipe.mapper.DietTypeMapper;
 import com.culinary.userservice.recipe.mapper.GeneralRecipeMapper;
 import com.culinary.userservice.recipe.service.DietTypeService;
 import com.culinary.userservice.recipe.service.GeneralRecipeService;
+import com.culinary.userservice.user.dto.PutUserDTO;
 import com.culinary.userservice.user.dto.UserDetailsDTO;
 import com.culinary.userservice.user.dto.UserNoDetailsDTO;
 import com.culinary.userservice.user.exception.UserNotFoundException;
@@ -129,5 +130,12 @@ public class UserService {
         return user.getPreferredDiets().stream()
                 .map(DietTypeMapper::toDto)
                 .collect(Collectors.toSet());
+    }
+
+    public UserDetailsDTO updateUser(long userId, PutUserDTO dto) {
+        User user = getUserEntityById(userId);
+        UserMapper.updateUser(user, dto);
+        userRepository.save(user);
+        return UserMapper.toUserDetailsDTO(user);
     }
 }

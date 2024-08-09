@@ -1,6 +1,7 @@
 package com.culinary.userservice.user.mapper;
 
 import com.culinary.userservice.ingredient.mapper.SpecificMapper;
+import com.culinary.userservice.user.dto.PutUserDTO;
 import com.culinary.userservice.user.dto.UserDetailsDTO;
 import com.culinary.userservice.user.dto.UserNoDetailsDTO;
 import com.culinary.userservice.user.model.User;
@@ -35,5 +36,13 @@ public class UserMapper {
                         .map(SpecificMapper::toDetailsDto)
                         .collect(toSet()))
                 .build();
+    }
+
+    public static User updateUser(User user, PutUserDTO dto) {
+        user.setEmail(dto.getEmail());
+        user.setPhotoUrl(dto.getPhotoUrl());
+        user.setUserName(dto.getUserName());
+        user.setBirthdate(dto.getBirthdate());
+        return user;
     }
 }
