@@ -53,7 +53,7 @@ public class Recipe {
         return "Recipe{" +
                 "description='" + description + '\'' +
                 ", name='" + name + '\'' +
-                ", recipeId=" + recipeId +
+                ", generalRecipeId=" + recipeId +
                 '}';
     }
 

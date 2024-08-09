@@ -11,38 +11,37 @@ import static java.util.stream.Collectors.toSet;
 public class UserMapper {
 
     public static UserNoDetailsDTO toUserNoDetailsDTO(User user) {
-        return UserNoDetailsDTO.builder()
-                .userId(user.getId())
-                .name(user.getEmail())
-                .photoUrl(user.getPhotoUrl())
-                .build();
+        return new UserNoDetailsDTO(
+                user.getId(),
+                user.getEmail(),
+                user.getPhotoUrl()
+        );
     }
 
     public static UserDetailsDTO toUserDetailsDTO(User user) {
-        return UserDetailsDTO.builder()
-                .id(user.getId())
-                .email(user.getEmail())
-                .accountNonExpired(user.isAccountNonExpired())
-                .enabled(user.isEnabled())
-                .createDate(user.getCreateDate())
-                .locked(user.isLocked())
-                .credentialsNonExpired(user.isCredentialsNonExpired())
-                .birthdate(user.getBirthdate())
-                .userName(user.getUserName())
-                .photoUrl(user.getPhotoUrl())
-                .specifics(user
-                        .getSpecifics()
+        return new UserDetailsDTO(
+                user.getId(),
+                user.getEmail(),
+                user.getUserName(),
+                user.getPhotoUrl(),
+                user.isEnabled(),
+                user.isCredentialsNonExpired(),
+                user.isAccountNonExpired(),
+                user.isLocked(),
+                user.getBirthdate(),
+                user.getCreateDate(),
+                user.getSpecifics()
                         .stream()
                         .map(SpecificMapper::toDetailsDto)
-                        .collect(toSet()))
-                .build();
+                        .collect(toSet())
+        );
     }
 
     public static User updateUser(User user, PutUserDTO dto) {
-        user.setEmail(dto.getEmail());
-        user.setPhotoUrl(dto.getPhotoUrl());
-        user.setUserName(dto.getUserName());
-        user.setBirthdate(dto.getBirthdate());
+        user.setEmail(dto.email());
+        user.setPhotoUrl(dto.photoUrl());
+        user.setUserName(dto.userName());
+        user.setBirthdate(dto.birthdate());
         return user;
     }
 }

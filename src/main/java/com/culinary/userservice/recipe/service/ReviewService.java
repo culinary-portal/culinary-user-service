@@ -24,10 +24,10 @@ public class ReviewService {
     @Transactional
     public ReviewDTO createReview(ReviewDTO reviewDTO) {
         Review review = new Review();
-        review.setOpinion(reviewDTO.getOpinion());
-        review.setUser(userService.getUserEntityById(reviewDTO.getUserId()));
-        review.setRating(reviewDTO.getRating());
-        review.setGeneralRecipe(generalRecipeService.getGeneralRecipeEntityById((int) reviewDTO.getRecipeId()));
+        review.setOpinion(reviewDTO.opinion());
+        review.setUser(userService.getUserEntityById(reviewDTO.userId()));
+        review.setRating(reviewDTO.rating());
+        review.setGeneralRecipe(generalRecipeService.getGeneralRecipeEntityById((int) reviewDTO.generalRecipeId()));
         Review savedReview = reviewRepository.save(review);
         return ReviewMapper.toDto(savedReview);
     }
