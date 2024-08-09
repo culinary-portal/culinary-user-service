@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class ReviewDTO {
-    private int reviewId;
-    private Long userId;
+    private long reviewId;
+    private long userId;
     private long recipeId;
     private Integer rating;
     private String opinion;

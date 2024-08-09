@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class RecipeDTO {
-    private int recipeId;
+    private long recipeId;
     private String name;
     private String description;
     private String dietType;

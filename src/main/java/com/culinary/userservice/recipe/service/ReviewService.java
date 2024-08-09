@@ -33,7 +33,7 @@ public class ReviewService {
     }
 
     @Transactional
-    public ReviewDTO updateReview(int id, PutReviewDTO dto) {
+    public ReviewDTO updateReview(long id, PutReviewDTO dto) {
         Review review = reviewRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Review not found"));
 
@@ -44,12 +44,12 @@ public class ReviewService {
     }
 
     @Transactional
-    public void deleteReview(int id) {
+    public void deleteReview(long id) {
         reviewRepository.deleteById(id);
     }
 
     @Transactional
-    public ReviewDTO getReviewById(int id) {
+    public ReviewDTO getReviewById(long id) {
         Review review = reviewRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Review not found"));
         return ReviewMapper.toDto(review);

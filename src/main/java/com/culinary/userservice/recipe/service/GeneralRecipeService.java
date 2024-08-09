@@ -34,7 +34,7 @@ public class GeneralRecipeService {
     public GetGeneralRecipeDTO createGeneralRecipe(PutGeneralRecipeDTO dto) {
         GeneralRecipe entity = new GeneralRecipe();
 
-        Recipe baseRecipe = recipeService.createRecipe(dto.getBaseRecipe(), entity);
+        Recipe baseRecipe = recipeService.createRecipe(dto.baseRecipe(), entity);
 
         entity.setUsersWhoFavorited(new HashSet<>());
         entity.setRecipes(new ArrayList<>());
@@ -46,25 +46,25 @@ public class GeneralRecipeService {
         return GeneralRecipeMapper.toGetDTO(entity);
     }
 
-    public GetGeneralRecipeDTO updateGeneralRecipe(int id, PutGeneralRecipeDTO dto) {
+    public GetGeneralRecipeDTO updateGeneralRecipe(long id, PutGeneralRecipeDTO dto) {
         GeneralRecipe generalRecipe = generalRecipeRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("GeneralRecipe not found"));
         generalRecipe = updateEntity(generalRecipe, dto,
-                recipeService.updateRecipe(generalRecipe.getBaseRecipe().getRecipeId(), dto.getBaseRecipe()));
+                recipeService.updateRecipe(generalRecipe.getBaseRecipe().getRecipeId(), dto.baseRecipe()));
         generalRecipeRepository.save(generalRecipe);
         return GeneralRecipeMapper.toGetDTO(generalRecipe);
     }
 
-    public void deleteGeneralRecipe(int id) {
+    public void deleteGeneralRecipe(long id) {
         generalRecipeRepository.deleteById(id);
     }
 
-    public GeneralRecipe getGeneralRecipeEntityById(int id) {
+    public GeneralRecipe getGeneralRecipeEntityById(long id) {
         return generalRecipeRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("GeneralRecipe not found"));
     }
 
-    public GetGeneralRecipeDTO getGeneralRecipeById(int id) {
+    public GetGeneralRecipeDTO getGeneralRecipeById(long id) {
         return GeneralRecipeMapper.toGetDTO(getGeneralRecipeEntityById(id));
     }
 

@@ -17,7 +17,7 @@ public class Contains {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "contains_id")
-    private int containsId;
+    private long containsId;
     @Basic
     @Column(name = "measure")
     private String measure;

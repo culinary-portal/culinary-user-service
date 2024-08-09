@@ -26,12 +26,12 @@ public class IngredientService {
                 .collect(Collectors.toList());
     }
 
-    public IngredientDTO findById(int id) {
+    public IngredientDTO findById(long id) {
         return IngredientMapper.toDto(findEntityById(id));
     }
 
     @Transactional(readOnly = true)
-    public Ingredient findEntityById(int id) {
+    public Ingredient findEntityById(long id) {
         return ingredientRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Ingredient not found"));
     }
@@ -44,7 +44,7 @@ public class IngredientService {
     }
 
     @Transactional
-    public IngredientDTO update(int id, PutIngredientDTO ingredientDto) {
+    public IngredientDTO update(long id, PutIngredientDTO ingredientDto) {
         Ingredient ingredient = ingredientRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Ingredient not found"));
         IngredientMapper.updateEntityFromDto(ingredient, ingredientDto);
@@ -53,7 +53,7 @@ public class IngredientService {
     }
 
     @Transactional
-    public void delete(int id) {
+    public void delete(long id) {
         ingredientRepository.deleteById(id);
     }
 }

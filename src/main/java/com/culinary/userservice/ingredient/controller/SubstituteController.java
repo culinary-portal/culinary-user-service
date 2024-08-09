@@ -28,7 +28,7 @@ public class SubstituteController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<GetSubstituteDTO> getSubstituteById(@PathVariable int id) {
+    public ResponseEntity<GetSubstituteDTO> getSubstituteById(@PathVariable long id) {
         GetSubstituteDTO substitute = substituteService.findById(id);
         return ResponseEntity.ok(substitute);
     }
@@ -41,19 +41,19 @@ public class SubstituteController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<SubstituteDTO> updateSubstitute(@PathVariable int id, @RequestBody PutSubstituteDTO substituteDto) {
+    public ResponseEntity<SubstituteDTO> updateSubstitute(@PathVariable long id, @RequestBody PutSubstituteDTO substituteDto) {
         SubstituteDTO updatedSubstitute = substituteService.update(id, substituteDto);
         return ResponseEntity.ok(updatedSubstitute);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteSubstitute(@PathVariable int id) {
+    public ResponseEntity<Void> deleteSubstitute(@PathVariable long id) {
         substituteService.delete(id);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/ingredient")
-    public ResponseEntity<List<GetSubstituteDTO>> getSubstituteByIngredientId(@RequestParam(name = "ingredientId") int ingredientId) {
+    public ResponseEntity<List<GetSubstituteDTO>> getSubstituteByIngredientId(@RequestParam(name = "ingredientId") long ingredientId) {
         List<GetSubstituteDTO> substitutes = substituteService.findSubstituteByIngredientId(ingredientId);
         return ResponseEntity.ok(substitutes);
     }

@@ -29,7 +29,7 @@ public class SubstituteService {
     }
 
     @Transactional(readOnly = true)
-    public GetSubstituteDTO findById(int id) {
+    public GetSubstituteDTO findById(long id) {
         Substitute substitute = substituteRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Substitute not found"));
         return SubstituteMapper.toGetDto(substitute);
@@ -43,7 +43,7 @@ public class SubstituteService {
     }
 
     @Transactional
-    public SubstituteDTO update(int id, PutSubstituteDTO substituteDto) {
+    public SubstituteDTO update(long id, PutSubstituteDTO substituteDto) {
         Substitute substitute = substituteRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Substitute not found"));
         substituteMapper.updateEntityFromDto(substitute, substituteDto);
@@ -52,11 +52,11 @@ public class SubstituteService {
     }
 
     @Transactional
-    public void delete(int id) {
+    public void delete(long id) {
         substituteRepository.deleteById(id);
     }
 
-    public List<GetSubstituteDTO> findSubstituteByIngredientId(int ingredientId) {
+    public List<GetSubstituteDTO> findSubstituteByIngredientId(long ingredientId) {
         return substituteRepository.findSubstituteByIngredientId(ingredientId).stream()
                 .map(e -> SubstituteMapper.toGetDto(e))
                 .collect(Collectors.toList());

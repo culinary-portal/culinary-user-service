@@ -91,7 +91,7 @@ public class UserService {
     }
 
     @Transactional
-    public Set<GeneralRecipeViewDTO> addFavoriteRecipe(long id, int recipeId) {
+    public Set<GeneralRecipeViewDTO> addFavoriteRecipe(long id, long recipeId) {
         User user = getUserEntityById(id);
         user.getFavoriteRecipes().add(generalRecipeService.getGeneralRecipeEntityById(recipeId));
         userRepository.save(user);
@@ -102,7 +102,7 @@ public class UserService {
     }
 
     @Transactional
-    public Set<DietTypeDTO> addFavoriteDiet(long userId, int dietId) {
+    public Set<DietTypeDTO> addFavoriteDiet(long userId, long dietId) {
         User user = getUserEntityById(userId);
         user.getPreferredDiets().add(dietTypeService.getDietTypeEntityById(dietId));
         userRepository.save(user);
@@ -112,7 +112,7 @@ public class UserService {
                 .collect(Collectors.toSet());
     }
 
-    public Set<GeneralRecipeViewDTO> deleteFavoriteRecipe(long userId, int recipeId) {
+    public Set<GeneralRecipeViewDTO> deleteFavoriteRecipe(long userId, long recipeId) {
         User user = getUserEntityById(userId);
         user.getFavoriteRecipes().remove(generalRecipeService.getGeneralRecipeEntityById(recipeId));
         userRepository.save(user);
@@ -122,7 +122,7 @@ public class UserService {
                 .collect(Collectors.toSet());
     }
 
-    public Set<DietTypeDTO> deleteFavoriteDiet(long userId, int dietId) {
+    public Set<DietTypeDTO> deleteFavoriteDiet(long userId, long dietId) {
         User user = getUserEntityById(userId);
         user.getPreferredDiets().remove(dietTypeService.getDietTypeEntityById(dietId));
         userRepository.save(user);

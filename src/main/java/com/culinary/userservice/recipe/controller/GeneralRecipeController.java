@@ -24,19 +24,19 @@ public class GeneralRecipeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<GetGeneralRecipeDTO> updateGeneralRecipe(@PathVariable int id, @RequestBody PutGeneralRecipeDTO generalRecipeDTO) {
+    public ResponseEntity<GetGeneralRecipeDTO> updateGeneralRecipe(@PathVariable long id, @RequestBody PutGeneralRecipeDTO generalRecipeDTO) {
         GetGeneralRecipeDTO updatedGeneralRecipe = generalRecipeService.updateGeneralRecipe(id, generalRecipeDTO);
         return ResponseEntity.ok(updatedGeneralRecipe);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteGeneralRecipe(@PathVariable int id) {
+    public ResponseEntity<Void> deleteGeneralRecipe(@PathVariable long id) {
         generalRecipeService.deleteGeneralRecipe(id);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<GetGeneralRecipeDTO> getGeneralRecipeById(@PathVariable int id) {
+    public ResponseEntity<GetGeneralRecipeDTO> getGeneralRecipeById(@PathVariable long id) {
         GetGeneralRecipeDTO generalRecipeDTO = generalRecipeService.getGeneralRecipeById(id);
         return ResponseEntity.ok(generalRecipeDTO);
     }

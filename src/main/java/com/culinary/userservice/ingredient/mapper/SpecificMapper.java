@@ -13,7 +13,7 @@ public class SpecificMapper {
         Specific specific = new Specific();
         specific.setUser(user);
         specific.setIngredient(ingredient);
-        specific.setLikes(dto.getLikes());
+        specific.setLikes(dto.likes());
         return specific;
     }
 
@@ -27,11 +27,11 @@ public class SpecificMapper {
     }
 
     public static GetSpecificDTO toDetailsDto(Specific entity) {
-        return GetSpecificDTO.builder()
-                .specificId(entity.getSpecificId())
-                .likes(entity.getLikes())
-                .ingredient(IngredientMapper.toDto(entity.getIngredient()))
-                .userId(entity.getUser().getId())
-                .build();
+        return new GetSpecificDTO(
+                entity.getSpecificId(),
+                entity.getUser().getId(),
+                IngredientMapper.toDto(entity.getIngredient()),
+                entity.getLikes()
+        );
     }
 }

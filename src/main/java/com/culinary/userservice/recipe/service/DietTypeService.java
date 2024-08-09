@@ -26,7 +26,7 @@ public class DietTypeService {
     }
 
     @Transactional
-    public DietTypeDTO updateDietType(int id, DietTypeDTO dietTypeDTO) {
+    public DietTypeDTO updateDietType(long id, DietTypeDTO dietTypeDTO) {
         DietType dietType = dietTypeRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("DietType not found"));
         dietType.setDietType(dietTypeDTO.getDietType());
@@ -35,17 +35,17 @@ public class DietTypeService {
     }
 
     @Transactional
-    public void deleteDietType(int id) {
+    public void deleteDietType(long id) {
         dietTypeRepository.deleteById(id);
     }
 
     @Transactional
-    public DietTypeDTO getDietTypeById(int id) {
+    public DietTypeDTO getDietTypeById(long id) {
         return DietTypeMapper.toDto(getDietTypeEntityById(id));
     }
 
     @Transactional
-    public DietType getDietTypeEntityById(int id) {
+    public DietType getDietTypeEntityById(long id) {
         return dietTypeRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("DietType not found"));
     }

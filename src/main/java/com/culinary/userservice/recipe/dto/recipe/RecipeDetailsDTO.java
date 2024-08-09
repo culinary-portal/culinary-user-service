@@ -19,7 +19,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 public class RecipeDetailsDTO {
-    private int recipeId;
+    private long recipeId;
     private GeneralRecipeViewDTO generalRecipe;
     private String name;
     private String description;

@@ -11,7 +11,7 @@ public class Specific {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "specific_id")
-    private int specificId;
+    private long specificId;
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")

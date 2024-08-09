@@ -30,21 +30,21 @@ public class ContainsService {
 
     public Contains createContainsEntity(ContainsDTO containsDTO) {
         return ContainsMapper.toEntity(containsDTO,
-                recipeService.getRecipeEntityById(containsDTO.getRecipeId()),
-                ingredientService.findEntityById(containsDTO.getIngredientId()));
+                recipeService.getRecipeEntityById(containsDTO.recipeId()),
+                ingredientService.findEntityById(containsDTO.ingredientId()));
     }
 
 
     @Transactional
-    public ContainsDTO updateContains(int id, ContainsDTO containsDTO) {
+    public ContainsDTO updateContains(long id, ContainsDTO containsDTO) {
         Contains contains = containsRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Contains not found"));
-        contains.setMeasure(containsDTO.getMeasure());
-        if (contains.getRecipe() != null && contains.getRecipe().getRecipeId() != containsDTO.getRecipeId()) {
-            contains.setRecipe(recipeService.getRecipeEntityById(containsDTO.getRecipeId()));
+        contains.setMeasure(containsDTO.measure());
+        if (contains.getRecipe() != null && contains.getRecipe().getRecipeId() != containsDTO.recipeId()) {
+            contains.setRecipe(recipeService.getRecipeEntityById(containsDTO.recipeId()));
         }
-        if (contains.getIngredient() != null && contains.getIngredient().getIngredientId() != containsDTO.getIngredientId()) {
-            contains.setIngredient(ingredientService.findEntityById(containsDTO.getIngredientId()));
+        if (contains.getIngredient() != null && contains.getIngredient().getIngredientId() != containsDTO.ingredientId()) {
+            contains.setIngredient(ingredientService.findEntityById(containsDTO.ingredientId()));
         }
 
         contains = containsRepository.save(contains);
@@ -52,11 +52,11 @@ public class ContainsService {
     }
 
     @Transactional
-    public void deleteContains(int id) {
+    public void deleteContains(long id) {
         containsRepository.deleteById(id);
     }
 
-    public ContainsDTO getContainsById(int id) {
+    public ContainsDTO getContainsById(long id) {
         Contains contains = containsRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Contains not found"));
         return ContainsMapper.toDto(contains);

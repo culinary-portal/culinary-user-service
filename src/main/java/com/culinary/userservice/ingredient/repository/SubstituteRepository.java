@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface SubstituteRepository extends JpaRepository<Substitute, Integer> {
+public interface SubstituteRepository extends JpaRepository<Substitute, Long> {
     @Query("SELECT s FROM Substitute s WHERE s.ingredient1.ingredientId = ?1 OR s.ingredient2.ingredientId = ?1")
-    List<Substitute> findSubstituteByIngredientId(int ingredientId);
+    List<Substitute> findSubstituteByIngredientId(long ingredientId);
 }
