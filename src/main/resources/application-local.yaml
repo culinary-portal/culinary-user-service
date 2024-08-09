@@ -40,4 +40,4 @@ spring:
       mode: always
       schema-locations: classpath:schema-local.sql
       platform: h2
-      data-locations: classpath:data.sql
+      data-locations: classpath:data-local.sql
