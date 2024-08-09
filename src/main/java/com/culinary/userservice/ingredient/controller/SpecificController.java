@@ -26,7 +26,7 @@ public class SpecificController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<SpecificDTO> getSpecificById(@PathVariable int id) {
+    public ResponseEntity<SpecificDTO> getSpecificById(@PathVariable long id) {
         SpecificDTO specific = specificService.findById(id);
         return ResponseEntity.ok(specific);
     }
@@ -38,14 +38,14 @@ public class SpecificController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<SpecificDTO> updateSpecific(@PathVariable int id,
+    public ResponseEntity<SpecificDTO> updateSpecific(@PathVariable long id,
                                                       @RequestBody PutSpecificDTO specificDto) {
         SpecificDTO updatedSpecific = specificService.update(id, specificDto);
         return ResponseEntity.ok(updatedSpecific);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteSpecific(@PathVariable int id) {
+    public ResponseEntity<Void> deleteSpecific(@PathVariable long id) {
         specificService.delete(id);
         return ResponseEntity.ok().build();
     }

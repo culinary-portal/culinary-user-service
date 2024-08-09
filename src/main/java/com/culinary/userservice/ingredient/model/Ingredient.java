@@ -19,7 +19,7 @@ public class Ingredient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "ingredient_id")
-    private int ingredientId;
+    private long ingredientId;
     @Basic
     @Column(name = "name")
     private String name;

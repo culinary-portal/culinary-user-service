@@ -26,19 +26,19 @@ public class RecipeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<RecipeDTO> updateRecipe(@PathVariable int id, @RequestBody PutRecipeDTO recipeContainsDTO) {
+    public ResponseEntity<RecipeDTO> updateRecipe(@PathVariable long id, @RequestBody PutRecipeDTO recipeContainsDTO) {
         RecipeDTO updatedRecipe = recipeService.updateRecipeDTO(id, recipeContainsDTO);
         return ResponseEntity.ok(updatedRecipe);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteRecipe(@PathVariable int id) {
+    public ResponseEntity<Void> deleteRecipe(@PathVariable long id) {
         recipeService.deleteRecipe(id);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<RecipeDetailsDTO> getRecipeById(@PathVariable int id) {
+    public ResponseEntity<RecipeDetailsDTO> getRecipeById(@PathVariable long id) {
         RecipeDetailsDTO recipe = recipeService.getRecipeById(id);
         return ResponseEntity.ok(recipe);
     }
@@ -62,7 +62,7 @@ public class RecipeController {
     }
 
     @DeleteMapping("/{userId}/modifications/{recipeId}")
-    public ResponseEntity<Set<PutRecipeDTO>> deleteModification(@PathVariable long userId, @PathVariable int recipeId) {
+    public ResponseEntity<Set<PutRecipeDTO>> deleteModification(@PathVariable long userId, @PathVariable long recipeId) {
         Set<PutRecipeDTO> modifications = recipeService.deleteModification(userId, recipeId);
         return ResponseEntity.ok(modifications);
     }

@@ -7,14 +7,14 @@ public class DietTypeMapper {
 
     public static DietType toEntity(DietTypeDTO dietTypeDTO) {
         DietType dietType = new DietType();
-        dietType.setDietType(dietTypeDTO.getDietType());
+        dietType.setDietType(dietTypeDTO.dietType());
         return dietType;
     }
 
     public static DietTypeDTO toDto(DietType dietType) {
-        return DietTypeDTO.builder()
-                .dietTypeId(dietType.getDietTypeId())
-                .dietType(dietType.getDietType())
-                .build();
+        return new DietTypeDTO(
+                dietType.getDietTypeId(),
+                dietType.getDietType()
+        );
     }
 }

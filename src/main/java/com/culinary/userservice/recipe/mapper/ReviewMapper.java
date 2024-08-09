@@ -12,18 +12,17 @@ public class ReviewMapper {
         Review review = new Review();
         review.setUser(user);
         review.setGeneralRecipe(recipe);
-        review.setRating(reviewDTO.getRating());
-        review.setOpinion(reviewDTO.getOpinion());
+        review.setRating(reviewDTO.rating());
+        review.setOpinion(reviewDTO.opinion());
         return review;
     }
 
     public static ReviewDTO toDto(Review review) {
-        return ReviewDTO.builder()
-                .reviewId(review.getReviewId())
-                .userId(review.getUser().getId())
-                .recipeId(review.getGeneralRecipe().getGeneralRecipeId())
-                .rating(review.getRating())
-                .opinion(review.getOpinion())
-                .build();
+        return new  ReviewDTO(
+                review.getReviewId(),
+                review.getUser().getId(),
+                review.getGeneralRecipe().getGeneralRecipeId(),
+                review.getRating(),
+                review.getOpinion());
     }
 }

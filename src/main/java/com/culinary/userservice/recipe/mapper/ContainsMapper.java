@@ -11,28 +11,26 @@ public class ContainsMapper {
 
     public static Contains toEntity(ContainsDTO containsDTO, Recipe recipe, Ingredient ingredient) {
         Contains contains = new Contains();
-        contains.setMeasure(containsDTO.getMeasure());
-        contains.setAmount(containsDTO.getAmount());
+        contains.setMeasure(containsDTO.measure());
+        contains.setAmount(containsDTO.amount());
         contains.setRecipe(recipe);
         contains.setIngredient(ingredient);
         return contains;
     }
 
     public static ContainsDTO toDto(Contains contains) {
-        return ContainsDTO.builder()
-                .measure(contains.getMeasure())
-                .amount(contains.getAmount())
-                .recipeId(contains.getRecipe().getRecipeId())
-                .ingredientId(contains.getIngredient().getIngredientId())
-                .build();
+        return new ContainsDTO(
+                contains.getAmount(),
+                contains.getMeasure(),
+                contains.getRecipe().getRecipeId(),
+                contains.getIngredient().getIngredientId());
     }
 
     public static GetContainsDTO toGetDTO(Contains entity) {
-        return GetContainsDTO.builder()
-                .amount(entity.getAmount())
-                .measure(entity.getMeasure())
-                .recipeId(entity.getRecipe().getRecipeId())
-                .ingredient(IngredientMapper.toDto(entity.getIngredient()))
-                .build();
+        return new GetContainsDTO(
+                entity.getAmount(),
+                entity.getMeasure(),
+                entity.getRecipe().getRecipeId(),
+                IngredientMapper.toDto(entity.getIngredient()));
     }
 }

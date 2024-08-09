@@ -1,16 +1,11 @@
 package com.culinary.userservice.ingredient.dto.substitute;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.culinary.userservice.ingredient.dto.ingredient.IngredientDTO;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-public class PutSubstituteDTO {
-    private int ingredient1Id;
-    private int ingredient2Id;
-    private Float proportionI1I2;
+
+public record PutSubstituteDTO(
+        IngredientDTO ingredient1,
+        IngredientDTO ingredient2,
+        Float proportionI1I2
+) {
 }

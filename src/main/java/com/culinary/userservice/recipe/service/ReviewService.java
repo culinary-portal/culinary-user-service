@@ -24,16 +24,16 @@ public class ReviewService {
     @Transactional
     public ReviewDTO createReview(ReviewDTO reviewDTO) {
         Review review = new Review();
-        review.setOpinion(reviewDTO.getOpinion());
-        review.setUser(userService.getUserEntityById(reviewDTO.getUserId()));
-        review.setRating(reviewDTO.getRating());
-        review.setGeneralRecipe(generalRecipeService.getGeneralRecipeEntityById((int) reviewDTO.getRecipeId()));
+        review.setOpinion(reviewDTO.opinion());
+        review.setUser(userService.getUserEntityById(reviewDTO.userId()));
+        review.setRating(reviewDTO.rating());
+        review.setGeneralRecipe(generalRecipeService.getGeneralRecipeEntityById((int) reviewDTO.generalRecipeId()));
         Review savedReview = reviewRepository.save(review);
         return ReviewMapper.toDto(savedReview);
     }
 
     @Transactional
-    public ReviewDTO updateReview(int id, PutReviewDTO dto) {
+    public ReviewDTO updateReview(long id, PutReviewDTO dto) {
         Review review = reviewRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Review not found"));
 
@@ -44,12 +44,12 @@ public class ReviewService {
     }
 
     @Transactional
-    public void deleteReview(int id) {
+    public void deleteReview(long id) {
         reviewRepository.deleteById(id);
     }
 
     @Transactional
-    public ReviewDTO getReviewById(int id) {
+    public ReviewDTO getReviewById(long id) {
         Review review = reviewRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Review not found"));
         return ReviewMapper.toDto(review);

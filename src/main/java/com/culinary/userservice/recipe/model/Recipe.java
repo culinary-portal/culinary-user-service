@@ -23,7 +23,7 @@ public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "recipe_id")
-    private int recipeId;
+    private long recipeId;
 
     @ManyToOne
     @JoinColumn(name = "general_recipe_id", referencedColumnName = "general_recipe_id")
@@ -53,7 +53,7 @@ public class Recipe {
         return "Recipe{" +
                 "description='" + description + '\'' +
                 ", name='" + name + '\'' +
-                ", recipeId=" + recipeId +
+                ", generalRecipeId=" + recipeId +
                 '}';
     }
 

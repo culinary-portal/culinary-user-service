@@ -17,8 +17,8 @@ public class RecipeMapper {
 
     public static Recipe toEntity(PutRecipeDTO dto, DietType dietType, GeneralRecipe generalRecipe) {
         Recipe recipe = new Recipe();
-        recipe.setName(dto.getName());
-        recipe.setDescription(dto.getDescription());
+        recipe.setName(dto.name());
+        recipe.setDescription(dto.description());
         recipe.setDietType(dietType);
         recipe.setGeneralRecipe(generalRecipe);
         return recipe;
@@ -26,8 +26,8 @@ public class RecipeMapper {
 
     public static Recipe toEntity(PutRecipeDTO dto, DietType dietType) {
         Recipe recipe = new Recipe();
-        recipe.setName(dto.getName());
-        recipe.setDescription(dto.getDescription());
+        recipe.setName(dto.name());
+        recipe.setDescription(dto.description());
         recipe.setDietType(dietType);
         recipe.setGeneralRecipe(null);
         return recipe;
@@ -59,21 +59,22 @@ public class RecipeMapper {
     }
 
     public static PutRecipeDTO toRecipeContainsDTO(Recipe recipe) {
-        return PutRecipeDTO.builder()
-                .name(recipe.getName())
-                .description(recipe.getDescription())
-                .dietType(recipe.getDietType().getDietType())
-                .contains(recipe.getContains().stream().map(ContainsMapper::toDto).collect(Collectors.toList()))
-                .build();
+        return new PutRecipeDTO(
+                recipe.getName(),
+                recipe.getDescription(),
+                recipe.getDietType().getDietType(),
+                recipe.getGeneralRecipe().getGeneralRecipeId(),
+                recipe.getContains().stream().map(ContainsMapper::toDto).collect(toList())
+        );
     }
 
     public static GetRecipeDTO toGetRecipeDTO(Recipe dto) {
-        return GetRecipeDTO.builder()
-                .name(dto.getName())
-                .description(dto.getDescription())
-                .dietType(dto.getDietType().getDietType())
-                .generalRecipeId(dto.getGeneralRecipe().getGeneralRecipeId())
-                .contains(dto.getContains().stream().map(ContainsMapper::toGetDTO).collect(Collectors.toList()))
-                .build();
+        return new GetRecipeDTO(
+                dto.getName(),
+                dto.getDescription(),
+                dto.getDietType().getDietType(),
+                dto.getGeneralRecipe().getGeneralRecipeId(),
+                dto.getContains().stream().map(ContainsMapper::toGetDTO).collect(Collectors.toList())
+        );
     }
 }

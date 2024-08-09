@@ -37,19 +37,19 @@ public class RecipeService {
     private final IngredientService ingredientService;
 
     private Recipe createRecipeEntity(PutRecipeDTO dto, GeneralRecipe generalRecipe) {
-        DietType dietType = dietTypeService.getDietTypeEntityByType(dto.getDietType());
+        DietType dietType = dietTypeService.getDietTypeEntityByType(dto.dietType());
         Recipe recipe = RecipeMapper.toEntity(dto, dietType, generalRecipe);
 
         Recipe finalRecipe = recipe;
-        recipe.setContains(dto.getContains()
+        recipe.setContains(dto.contains()
                 .stream()
-                .map(e -> ContainsMapper.toEntity(e, finalRecipe, ingredientService.findEntityById(e.getIngredientId())))
+                .map(e -> ContainsMapper.toEntity(e, finalRecipe, ingredientService.findEntityById(e.ingredientId())))
                 .collect(toList()));
         return recipeRepository.save(recipe);
     }
 
     public RecipeDTO createRecipe(PutRecipeDTO dto) {
-        GeneralRecipe generalRecipe = generalRecipeRepository.findById(dto.getGeneralRecipeId())
+        GeneralRecipe generalRecipe = generalRecipeRepository.findById(dto.generalRecipeId())
                 .orElseThrow(() -> new NotFoundException("GeneralRecipe not found"));
 
         Recipe recipeEntity = createRecipeEntity(dto, generalRecipe);
@@ -62,27 +62,27 @@ public class RecipeService {
     }
 
 
-    public Recipe updateRecipe(int id, PutRecipeDTO dto) {
+    public Recipe updateRecipe(long id, PutRecipeDTO dto) {
         Recipe recipe = recipeRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Recipe not found"));
-        recipe.setName(dto.getName());
-        recipe.setDescription(dto.getDescription());
-        recipe.setDietType(dietTypeService.getDietTypeEntityByType(dto.getDietType()));
+        recipe.setName(dto.name());
+        recipe.setDescription(dto.description());
+        recipe.setDietType(dietTypeService.getDietTypeEntityByType(dto.dietType()));
         Recipe finalRecipe = recipe;
-        recipe.setContains(dto.getContains()
+        recipe.setContains(dto.contains()
                 .stream()
-                .map(e -> ContainsMapper.toEntity(e, finalRecipe, ingredientService.findEntityById(e.getIngredientId())))
+                .map(e -> ContainsMapper.toEntity(e, finalRecipe, ingredientService.findEntityById(e.ingredientId())))
                 .collect(toList()));
         recipeRepository.save(recipe);
         return recipe;
     }
 
-    public RecipeDTO updateRecipeDTO(int id, PutRecipeDTO dto) {
+    public RecipeDTO updateRecipeDTO(long id, PutRecipeDTO dto) {
         return RecipeMapper.toDto(updateRecipe(id, dto));
     }
 
     @Transactional
-    public void deleteRecipe(int recipeId) {
+    public void deleteRecipe(long recipeId) {
         Recipe recipe = recipeRepository.findById(recipeId)
                 .orElseThrow(() -> new NotFoundException("Recipe not found with id " + recipeId));
 
@@ -100,11 +100,11 @@ public class RecipeService {
         recipeRepository.delete(recipe);
     }
 
-    public RecipeDetailsDTO getRecipeById(int id) {
+    public RecipeDetailsDTO getRecipeById(long id) {
         return RecipeMapper.toRecipeDetailsDTO(getRecipeEntityById(id));
     }
 
-    public Recipe getRecipeEntityById(int id) {
+    public Recipe getRecipeEntityById(long id) {
         return recipeRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Recipe not found"));
     }
@@ -125,7 +125,7 @@ public class RecipeService {
 
     public Set<PutRecipeDTO> addModification(long userId, PutRecipeDTO dto) {
         User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("User not found"));
-        GeneralRecipe generalRecipe = generalRecipeRepository.findById(dto.getGeneralRecipeId())
+        GeneralRecipe generalRecipe = generalRecipeRepository.findById(dto.generalRecipeId())
                 .orElseThrow(() -> new NotFoundException("GeneralRecipe not found"));
         Recipe recipe = createRecipeEntity(dto, generalRecipe);
         user.getModifiedRecipes().add(recipe);
@@ -136,7 +136,7 @@ public class RecipeService {
                 .collect(Collectors.toSet());
     }
 
-    public Set<PutRecipeDTO> deleteModification(long userId, int recipeId) {
+    public Set<PutRecipeDTO> deleteModification(long userId, long recipeId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("User not found"));
         Recipe recipe = recipeRepository.findById(recipeId)
                 .orElseThrow(() -> new NotFoundException("Recipe not found"));

@@ -17,43 +17,42 @@ public class SubstituteMapper {
     private final IngredientRepository ingredientRepository;
 
     public static GetSubstituteDTO toGetDto(Substitute substitute) {
-        return GetSubstituteDTO.builder()
-                .substituteId(substitute.getSubstituteId())
-                .ingredient1(IngredientMapper.toDto(substitute.getIngredient1()))
-                .ingredient2(IngredientMapper.toDto(substitute.getIngredient2()))
-                .proportionI1I2(substitute.getProportionI1I2())
-                .build();
+        return new GetSubstituteDTO(
+                substitute.getSubstituteId(),
+                IngredientMapper.toDto(substitute.getIngredient1()),
+                IngredientMapper.toDto(substitute.getIngredient2()),
+                substitute.getProportionI1I2()
+        );
     }
 
     public Substitute toEntity(PutSubstituteDTO dto) {
-        Ingredient ingredient1 = ingredientRepository.findById(dto.getIngredient1Id()).orElseThrow(() -> new NotFoundException("Ingredient not found"));
-        Ingredient ingredient2 = ingredientRepository.findById(dto.getIngredient2Id()).orElseThrow(() -> new NotFoundException("Ingredient not found"));
+        Ingredient ingredient1 = ingredientRepository.findById(dto.ingredient1().ingredientId()).orElseThrow(() -> new NotFoundException("Ingredient not found"));
+        Ingredient ingredient2 = ingredientRepository.findById(dto.ingredient2().ingredientId()).orElseThrow(() -> new NotFoundException("Ingredient not found"));
         Substitute substitute = new Substitute();
         substitute.setIngredient1(ingredient1);
         substitute.setIngredient2(ingredient2);
-        substitute.setProportionI1I2(dto.getProportionI1I2());
+        substitute.setProportionI1I2(dto.proportionI1I2());
         return substitute;
     }
 
     public SubstituteDTO toDto(Substitute substitute) {
-        return SubstituteDTO.builder()
-                .substituteId(substitute.getSubstituteId())
-                .ingredient1Id(substitute.getIngredient1().getIngredientId())
-                .ingredient2Id(substitute.getIngredient2().getIngredientId())
-                .proportionI1I2(substitute.getProportionI1I2())
-                .build();
+        return new SubstituteDTO(
+                substitute.getSubstituteId(),
+                substitute.getIngredient1().getIngredientId(),
+                substitute.getIngredient2().getIngredientId(),
+                substitute.getProportionI1I2());
     }
 
     public void updateEntityFromDto(Substitute substitute, PutSubstituteDTO dto) {
         if (substitute != null && dto != null) {
-            Ingredient ingredient1 = ingredientRepository.findById(dto.getIngredient1Id())
+            Ingredient ingredient1 = ingredientRepository.findById(dto.ingredient1().ingredientId())
                     .orElseThrow(() -> new NotFoundException("Ingredient1 not found"));
-            Ingredient ingredient2 = ingredientRepository.findById(dto.getIngredient2Id())
+            Ingredient ingredient2 = ingredientRepository.findById(dto.ingredient2().ingredientId())
                     .orElseThrow(() -> new NotFoundException("Ingredient2 not found"));
 
             substitute.setIngredient1(ingredient1);
             substitute.setIngredient2(ingredient2);
-            substitute.setProportionI1I2(dto.getProportionI1I2());
+            substitute.setProportionI1I2(dto.proportionI1I2());
         }
     }
 

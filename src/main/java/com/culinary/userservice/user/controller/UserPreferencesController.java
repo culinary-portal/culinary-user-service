@@ -29,25 +29,25 @@ public class UserPreferencesController {
     }
 
     @PostMapping("/{userId}/favorite-recipes/{recipeId}")
-    public ResponseEntity<Set<GeneralRecipeViewDTO>> addFavoriteRecipe(@PathVariable long userId, @PathVariable int recipeId) {
+    public ResponseEntity<Set<GeneralRecipeViewDTO>> addFavoriteRecipe(@PathVariable long userId, @PathVariable long recipeId) {
         Set<GeneralRecipeViewDTO> favoriteRecipes = userService.addFavoriteRecipe(userId, recipeId);
         return ResponseEntity.ok(favoriteRecipes);
     }
 
     @PostMapping("/{userId}/favorite-diets/{dietId}")
-    public ResponseEntity<Set<DietTypeDTO>> addFavoriteDiet(@PathVariable long userId, @PathVariable int dietId) {
+    public ResponseEntity<Set<DietTypeDTO>> addFavoriteDiet(@PathVariable long userId, @PathVariable long dietId) {
         Set<DietTypeDTO> favoriteDiets = userService.addFavoriteDiet(userId, dietId);
         return ResponseEntity.ok(favoriteDiets);
     }
 
     @DeleteMapping("/{userId}/favorite-recipes/{recipeId}")
-    public ResponseEntity<Set<GeneralRecipeViewDTO>> deleteFavoriteRecipe(@PathVariable long userId, @PathVariable int recipeId) {
+    public ResponseEntity<Set<GeneralRecipeViewDTO>> deleteFavoriteRecipe(@PathVariable long userId, @PathVariable long recipeId) {
         Set<GeneralRecipeViewDTO> favoriteRecipes = userService.deleteFavoriteRecipe(userId, recipeId);
         return ResponseEntity.ok(favoriteRecipes);
     }
 
     @DeleteMapping("/{userId}/favorite-diets/{dietId}")
-    public ResponseEntity<Set<DietTypeDTO>> deleteFavoriteDiet(@PathVariable long userId, @PathVariable int dietId) {
+    public ResponseEntity<Set<DietTypeDTO>> deleteFavoriteDiet(@PathVariable long userId, @PathVariable long dietId) {
         Set<DietTypeDTO> favoriteDiets = userService.deleteFavoriteDiet(userId, dietId);
         return ResponseEntity.ok(favoriteDiets);
     }

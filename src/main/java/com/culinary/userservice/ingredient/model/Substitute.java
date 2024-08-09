@@ -16,7 +16,7 @@ public class Substitute {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "substitute_id")
-    private int substituteId;
+    private long substituteId;
     @ManyToOne
     @JoinColumn(name = "ingredient1_id")
     private Ingredient ingredient1;

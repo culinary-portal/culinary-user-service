@@ -33,7 +33,7 @@ public class SpecificService {
     }
 
     @Transactional(readOnly = true)
-    public SpecificDTO findById(int id) {
+    public SpecificDTO findById(long id) {
         Specific specific = specificRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Specific not found"));
         return SpecificMapper.toDto(specific);
@@ -43,24 +43,24 @@ public class SpecificService {
     public SpecificDTO save(PutSpecificDTO specificDto) {
         Specific specific = SpecificMapper.toEntity(
                 specificDto,
-                userService.getUserEntityById(specificDto.getUserId()),
-                ingredientRepository.findById(specificDto.getIngredientId()).orElseThrow(() -> new NotFoundException("Ingredient not found"))
+                userService.getUserEntityById(specificDto.userId()),
+                ingredientRepository.findById(specificDto.ingredient().ingredientId()).orElseThrow(() -> new NotFoundException("Ingredient not found"))
         );
         Specific savedSpecific = specificRepository.save(specific);
         return SpecificMapper.toDto(savedSpecific);
     }
 
     @Transactional
-    public SpecificDTO update(int id, PutSpecificDTO specificDto) {
+    public SpecificDTO update(long id, PutSpecificDTO specificDto) {
         Specific specific = specificRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Specific not found"));
-        specific.setLikes(specificDto.getLikes());
+        specific.setLikes(specificDto.likes());
         Specific updatedSpecific = specificRepository.save(specific);
         return SpecificMapper.toDto(updatedSpecific);
     }
 
     @Transactional
-    public void delete(int id) {
+    public void delete(long id) {
         specificRepository.deleteById(id);
     }
 
@@ -68,6 +68,6 @@ public class SpecificService {
     public List<GetSpecificDTO> getDislikedIngredients(long userId) {
         User user = userService.getUserEntityById(userId);
         return user.getSpecifics().stream()
-                .map(SpecificMapper::toDetailsDto).filter(e -> !e.getLikes()).toList();
+                .map(SpecificMapper::toDetailsDto).filter(e -> !e.likes()).toList();
     }
 }
