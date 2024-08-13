@@ -19,6 +19,8 @@ default.user.photo.url: https://thumbs.dreamstime.com/b/default-avatar-profile-f
 
 custom.max.session: 1
 
+frontend.host: "http://localhost:4200"
+
 ### JDBC logs
 logging:
   level:
