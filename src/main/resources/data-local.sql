@@ -10,11 +10,11 @@ VALUES ('Pancakes', 'http://example.com/pancakes.jpg', 'BREAKFAST', 'Fluffy panc
 
 INSERT INTO user (user_name, email, password, birthdate, create_date, photo_url, account_enabled, account_expired,
                     account_locked, credentials_expired)
-VALUES ('JohnDoe', 'john.doe@example.com', 'password123', '1990-05-15', NOW(), 'http://example.com/user.jpg', TRUE,
+VALUES ('JohnDoe', 'john.doe@example.com', 'password123', '1990-05-15', NOW(), 'https://thumbs.dreamstime.com/b/default-avatar-profile-flat-icon-social-media-user-vect[…]human-image-default-avatar-profile-flat-icon-184330869.jpg"', TRUE,
         FALSE, FALSE, FALSE),
-       ('JaneSmith', 'jane.smith@example.com', 'securePass!', '1985-10-20', NOW(), 'http://example.com/user.jpg', TRUE,
+       ('JaneSmith', 'jane.smith@example.com', 'securePass!', '1985-10-20', NOW(), 'https://thumbs.dreamstime.com/b/default-avatar-profile-flat-icon-social-media-user-vect[…]human-image-default-avatar-profile-flat-icon-184330869.jpg"', TRUE,
         FALSE, FALSE, FALSE),
-       ('AliceJones', 'alice.jones@example.com', 'alice1234', '1995-07-08', NOW(), 'http://example.com/user.jpg', TRUE,
+       ('AliceJones', 'alice.jones@example.com', 'alice1234', '1995-07-08', NOW(), 'https://thumbs.dreamstime.com/b/default-avatar-profile-flat-icon-social-media-user-vect[…]human-image-default-avatar-profile-flat-icon-184330869.jpg"', TRUE,
         FALSE, FALSE, FALSE);
 
 INSERT INTO user_diet_type (user_id, diet_type_id)
