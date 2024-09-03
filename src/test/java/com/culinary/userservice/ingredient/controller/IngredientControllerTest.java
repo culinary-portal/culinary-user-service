@@ -1,6 +1,5 @@
 package com.culinary.userservice.ingredient.controller;
 
-import com.culinary.userservice.ingredient.dto.ingredient.IngredientDTO;
 import com.culinary.userservice.ingredient.service.IngredientService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -12,12 +11,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.Arrays;
-import java.util.List;
-
 import static org.hamcrest.Matchers.hasSize;
-import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
@@ -41,7 +37,7 @@ class IngredientControllerTest {
 //                new IngredientDTO(1, "basil")
 //        );
 
-       // given(ingredientService.findAll()).willReturn(ingredients);
+        // given(ingredientService.findAll()).willReturn(ingredients);
 
         mockMvc.perform(get("/api/ingredients"))
                 .andExpect(status().isOk())
@@ -51,7 +47,7 @@ class IngredientControllerTest {
 
     @Test
     void getIngredientById() throws Exception {
-       // IngredientDTO ingredient = IngredientDTO.builder().ingredientId(1).name("Tomato").build();
+        // IngredientDTO ingredient = IngredientDTO.builder().ingredientId(1).name("Tomato").build();
 
 //        given(ingredientService.findById(1)).willReturn(ingredient);
 //

@@ -1,6 +1,7 @@
 package com.culinary.userservice.security.service;
 
 import com.culinary.userservice.security.dto.AuthDTO;
+import com.culinary.userservice.user.dto.UserDetailsDTO;
 import com.culinary.userservice.user.exception.UserAlreadyExistsException;
 import com.culinary.userservice.user.model.User;
 import com.culinary.userservice.user.repository.UserRepository;
@@ -59,9 +60,8 @@ class AuthServiceTest {
         String encodedPassword = "encodedPassword";
         when(passwordEncoder.encode(dto.password())).thenReturn(encodedPassword);
 
-        String result = authService.register(dto);
+        UserDetailsDTO result = authService.register(dto);
 
-        assertTrue(result.contains("Registered successfully"));
         verify(userRepository, times(1)).save(any());
     }
 

@@ -1,9 +1,11 @@
 package com.culinary.userservice.security.service;
 
 import com.culinary.userservice.security.dto.AuthDTO;
+import com.culinary.userservice.user.dto.UserDetailsDTO;
 import com.culinary.userservice.user.enumeration.RoleEnum;
 import com.culinary.userservice.user.exception.UserAlreadyExistsException;
 import com.culinary.userservice.user.exception.UserNotFoundException;
+import com.culinary.userservice.user.mapper.UserMapper;
 import com.culinary.userservice.user.model.Role;
 import com.culinary.userservice.user.model.User;
 import com.culinary.userservice.user.repository.UserRepository;
@@ -80,7 +82,7 @@ public class AuthService {
     }
 
 
-    public String register(AuthDTO dto) {
+    public UserDetailsDTO register(AuthDTO dto) {
         String email = dto.email().trim();
 
         Optional<User> exists = userRepository
@@ -111,7 +113,7 @@ public class AuthService {
         }
 
         userRepository.save(user);
-        return "Registered successfully with id --> " + user.getId();
+        return UserMapper.toUserDetailsDTO(user);
     }
 
 
