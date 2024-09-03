@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -17,6 +18,7 @@ import static org.springframework.http.HttpStatus.OK;
 
 @RequiredArgsConstructor
 @RestController
+@Slf4j
 @RequestMapping(path = "/api/auth")
 public class AuthController {
     private final AuthService authService;
@@ -35,6 +37,7 @@ public class AuthController {
             HttpServletRequest request,
             HttpServletResponse response
     ) {
+        log.info("User trying to log in email --> {}", authDTO.email());
         return new ResponseEntity<>(authService.login(authDTO, request, response), OK);
     }
 
