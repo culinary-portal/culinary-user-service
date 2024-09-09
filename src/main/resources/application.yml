@@ -15,7 +15,7 @@ server:
 
 
 admin.email: admin@admin.com
-default.user.photo.url: https://thumbs.dreamstime.com/b/default-avatar-profile-flat-icon-social-media-user-vect[…]human-image-default-avatar-profile-flat-icon-184330869.jpg"
+default.user.photo.url: "N/A"
 
 custom.max.session: 1
 

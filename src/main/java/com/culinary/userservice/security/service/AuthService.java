@@ -9,9 +9,11 @@ import com.culinary.userservice.user.mapper.UserMapper;
 import com.culinary.userservice.user.model.Role;
 import com.culinary.userservice.user.model.User;
 import com.culinary.userservice.user.repository.UserRepository;
+import com.culinary.userservice.user.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.Transactional;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -42,6 +44,7 @@ public class AuthService {
     private final RedisIndexedSessionRepository redisIndexedSessionRepository;
     private final SessionRegistry sessionRegistry;
     private final UserRepository userRepository;
+    private final UserService userService;
     @Value(value = "${custom.max.session}")
     private int maxSession;
     @Value(value = "${admin.email}")
@@ -54,7 +57,7 @@ public class AuthService {
                        AuthenticationManager authManager,
                        RedisIndexedSessionRepository redisIndexedSessionRepository,
                        SessionRegistry sessionRegistry,
-                       UserRepository userRepository) {
+                       UserRepository userRepository, UserService userService) {
         this.passwordEncoder = passwordEncoder;
         this.securityContextRepository = securityContextRepository;
         this.authManager = authManager;
@@ -62,7 +65,7 @@ public class AuthService {
         this.sessionRegistry = sessionRegistry;
         this.userRepository = userRepository;
         this.securityContextHolderStrategy = SecurityContextHolder.getContextHolderStrategy();
-
+        this.userService = userService;
     }
 
     public void logout(HttpServletRequest request, HttpServletResponse response) {
@@ -116,8 +119,8 @@ public class AuthService {
         return UserMapper.toUserDetailsDTO(user);
     }
 
-
-    public String login(AuthDTO dto, HttpServletRequest request, HttpServletResponse response) {
+    @Transactional
+    public UserDetailsDTO login(AuthDTO dto, HttpServletRequest request, HttpServletResponse response) {
         Authentication authentication = authManager.authenticate(UsernamePasswordAuthenticationToken.unauthenticated(
                 dto.email().trim(), dto.password()));
 
@@ -128,9 +131,8 @@ public class AuthService {
 
         this.securityContextHolderStrategy.setContext(context);
         this.securityContextRepository.saveContext(context, request, response);
-        String sessionId = request.getSession().getId();
 
-        return sessionId;
+        return UserMapper.toUserDetailsDTO(userService.getLoggedUser());
     }
 
     public String changePassword(HttpServletRequest request, HttpServletResponse response,
