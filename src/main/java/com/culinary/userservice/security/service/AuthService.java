@@ -1,6 +1,7 @@
 package com.culinary.userservice.security.service;
 
 import com.culinary.userservice.security.dto.AuthDTO;
+import com.culinary.userservice.security.dto.RegisterDTO;
 import com.culinary.userservice.user.dto.UserDetailsDTO;
 import com.culinary.userservice.user.enumeration.RoleEnum;
 import com.culinary.userservice.user.exception.UserAlreadyExistsException;
@@ -85,7 +86,7 @@ public class AuthService {
     }
 
 
-    public UserDetailsDTO register(AuthDTO dto) {
+    public UserDetailsDTO register(RegisterDTO dto) {
         String email = dto.email().trim();
 
         Optional<User> exists = userRepository

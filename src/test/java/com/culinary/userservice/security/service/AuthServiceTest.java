@@ -1,6 +1,7 @@
 package com.culinary.userservice.security.service;
 
 import com.culinary.userservice.security.dto.AuthDTO;
+import com.culinary.userservice.security.dto.RegisterDTO;
 import com.culinary.userservice.user.dto.UserDetailsDTO;
 import com.culinary.userservice.user.exception.UserAlreadyExistsException;
 import com.culinary.userservice.user.model.User;
@@ -23,7 +24,6 @@ import org.springframework.session.Session;
 
 import java.util.Optional;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
@@ -54,7 +54,7 @@ class AuthServiceTest {
 
     @Test
     void testRegister_NewCustomer_Success() {
-        AuthDTO dto = new AuthDTO("test@example.com", "password");
+        RegisterDTO dto = new RegisterDTO("username", "test@example.com", "password");
         when(userRepository.findByEmail(dto.email())).thenReturn(Optional.empty());
 
         String encodedPassword = "encodedPassword";
@@ -67,7 +67,7 @@ class AuthServiceTest {
 
     @Test
     void testRegister_ExistingCustomer_ExceptionThrown() {
-        AuthDTO dto = new AuthDTO("existing@example.com", "password");
+        RegisterDTO dto = new RegisterDTO("username", "test@example.com", "password");
         when(userRepository.findByEmail(dto.email())).thenReturn(Optional.of(new User()));
 
         assertThrows(UserAlreadyExistsException.class, () -> authService.register(dto));
