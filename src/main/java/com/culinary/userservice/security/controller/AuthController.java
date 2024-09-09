@@ -2,6 +2,7 @@ package com.culinary.userservice.security.controller;
 
 import com.culinary.userservice.security.dto.AuthDTO;
 import com.culinary.userservice.security.service.AuthService;
+import com.culinary.userservice.user.dto.UserDetailsDTO;
 import com.culinary.userservice.user.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -32,13 +33,14 @@ public class AuthController {
     }
 
     @PostMapping(path = "/login")
-    public ResponseEntity<?> loginEmployee(
+    public ResponseEntity<UserDetailsDTO> login(
             @Valid @RequestBody AuthDTO authDTO,
             HttpServletRequest request,
             HttpServletResponse response
     ) {
         log.info("User trying to log in email --> {}", authDTO.email());
-        return new ResponseEntity<>(authService.login(authDTO, request, response), OK);
+        UserDetailsDTO user = authService.login(authDTO, request, response);
+        return ResponseEntity.ok(user);
     }
 
     @GetMapping(path = "/authenticated")
