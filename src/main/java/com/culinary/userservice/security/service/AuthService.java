@@ -91,12 +91,16 @@ public class AuthService {
         Optional<User> exists = userRepository
                 .findByEmail(email);
 
-        if (exists.isPresent()) {
+        Optional<User> existsByUsername = userRepository
+                .findByUserNameRegex(dto.username().trim());
+
+        if (exists.isPresent() || existsByUsername.isPresent()) {
             throw new UserAlreadyExistsException("User already exists!");
         }
 
         var user = new User();
         user.setEmail(email);
+        user.setUserName(dto.username().trim());
         user.setPassword(passwordEncoder.encode(dto.password()));
         user.setLocked(true);
         user.setAccountNonExpired(true);
