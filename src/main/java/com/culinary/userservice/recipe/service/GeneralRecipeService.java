@@ -76,13 +76,13 @@ public class GeneralRecipeService {
 
     public List<GetGeneralRecipeDTO> getFilteredGeneralRecipes(Optional<String> name,
                                                                Optional<String> mealType,
+                                                               Optional<Integer> minCalories,
                                                                Optional<Integer> maxCalories,
-                                                               Optional<String> dietType) {
+                                                               Optional<List<String>> dietTypes) {
         List<GeneralRecipe> allRecipes;
 
         if (name.isPresent()) allRecipes = generalRecipeRepository.findByNameRegex(name.get());
         else allRecipes = generalRecipeRepository.findAll();
-
 
         Predicate<GeneralRecipe> combinedPredicate = recipe -> true;
 
@@ -91,15 +91,22 @@ public class GeneralRecipeService {
                     recipe.getMealType().toString().equalsIgnoreCase(mealType.get().trim()));
         }
 
+        if (minCalories.isPresent()) {
+            combinedPredicate = combinedPredicate.and(recipe ->
+                    countCalories(recipe.getBaseRecipe().getContains()) >= minCalories.get());
+        }
+
         if (maxCalories.isPresent()) {
             combinedPredicate = combinedPredicate.and(recipe ->
                     countCalories(recipe.getBaseRecipe().getContains()) < maxCalories.get());
-
         }
-        if (dietType.isPresent()) {
-            String dietTypeStr = dietType.get().toUpperCase().trim();
+
+        if (dietTypes.isPresent() && !dietTypes.get().isEmpty()) {
             combinedPredicate = combinedPredicate.and(recipe ->
-                    recipe.getBaseRecipe().getDietType().getDietType().equalsIgnoreCase(dietTypeStr));
+                    dietTypes.get().stream()
+                            .map(String::toUpperCase)
+                            .map(String::trim)
+                            .anyMatch(dietType -> dietType.equalsIgnoreCase(recipe.getBaseRecipe().getDietType().getDietType())));
         }
 
         return allRecipes.stream()

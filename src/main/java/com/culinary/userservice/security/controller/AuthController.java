@@ -1,6 +1,7 @@
 package com.culinary.userservice.security.controller;
 
 import com.culinary.userservice.security.dto.AuthDTO;
+import com.culinary.userservice.security.dto.RegisterDTO;
 import com.culinary.userservice.security.service.AuthService;
 import com.culinary.userservice.user.dto.UserDetailsDTO;
 import com.culinary.userservice.user.service.UserService;
@@ -26,10 +27,10 @@ public class AuthController {
     private final UserService userService;
 
     @PostMapping(path = "/register")
-    public ResponseEntity<?> register(@Valid @RequestBody AuthDTO authDTO) {
+    public ResponseEntity<?> register(@Valid @RequestBody RegisterDTO registerDTO) {
         return ResponseEntity
                 .status(CREATED)
-                .body(authService.register(authDTO));
+                .body(authService.register(registerDTO));
     }
 
     @PostMapping(path = "/login")

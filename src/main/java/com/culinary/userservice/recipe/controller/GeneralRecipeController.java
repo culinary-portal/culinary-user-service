@@ -45,9 +45,10 @@ public class GeneralRecipeController {
     public ResponseEntity<List<GetGeneralRecipeDTO>> getGeneralRecipesByFiltered(
             @RequestParam Optional<String> name,
             @RequestParam Optional<String> mealType,
+            @RequestParam Optional<Integer> minCalories,
             @RequestParam Optional<Integer> maxCalories,
-            @RequestParam Optional<String> dietType) {
-        List<GetGeneralRecipeDTO> generalRecipes = generalRecipeService.getFilteredGeneralRecipes(name, mealType, maxCalories, dietType);
+            @RequestParam Optional<List<String>> dietTypes) {
+        List<GetGeneralRecipeDTO> generalRecipes = generalRecipeService.getFilteredGeneralRecipes(name, mealType, minCalories, maxCalories, dietTypes);
         return ResponseEntity.ok(generalRecipes);
     }
 }
