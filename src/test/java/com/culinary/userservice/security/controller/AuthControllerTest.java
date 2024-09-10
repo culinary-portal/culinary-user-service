@@ -33,7 +33,7 @@ class AuthControllerTest {
         byte[] array = new byte[7];
         new Random().nextBytes(array);
         String generatedString = new String(array, StandardCharsets.UTF_8);
-        AuthDTO authDTO = new AuthDTO(generatedString, "testReg", "testReg");
+        AuthDTO authDTO = new AuthDTO(generatedString, "testReg");
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/auth/register")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -46,7 +46,7 @@ class AuthControllerTest {
         byte[] array = new byte[7];
         new Random().nextBytes(array);
         String generatedString = new String(array, StandardCharsets.UTF_8);
-        AuthDTO authDTO = new AuthDTO(generatedString, "testReg", "testReg");
+        AuthDTO authDTO = new AuthDTO(generatedString, "testReg");
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/auth/register")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -61,7 +61,7 @@ class AuthControllerTest {
 
     @Test
     void loginEmployee() throws Exception {
-        AuthDTO authDTO = new AuthDTO("test@email", "test", "testReg");
+        AuthDTO authDTO = new AuthDTO("test@email", "test");
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/auth/login")
                         .contentType(MediaType.APPLICATION_JSON)
