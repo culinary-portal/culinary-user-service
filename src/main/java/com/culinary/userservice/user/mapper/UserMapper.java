@@ -13,7 +13,7 @@ public class UserMapper {
     public static UserNoDetailsDTO toUserNoDetailsDTO(User user) {
         return new UserNoDetailsDTO(
                 user.getId(),
-                user.getEmail(),
+                user.getUserName(),
                 user.getPhotoUrl()
         );
     }
