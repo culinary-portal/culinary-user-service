@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 
 @SpringBootTest
 @ActiveProfiles("integration")
-//@EnabledIfEnvironmentVariable(named = "INTEGRATION_ENABLED", matches = "true")
+@EnabledIfEnvironmentVariable(named = "INTEGRATION_ENABLED", matches = "true")
 public class IngredientControllerTest {
 
     private MockMvc mockMvc;
@@ -62,12 +62,10 @@ public class IngredientControllerTest {
 
     @Test
     public void testGetIngredientById() throws Exception {
-        // Arrange
         long ingredientId = 1L;
         IngredientDTO ingredientDTO = new IngredientDTO(ingredientId, "Salt", 1.0, 1.0, 1.0, 1.0, true, true);
         when(ingredientService.findById(ingredientId)).thenReturn(ingredientDTO);
 
-        // Act & Assert
         mockMvc.perform(get("/api/ingredients/{id}", ingredientId))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.ingredientId").value(ingredientId))

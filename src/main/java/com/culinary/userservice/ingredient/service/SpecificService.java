@@ -44,7 +44,7 @@ public class SpecificService {
         Specific specific = SpecificMapper.toEntity(
                 specificDto,
                 userService.getUserEntityById(specificDto.userId()),
-                ingredientRepository.findById(specificDto.ingredient().ingredientId()).orElseThrow(() -> new NotFoundException("Ingredient not found"))
+                ingredientRepository.findById(specificDto.ingredientID()).orElseThrow(() -> new NotFoundException("Ingredient not found"))
         );
         Specific savedSpecific = specificRepository.save(specific);
         return SpecificMapper.toDto(savedSpecific);
