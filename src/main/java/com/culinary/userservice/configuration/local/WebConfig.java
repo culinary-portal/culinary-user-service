@@ -1,4 +1,4 @@
-package com.culinary.userservice.security.configuration.local;
+package com.culinary.userservice.configuration.local;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

@@ -1,4 +1,4 @@
-package com.culinary.userservice.security.configuration;
+package com.culinary.userservice.configuration;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

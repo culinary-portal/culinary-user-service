@@ -1,4 +1,4 @@
-package com.culinary.userservice.security.configuration.local;
+package com.culinary.userservice.configuration.local;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
