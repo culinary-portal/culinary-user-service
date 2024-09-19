@@ -17,7 +17,7 @@ import org.springframework.session.web.context.AbstractHttpSessionApplicationIni
 @EnableRedisIndexedHttpSession
 @Slf4j
 @RequiredArgsConstructor
-@Profile("!local & !test")
+@Profile({"!local & !test & !integration"})
 public class RedisConfig extends AbstractHttpSessionApplicationInitializer {
 
     private final RedisProperties redisProperties;

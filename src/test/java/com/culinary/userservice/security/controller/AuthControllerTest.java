@@ -1,12 +1,16 @@
 package com.culinary.userservice.security.controller;
 
+import com.culinary.userservice.StoreApiApplication;
 import com.culinary.userservice.security.dto.AuthDTO;
+import com.culinary.userservice.security.service.AuthService;
+import com.culinary.userservice.user.exception.UserAlreadyExistsException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
@@ -16,12 +20,17 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.nio.charset.StandardCharsets;
 import java.util.Random;
 
-@SpringBootTest
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
+@SpringBootTest(classes = StoreApiApplication.class)
 @AutoConfigureMockMvc
 @ActiveProfiles("integration")
 @EnabledIfEnvironmentVariable(named = "INTEGRATION_ENABLED", matches = "true")
 class AuthControllerTest {
 
+    @MockBean
+    private AuthService authService;
     @Autowired
     private MockMvc mockMvc;
 
@@ -52,7 +61,7 @@ class AuthControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(authDTO)))
                 .andExpect(MockMvcResultMatchers.status().isCreated());
-
+        when(authService.register(any())).thenThrow(new UserAlreadyExistsException("User already exists"));
         mockMvc.perform(MockMvcRequestBuilders.post("/api/auth/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(authDTO)))
@@ -60,7 +69,7 @@ class AuthControllerTest {
     }
 
     @Test
-    void loginEmployee() throws Exception {
+    void loginUser() throws Exception {
         AuthDTO authDTO = new AuthDTO("test@email", "test");
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/auth/login")

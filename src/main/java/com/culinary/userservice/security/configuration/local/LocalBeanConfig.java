@@ -13,7 +13,7 @@ import org.springframework.session.web.context.AbstractHttpSessionApplicationIni
 @Configuration
 @EnableRedisIndexedHttpSession
 @EnableRedisRepositories
-@Profile({"local", "test"})
+@Profile({"local", "test", "integration"})
 public class LocalBeanConfig extends AbstractHttpSessionApplicationInitializer {
 
 
