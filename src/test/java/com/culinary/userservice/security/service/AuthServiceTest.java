@@ -6,6 +6,8 @@ import com.culinary.userservice.user.dto.UserDetailsDTO;
 import com.culinary.userservice.user.exception.UserAlreadyExistsException;
 import com.culinary.userservice.user.model.User;
 import com.culinary.userservice.user.repository.UserRepository;
+import com.culinary.userservice.user.service.UserService;
+import com.culinary.userservice.util.ObjectFactory;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -44,6 +46,8 @@ class AuthServiceTest {
     private UserDetails userDetails;
     @Mock
     private UserRepository userRepository;
+    @Mock
+    private UserService userService;
     @InjectMocks
     private AuthService authService;
 
@@ -85,6 +89,7 @@ class AuthServiceTest {
 
 
         when(request.getSession()).thenReturn(mock(HttpSession.class));
+        when(userService.getLoggedUser()).thenReturn(ObjectFactory.createTestUser());
 
         authService.login(dto, request, response);
 
