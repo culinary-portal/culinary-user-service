@@ -51,9 +51,7 @@ dependencies {
 	testImplementation 'junit:junit:4.13.2'
 	testImplementation 'org.assertj:assertj-core:3.25.3'
 	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
-
-
-
+	testImplementation 'org.jeasy:easy-random-core:5.0.0'
 }
 
 tasks.named('test') {
