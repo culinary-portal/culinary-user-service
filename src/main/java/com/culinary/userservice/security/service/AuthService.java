@@ -103,7 +103,7 @@ public class AuthService {
         user.setEmail(email);
         user.setUserName(dto.username().trim());
         user.setPassword(passwordEncoder.encode(dto.password()));
-        user.setLocked(true);
+        user.setLocked(false);
         user.setAccountNonExpired(true);
         user.setCredentialsNonExpired(true);
         user.setEnabled(true);
