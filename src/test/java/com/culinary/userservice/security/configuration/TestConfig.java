@@ -10,4 +10,5 @@ import org.springframework.test.context.ActiveProfiles;
 @EnableConfigurationProperties
 @ActiveProfiles("test")
 public class TestConfig {
+
 }
