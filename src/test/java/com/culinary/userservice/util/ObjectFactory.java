@@ -1,7 +1,5 @@
 package com.culinary.userservice.util;
 
-import com.culinary.userservice.ingredient.dto.ingredient.IngredientDTO;
-import com.culinary.userservice.ingredient.dto.ingredient.PutIngredientDTO;
 import com.culinary.userservice.user.model.User;
 
 import java.sql.Date;

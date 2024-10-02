@@ -34,7 +34,7 @@ class ReviewServiceTest {
     @InjectMocks
     private ReviewService reviewService;
 
-    private EasyRandom generator = new EasyRandom();
+    private final EasyRandom generator = new EasyRandom();
 
     private User user;
 

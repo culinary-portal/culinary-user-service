@@ -27,8 +27,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 class RecipeServiceTest {
-    private PodamFactory factory = new PodamFactoryImpl();
-    private EasyRandom generator = new EasyRandom();
+    private final PodamFactory factory = new PodamFactoryImpl();
+    private final EasyRandom generator = new EasyRandom();
     @Mock
     private UserRepository userRepository;
 
