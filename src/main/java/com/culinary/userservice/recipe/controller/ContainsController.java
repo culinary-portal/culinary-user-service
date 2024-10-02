@@ -3,6 +3,7 @@ package com.culinary.userservice.recipe.controller;
 import com.culinary.userservice.recipe.dto.contains.ContainsDTO;
 import com.culinary.userservice.recipe.service.ContainsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +19,7 @@ public class ContainsController {
     @PostMapping
     public ResponseEntity<ContainsDTO> createContains(@RequestBody ContainsDTO containsDTO) {
         ContainsDTO createdContains = containsService.createContains(containsDTO);
-        return ResponseEntity.ok(createdContains);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdContains);
     }
 
     @PutMapping("/{id}")

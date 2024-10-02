@@ -24,7 +24,6 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 
 @SpringBootTest
 @ActiveProfiles("integration")
-@EnabledIfEnvironmentVariable(named = "INTEGRATION_ENABLED", matches = "true")
 public class IngredientControllerTest {
 
     private MockMvc mockMvc;
@@ -84,7 +83,7 @@ public class IngredientControllerTest {
         mockMvc.perform(post("/api/ingredients")
                         .contentType("application/json")
                         .content("{\"name\": \"Salt\"}"))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.ingredientId").value(1L))
                 .andExpect(jsonPath("$.name").value("Salt"));
 
@@ -115,7 +114,7 @@ public class IngredientControllerTest {
         doNothing().when(ingredientService).delete(ingredientId);
 
         mockMvc.perform(delete("/api/ingredients/{id}", ingredientId))
-                .andExpect(status().isOk());
+                .andExpect(status().isNoContent());
 
         verify(ingredientService, times(1)).delete(ingredientId);
     }

@@ -4,6 +4,7 @@ import com.culinary.userservice.recipe.dto.general.GetGeneralRecipeDTO;
 import com.culinary.userservice.recipe.dto.general.PutGeneralRecipeDTO;
 import com.culinary.userservice.recipe.service.GeneralRecipeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +21,7 @@ public class GeneralRecipeController {
     @PostMapping
     public ResponseEntity<GetGeneralRecipeDTO> createGeneralRecipe(@RequestBody PutGeneralRecipeDTO generalRecipeDTO) {
         GetGeneralRecipeDTO createdGeneralRecipe = generalRecipeService.createGeneralRecipe(generalRecipeDTO);
-        return ResponseEntity.ok(createdGeneralRecipe);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdGeneralRecipe);
     }
 
     @PutMapping("/{id}")

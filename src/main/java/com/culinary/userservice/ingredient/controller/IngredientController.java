@@ -4,6 +4,7 @@ import com.culinary.userservice.ingredient.dto.ingredient.IngredientDTO;
 import com.culinary.userservice.ingredient.dto.ingredient.PutIngredientDTO;
 import com.culinary.userservice.ingredient.service.IngredientService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +32,7 @@ public class IngredientController {
     @PostMapping
     public ResponseEntity<IngredientDTO> createIngredient(@RequestBody PutIngredientDTO ingredientDto) {
         IngredientDTO createdIngredient = ingredientService.save(ingredientDto);
-        return ResponseEntity.ok(createdIngredient);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdIngredient);
     }
 
     @PutMapping("/{id}")
@@ -43,6 +44,6 @@ public class IngredientController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteIngredient(@PathVariable long id) {
         ingredientService.delete(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 }
