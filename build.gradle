@@ -8,7 +8,6 @@ plugins {
 group = 'com.culinary.portal'
 version = '0.0.1-SNAPSHOT'
 
-
 java {
 	sourceCompatibility = '17'
 }
@@ -16,6 +15,7 @@ java {
 test {
 	finalizedBy jacocoTestReport
 }
+
 jacocoTestReport {
 	dependsOn test
 }
@@ -75,6 +75,19 @@ jacocoTestReport {
 		xml.required = false
 		csv.required = false
 		html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+	}
+
+	afterEvaluate {
+		classDirectories.setFrom(
+				files(classDirectories.files.collect { fileTree(dir: it, exclude: [
+						'**/com/culinary/**/model/**',
+						'**/com/culinary/**/dto/**',
+						'**/com/culinary/**/config/**',
+						'**/com/culinary/**/configuration/**',
+						'**/com/culinary/**/mapper/**',
+						'**/com/culinary/**/exception/**',
+				]) })
+		)
 	}
 }
 
