@@ -19,14 +19,6 @@ spring:
         persistence:
           sharedCache:
             mode: ALL
-      javax:
-        persistence:
-          schema-generation:
-            scripts:
-              action: create
-              create-source: metadata
-              create-target: create.sql
-
   session:
     redis:
       cleanup-cron: 0 * * * * *
@@ -40,3 +32,4 @@ spring:
       mode: always
       schema-locations: classpath:schema-local.sql
       platform: h2
+

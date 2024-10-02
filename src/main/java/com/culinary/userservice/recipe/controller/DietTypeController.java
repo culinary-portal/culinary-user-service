@@ -3,6 +3,7 @@ package com.culinary.userservice.recipe.controller;
 import com.culinary.userservice.recipe.dto.type.DietTypeDTO;
 import com.culinary.userservice.recipe.service.DietTypeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +19,7 @@ public class DietTypeController {
     @PostMapping
     public ResponseEntity<DietTypeDTO> createDietType(@RequestBody DietTypeDTO dietTypeDTO) {
         DietTypeDTO createdDietType = dietTypeService.createDietType(dietTypeDTO);
-        return ResponseEntity.ok(createdDietType);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdDietType);
     }
 
     @PutMapping("/{id}")

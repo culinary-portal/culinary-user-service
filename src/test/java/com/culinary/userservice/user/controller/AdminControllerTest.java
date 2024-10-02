@@ -58,6 +58,6 @@ class AdminControllerTest {
 
         mockMvc.perform(delete("/api/admin/user/{userId}", userId)
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andExpect(status().isNoContent());
     }
 }

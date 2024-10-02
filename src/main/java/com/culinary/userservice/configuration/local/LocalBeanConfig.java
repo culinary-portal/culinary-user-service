@@ -1,4 +1,4 @@
-package com.culinary.userservice.security.configuration.local;
+package com.culinary.userservice.configuration.local;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,7 +13,7 @@ import org.springframework.session.web.context.AbstractHttpSessionApplicationIni
 @Configuration
 @EnableRedisIndexedHttpSession
 @EnableRedisRepositories
-@Profile({"local", "test"})
+@Profile({"local", "test", "integration"})
 public class LocalBeanConfig extends AbstractHttpSessionApplicationInitializer {
 
 

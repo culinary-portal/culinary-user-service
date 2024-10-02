@@ -5,6 +5,7 @@ import com.culinary.userservice.recipe.dto.recipe.RecipeDTO;
 import com.culinary.userservice.recipe.dto.recipe.RecipeDetailsDTO;
 import com.culinary.userservice.recipe.service.RecipeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +23,7 @@ public class RecipeController {
     @PostMapping
     public ResponseEntity<RecipeDTO> createRecipe(@RequestBody PutRecipeDTO recipeContainsDTO) {
         RecipeDTO createdRecipe = recipeService.createRecipe(recipeContainsDTO);
-        return ResponseEntity.ok(createdRecipe);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdRecipe);
     }
 
     @PutMapping("/{id}")
@@ -34,7 +35,7 @@ public class RecipeController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteRecipe(@PathVariable long id) {
         recipeService.deleteRecipe(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}")

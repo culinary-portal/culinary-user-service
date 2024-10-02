@@ -2,14 +2,22 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.2.1'
 	id 'io.spring.dependency-management' version '1.1.4'
+	id 'jacoco'
 }
 
 group = 'com.culinary.portal'
 version = '0.0.1-SNAPSHOT'
 
-
 java {
 	sourceCompatibility = '17'
+}
+
+test {
+	finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+	dependsOn test
 }
 
 configurations {
@@ -51,9 +59,36 @@ dependencies {
 	testImplementation 'junit:junit:4.13.2'
 	testImplementation 'org.assertj:assertj-core:3.25.3'
 	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
+	testImplementation 'org.jeasy:easy-random-core:5.0.0'
+	testImplementation 'uk.co.jemos.podam:podam:8.0.2.RELEASE'
+	testImplementation 'org.mockito:mockito-core:4.5.1'
+	testImplementation 'org.mockito:mockito-inline:4.5.1'
+}
 
+jacoco {
+	toolVersion = "0.8.12"
+	reportsDirectory = layout.buildDirectory.dir('JacocoReports')
+}
 
+jacocoTestReport {
+	reports {
+		xml.required = false
+		csv.required = false
+		html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+	}
 
+	afterEvaluate {
+		classDirectories.setFrom(
+				files(classDirectories.files.collect { fileTree(dir: it, exclude: [
+						'**/com/culinary/**/model/**',
+						'**/com/culinary/**/dto/**',
+						'**/com/culinary/**/config/**',
+						'**/com/culinary/**/configuration/**',
+						'**/com/culinary/**/mapper/**',
+						'**/com/culinary/**/exception/**',
+				]) })
+		)
+	}
 }
 
 tasks.named('test') {

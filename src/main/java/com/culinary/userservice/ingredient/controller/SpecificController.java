@@ -6,6 +6,7 @@ import com.culinary.userservice.ingredient.dto.specific.SpecificDTO;
 import com.culinary.userservice.ingredient.service.SpecificService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,7 +35,7 @@ public class SpecificController {
     @PostMapping
     public ResponseEntity<SpecificDTO> createSpecific(@RequestBody PutSpecificDTO specificDto) {
         SpecificDTO createdSpecific = specificService.save(specificDto);
-        return ResponseEntity.ok(createdSpecific);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdSpecific);
     }
 
     @PutMapping("/{id}")
@@ -47,7 +48,7 @@ public class SpecificController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteSpecific(@PathVariable long id) {
         specificService.delete(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{userId}/disliked-ingredients")

@@ -6,6 +6,7 @@ import com.culinary.userservice.ingredient.dto.substitute.SubstituteDTO;
 import com.culinary.userservice.ingredient.service.SubstituteService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,7 +37,7 @@ public class SubstituteController {
     @PostMapping
     public ResponseEntity<SubstituteDTO> createSubstitute(@RequestBody PutSubstituteDTO substituteDto) {
         SubstituteDTO createdSubstitute = substituteService.save(substituteDto);
-        return ResponseEntity.ok(createdSubstitute);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdSubstitute);
     }
 
 
@@ -49,7 +50,7 @@ public class SubstituteController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteSubstitute(@PathVariable long id) {
         substituteService.delete(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/ingredient")

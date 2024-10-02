@@ -1,4 +1,4 @@
-package com.culinary.userservice.security.configuration.local;
+package com.culinary.userservice.configuration.local;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
@@ -10,7 +10,7 @@ import java.io.IOException;
 
 
 @Configuration
-@Profile({"local", "test"})
+@Profile({"local", "test", "integration"})
 public class RedisConfig {
 
     private final RedisServer redisServer;

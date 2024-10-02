@@ -69,6 +69,6 @@ public class Recipe {
 
     @Override
     public int hashCode() {
-        return Objects.hash(recipeId, generalRecipe, name, description, dietType);
+        return Objects.hash(recipeId, generalRecipe, name, description);
     }
 }

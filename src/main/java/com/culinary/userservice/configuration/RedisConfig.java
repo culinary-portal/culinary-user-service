@@ -1,4 +1,4 @@
-package com.culinary.userservice.security.configuration;
+package com.culinary.userservice.configuration;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +17,7 @@ import org.springframework.session.web.context.AbstractHttpSessionApplicationIni
 @EnableRedisIndexedHttpSession
 @Slf4j
 @RequiredArgsConstructor
-@Profile("!local & !test")
+@Profile({"!local & !test & !integration"})
 public class RedisConfig extends AbstractHttpSessionApplicationInitializer {
 
     private final RedisProperties redisProperties;

@@ -18,7 +18,7 @@ public class ReviewMapper {
     }
 
     public static ReviewDTO toDto(Review review) {
-        return new  ReviewDTO(
+        return new ReviewDTO(
                 review.getReviewId(),
                 review.getUser().getId(),
                 review.getGeneralRecipe().getGeneralRecipeId(),
