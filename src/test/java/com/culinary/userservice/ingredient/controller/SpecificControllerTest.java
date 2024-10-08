@@ -24,8 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
-@SpringBootTest
-@ActiveProfiles("integration")
+@ActiveProfiles("test")
 public class SpecificControllerTest {
 
     private MockMvc mockMvc;
