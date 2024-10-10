@@ -20,6 +20,7 @@ public class ContainsMapper {
 
     public static ContainsDTO toDto(Contains contains) {
         return new ContainsDTO(
+                contains.getContainsId(),
                 contains.getAmount(),
                 contains.getMeasure(),
                 contains.getRecipe().getRecipeId(),
