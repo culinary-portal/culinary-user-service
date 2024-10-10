@@ -1,4 +1,5 @@
 package com.culinary.userservice.ingredient.controller;
+
 import com.culinary.userservice.ingredient.dto.substitute.GetSubstituteDTO;
 import com.culinary.userservice.ingredient.dto.substitute.PutSubstituteDTO;
 import com.culinary.userservice.ingredient.dto.substitute.SubstituteDTO;
@@ -8,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import uk.co.jemos.podam.api.PodamFactory;
@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
-@ActiveProfiles("integration")
+@ActiveProfiles("test")
 class SubstituteControllerTest {
 
     private MockMvc mockMvc;
