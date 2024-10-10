@@ -86,6 +86,7 @@ jacocoTestReport {
 						'**/com/culinary/**/configuration/**',
 						'**/com/culinary/**/mapper/**',
 						'**/com/culinary/**/exception/**',
+						'**/com/culinary/**/CulinaryUserApplication.class',
 				]) })
 		)
 	}

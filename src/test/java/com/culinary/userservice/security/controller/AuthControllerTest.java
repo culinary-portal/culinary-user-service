@@ -1,12 +1,11 @@
 package com.culinary.userservice.security.controller;
 
-import com.culinary.userservice.StoreApiApplication;
+import com.culinary.userservice.CulinaryUserApplication;
 import com.culinary.userservice.security.dto.AuthDTO;
 import com.culinary.userservice.security.service.AuthService;
 import com.culinary.userservice.user.exception.UserAlreadyExistsException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,10 +22,9 @@ import java.util.Random;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest(classes = StoreApiApplication.class)
+@SpringBootTest(classes = CulinaryUserApplication.class)
 @AutoConfigureMockMvc
 @ActiveProfiles("integration")
-@EnabledIfEnvironmentVariable(named = "INTEGRATION_ENABLED", matches = "true")
 class AuthControllerTest {
 
     @MockBean
