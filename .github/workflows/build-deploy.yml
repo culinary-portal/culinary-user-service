@@ -26,39 +26,39 @@ jobs:
       - name: Run tests
         run: ./gradlew test
 
-#  deploy:
-#    runs-on: ubuntu-latest
-#
-#    steps:
-#      - name: Checkout code
-#        uses: actions/checkout@v4
-#
-#      - name: Set up JDK 17
-#        uses: actions/setup-java@v4
-#        with:
-#          java-version: '17'
-#          distribution: 'temurin'
-#
-#      - name: Authenticate to Google Cloud
-#        uses: google-github-actions/auth@v1
-#        with:
-#          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
-#
-#      - name: Set up Cloud SDK
-#        uses: google-github-actions/setup-gcloud@v1
-#        with:
-#          project_id: ${{ secrets.GCP_PROJECT_ID }}
-#          service_account_key: ${{ secrets.GCP_CREDENTIALS }}
-#
-#      - name: Configure Docker for Google Artifact Registry
-#        run: gcloud auth configure-docker
-#
-#      - name: Build Docker image
-#        run: docker build -t ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/my-repo/my-app:latest .
-#
-#      - name: Push Docker image to Google Artifact Registry
-#        run: docker push ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/my-repo/my-app:latest
-#
-#      - name: Deploy to App Engine
-#        run: |
-#          gcloud app deploy --image-url=${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/my-repo/my-app:latest
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_CREDENTIALS }}
+
+      - name: Configure Docker for Google Artifact Registry
+        run: gcloud auth configure-docker
+
+      - name: Build Docker image
+        run: docker build -t ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/culinary-portal/culinary-user-service:latest .
+
+      - name: Push Docker image to Google Artifact Registry
+        run: docker push ${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/culinary-portal/culinary-user-service:latest
+
+      - name: Deploy to App Engine
+        run: |
+          gcloud app deploy --image-url=${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/culinary-portal/culinary-user-service:latest
