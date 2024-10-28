@@ -39,6 +39,9 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: Build with Gradle
+        run: ./gradlew clean build
+
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v1
         with:
