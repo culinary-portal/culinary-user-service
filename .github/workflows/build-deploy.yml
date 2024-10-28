@@ -38,10 +38,10 @@ jobs:
         run: gcloud auth configure-docker ${{ secrets.GCP_REGION }}-docker.pkg.dev
 
       - name: Build Docker image
-        run: docker build -t europe-central2-docker.pkg.dev/culinary-portal/culinary-user-service .
+        run: docker build -t europe-central2-docker.pkg.dev/culinary-portal/culinary-user-service:latest .
 
       - name: Push Docker image to Google Artifact Registry
-        run: docker push europe-central2-docker.pkg.dev/culinary-portal/culinary-user-service
+        run: docker push europe-central2-docker.pkg.dev/culinary-portal/culinary-user-service:latest
 
       - name: Deploy to App Engine
         run: |
