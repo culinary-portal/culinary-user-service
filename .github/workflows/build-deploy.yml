@@ -38,7 +38,11 @@ jobs:
         run: gcloud auth configure-docker ${{ secrets.GCP_REGION }}-docker.pkg.dev
 
       - name: Build Docker image
-        run: docker build -t europe-central2-docker.pkg.dev/culinary-portal/culinary-user-service/culinary-user-service:${{ github.sha }} ./
+        run: docker build \
+          --build-arg DB_USERNAME=${{ secrets.DB_USERNAME }} \
+          --build-arg DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
+          --build-arg GCP_SA_JSON=${{ secrets.GCP_SA_JSON }} \
+          -t europe-central2-docker.pkg.dev/culinary-portal/culinary-user-service/culinary-user-service:${{ github.sha }} ./
 
       - name: Push Docker image to Google Artifact Registry
         run: docker push europe-central2-docker.pkg.dev/culinary-portal/culinary-user-service/culinary-user-service:${{ github.sha }}
