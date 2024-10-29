@@ -11,7 +11,7 @@ spring:
         database-name: postgres
         instance-connection-name: culinary-portal:europe-central2:culinary-postgres-db
       credentials:
-        location: file:/Users/wiktorczetyrbok/engineer/culinary-user-service/service-account-file.json
+        location: file:service-account-file.json
   data:
     redis:
       host: localhost
