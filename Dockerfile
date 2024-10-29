@@ -8,6 +8,8 @@ LABEL org.opencontainers.image.licenses="MIT"
 
 EXPOSE 8080
 
+ENV DB_USERNAME=${DB_USERNAME}
+ENV DB_PASSWORD=${DB_PASSWORD}
 
 COPY build/libs/culinary-user-service-0.0.1-SNAPSHOT.jar /opt/culinary-user-service/culinary-user-service.jar
 
