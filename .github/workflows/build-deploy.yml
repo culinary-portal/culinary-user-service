@@ -49,4 +49,4 @@ jobs:
         env:
           DB_USERNAME: ${{ secrets.DB_USERNAME }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          GOOGLE_CREDENTIALS_JSON: ${{ secrets.GCP_SA_JSON }}
+          GCP_SA_JSON: ${{ secrets.GCP_SA_JSON }}
