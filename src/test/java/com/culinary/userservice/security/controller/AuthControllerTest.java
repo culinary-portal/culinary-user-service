@@ -1,15 +1,15 @@
 package com.culinary.userservice.security.controller;
 
-import com.culinary.userservice.CulinaryUserApplication;
 import com.culinary.userservice.security.dto.AuthDTO;
 import com.culinary.userservice.security.service.AuthService;
 import com.culinary.userservice.user.exception.UserAlreadyExistsException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
@@ -21,19 +21,25 @@ import java.util.Random;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
-@SpringBootTest(classes = CulinaryUserApplication.class)
 @AutoConfigureMockMvc
-@ActiveProfiles("integration")
+@ActiveProfiles("test")
 class AuthControllerTest {
 
-    @MockBean
-    private AuthService authService;
-    @Autowired
     private MockMvc mockMvc;
+    @InjectMocks
+    private AuthController authController;
+    @Mock
+    private AuthService authService;
 
-    @Autowired
-    private ObjectMapper objectMapper;
+    @BeforeEach
+    public void setUp() {
+        MockitoAnnotations.initMocks(this);
+        mockMvc = standaloneSetup(new AuthController(authService)).build();
+    }
+
+    private ObjectMapper objectMapper = new ObjectMapper();
 
     @Test
     void register() throws Exception {
