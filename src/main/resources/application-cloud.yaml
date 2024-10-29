@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    username: postgres
+    password: culinary-postgres-db2701
+    driver-class-name: org.postgresql.Driver
+  cloud:
+    config:
+      enabled: false
+    gcp:
+      sql:
+        database-name: postgres
+        instance-connection-name: culinary-portal:europe-central2:culinary-postgres-db
+      credentials:
+        location: file:/Users/wiktorczetyrbok/engineer/culinary-user-service/service-account-file.json
+  data:
+    redis:
+      host: localhost
+      password: session
+      port: 6379
+      url: redis://localhost:6379
+
