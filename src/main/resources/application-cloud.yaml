@@ -11,7 +11,7 @@ spring:
         database-name: postgres
         instance-connection-name: culinary-portal:europe-central2:culinary-postgres-db
       credentials:
-        location: file:service-account-file.json
+        encoded-key: ${GOOGLE_CREDENTIALS_JSON}
   data:
     redis:
       host: localhost
