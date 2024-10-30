@@ -1,0 +1,59 @@
+name: Deploy to GAE with GAR
+
+on:
+  push:
+    branches: [ "development" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Build with Gradle
+        run: ./gradlew clean build
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_CREDENTIALS }}
+
+      - name: Configure Docker for Google Artifact Registry
+        run: gcloud auth configure-docker ${{ secrets.GCP_REGION }}-docker.pkg.dev
+
+      - name: Inject secrets into app.yaml
+        run: |
+          sed -i 's|DB_USERNAME_PLACEHOLDER|'"${{ secrets.DB_USERNAME }}"'|g' src/main/appengine/app.yaml
+          sed -i 's|DB_PASSWORD_PLACEHOLDER|'"${{ secrets.DB_PASSWORD }}"'|g' src/main/appengine/app.yaml
+          sed -i 's|GCP_SA_JSON_PLACEHOLDER|'"${{ secrets.GCP_SA_JSON }}"'|g' src/main/appengine/app.yaml
+
+      - name: Build Docker image
+        run: docker build -t europe-central2-docker.pkg.dev/culinary-portal/culinary-user-service/culinary-user-service:${{ github.sha }} ./
+
+      - name: Push Docker image to Google Artifact Registry
+        run: docker push europe-central2-docker.pkg.dev/culinary-portal/culinary-user-service/culinary-user-service:${{ github.sha }}
+
+
+      - name: Deploy to App Engine
+        run: |
+          gcloud app deploy --image-url=europe-central2-docker.pkg.dev/culinary-portal/culinary-user-service/culinary-user-service:${{ github.sha }}
+        env:
+          DB_USERNAME: ${{ secrets.DB_USERNAME }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          GCP_SA_JSON: ${{ secrets.GCP_SA_JSON }}

@@ -28,20 +28,17 @@ public class GeneralRecipe {
     @Column(name = "name")
     private String name;
 
-    @Lob
-    @Column(name = "photo_url")
+    @Column(name = "photo_url", columnDefinition = "clob")
     private String photoUrl;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "meal_type", nullable = false)
     private MealType mealType;
 
-    @Lob
-    @Column(name = "description")
+    @Column(name = "description", columnDefinition = "clob")
     private String description;
 
-    @Lob
-    @Column(name = "steps")
+    @Column(name = "steps", columnDefinition = "clob")
     private String steps;
 
     @OneToOne

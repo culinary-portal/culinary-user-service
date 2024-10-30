@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 
 import java.util.HashSet;
 import java.util.List;
@@ -33,8 +34,8 @@ public class Recipe {
     @Column(name = "name")
     private String name;
 
-    @Lob
-    @Column(name = "description")
+
+    @Column(name = "description", columnDefinition = "clob")
     private String description;
 
     @ManyToOne

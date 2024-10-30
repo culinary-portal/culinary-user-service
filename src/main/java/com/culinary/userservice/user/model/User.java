@@ -22,7 +22,7 @@ import static jakarta.persistence.FetchType.EAGER;
 import static jakarta.persistence.FetchType.LAZY;
 
 @Builder
-@Table(name = "user")
+@Table(name = "users")
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -40,8 +40,7 @@ public class User implements Serializable {
     @JsonIgnore
     @Column(name = "password", nullable = false)
     private String password;
-    @Lob
-    @Column(name = "photo_url", nullable = false)
+    @Column(name = "photo_url", nullable = false, columnDefinition = "clob")
     private String photoUrl;
     @Column(name = "account_enabled")
     private boolean enabled;
