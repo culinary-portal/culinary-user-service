@@ -14,7 +14,7 @@ base_recipe_id INTEGER,
 );
 
 
-CREATE TABLE IF NOT EXISTS user (
+CREATE TABLE IF NOT EXISTS users (
 user_id SERIAL PRIMARY KEY,
 user_name VARCHAR,
 email VARCHAR,
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS user_diet_type (
 user_id INT,
 diet_type_id INT,
 PRIMARY KEY (user_id, diet_type_id),
-FOREIGN KEY (user_id) REFERENCES user (user_id),
+FOREIGN KEY (user_id) REFERENCES users (user_id),
 FOREIGN KEY (diet_type_id) REFERENCES diet_type (diet_type_id)
 );
 
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS roles (
 role_id SERIAL PRIMARY KEY,
 user_id INTEGER NOT NULL,
 role VARCHAR(255) CHECK (role IN ('ADMIN', 'ANONYMOUS', 'USER')),
-CONSTRAINT fk_user_roles FOREIGN KEY (user_id) REFERENCES user (user_id)
+CONSTRAINT fk_user_roles FOREIGN KEY (user_id) REFERENCES users (user_id)
 );
 
 CREATE TABLE IF NOT EXISTS ingredient (
@@ -92,7 +92,7 @@ user_id INTEGER,
 general_recipe_id INTEGER,
 rating INTEGER,
 opinion VARCHAR,
-CONSTRAINT fk_review_user FOREIGN KEY (user_id) REFERENCES user (user_id),
+CONSTRAINT fk_review_user FOREIGN KEY (user_id) REFERENCES users (user_id),
 CONSTRAINT fk_review_general_recipe FOREIGN KEY (general_recipe_id) REFERENCES general_recipe (general_recipe_id)
 );
 
@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS favorite (
 favorites_id SERIAL PRIMARY KEY,
 user_id INTEGER,
 general_recipe_id INTEGER,
-CONSTRAINT fk_favorites_user FOREIGN KEY (user_id) REFERENCES user (user_id),
+CONSTRAINT fk_favorites_user FOREIGN KEY (user_id) REFERENCES users (user_id),
 CONSTRAINT fk_favorites_recipe FOREIGN KEY (general_recipe_id) REFERENCES general_recipe (general_recipe_id)
 );
 
@@ -108,7 +108,7 @@ CREATE TABLE IF NOT EXISTS modified_recipe (
 modified_recipe_id SERIAL PRIMARY KEY,
 user_id INTEGER,
 recipe_id INTEGER,
-CONSTRAINT fk_modified_user FOREIGN KEY (user_id) REFERENCES user (user_id),
+CONSTRAINT fk_modified_user FOREIGN KEY (user_id) REFERENCES users (user_id),
 CONSTRAINT fk_modified_recipe FOREIGN KEY (recipe_id) REFERENCES recipe (recipe_id)
 );
 
@@ -117,7 +117,7 @@ specific_id SERIAL PRIMARY KEY,
 user_id INTEGER,
 id_ingredient INTEGER,
 likes BOOLEAN,
-CONSTRAINT fk_specific_user FOREIGN KEY (user_id) REFERENCES user (user_id),
+CONSTRAINT fk_specific_user FOREIGN KEY (user_id) REFERENCES users (user_id),
 CONSTRAINT fk_specific_ingredient FOREIGN KEY (id_ingredient) REFERENCES ingredient (ingredient_id)
 );
 
