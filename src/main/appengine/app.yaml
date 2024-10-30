@@ -9,7 +9,9 @@ automatic_scaling:
 
 env_variables:
   SPRING_PROFILES_ACTIVE: "cloud"
-
+  DB_USERNAME: DB_USERNAME_PLACEHOLDER
+  DB_PASSWORD: DB_PASSWORD_PLACEHOLDER
+  GCP_SA_JSON: GCP_SA_JSON_PLACEHOLDER
 
 resources:
   cpu: 1

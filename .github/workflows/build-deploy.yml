@@ -37,11 +37,18 @@ jobs:
       - name: Configure Docker for Google Artifact Registry
         run: gcloud auth configure-docker ${{ secrets.GCP_REGION }}-docker.pkg.dev
 
+      - name: Inject secrets into app.yaml
+        run: |
+          sed -i 's|DB_USERNAME_PLACEHOLDER|'"${{ secrets.DB_USERNAME }}"'|g' src/main/appengine/app.yaml
+          sed -i 's|DB_PASSWORD_PLACEHOLDER|'"${{ secrets.DB_PASSWORD }}"'|g' src/main/appengine/app.yaml
+          sed -i 's|GCP_SA_JSON_PLACEHOLDER|'"${{ secrets.GCP_SA_JSON }}"'|g' src/main/appengine/app.yaml
+
       - name: Build Docker image
         run: docker build -t europe-central2-docker.pkg.dev/culinary-portal/culinary-user-service/culinary-user-service:${{ github.sha }} ./
 
       - name: Push Docker image to Google Artifact Registry
         run: docker push europe-central2-docker.pkg.dev/culinary-portal/culinary-user-service/culinary-user-service:${{ github.sha }}
+
 
       - name: Deploy to App Engine
         run: |
