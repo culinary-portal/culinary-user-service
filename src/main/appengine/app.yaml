@@ -1,5 +1,6 @@
 runtime: custom
 env: flex
+service: culinary-user-service
 
 instance_class: F1
 

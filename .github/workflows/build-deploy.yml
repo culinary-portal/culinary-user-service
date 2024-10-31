@@ -53,7 +53,3 @@ jobs:
       - name: Deploy to App Engine
         run: |
           gcloud app deploy --image-url=europe-central2-docker.pkg.dev/culinary-portal/culinary-user-service/culinary-user-service:${{ github.sha }}
-        env:
-          DB_USERNAME: ${{ secrets.DB_USERNAME }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          GCP_SA_JSON: ${{ secrets.GCP_SA_JSON }}
