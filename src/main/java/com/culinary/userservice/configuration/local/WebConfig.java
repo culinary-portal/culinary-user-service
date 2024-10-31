@@ -13,13 +13,20 @@ public class WebConfig {
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
 
-            @Value("${frontend.host}")
-            private String host;
+            @Value("${allowed.origins.cloud-api}")
+            private String cloudApi;
+
+            @Value("${allowed.origins.local}")
+            private String local;
+
+            @Value("${allowed.origins.cloud-front}")
+            private String cloudFrontend;
+
 
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins(host, "https://culinary-portal.lm.r.appspot.com/")
+                        .allowedOrigins(cloudApi, local, cloudFrontend)
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true);
