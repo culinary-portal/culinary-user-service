@@ -13,6 +13,11 @@ server:
       timeout: 1m
       tracking-modes: cookie
 
+spring:
+  cloud:
+    gcp:
+      sql:
+        enabled: false
 
 admin.email: admin@admin.com
 default.user.photo.url: "N/A"

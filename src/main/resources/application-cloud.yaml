@@ -8,6 +8,7 @@ spring:
       enabled: false
     gcp:
       sql:
+        enabled: true
         database-name: postgres
         instance-connection-name: culinary-portal:europe-central2:culinary-postgres-db
       credentials:
