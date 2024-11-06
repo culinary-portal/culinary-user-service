@@ -1,6 +1,8 @@
 package com.culinary.userservice.configuration.local;
 
+import com.culinary.userservice.configuration.ApiLoggingFilter;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -8,6 +10,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebConfig {
+
+    @Bean
+    public FilterRegistrationBean<ApiLoggingFilter> loggingFilter() {
+        FilterRegistrationBean<ApiLoggingFilter> registrationBean = new FilterRegistrationBean<>();
+        registrationBean.setFilter(new ApiLoggingFilter());
+        registrationBean.addUrlPatterns("/api/*");
+        return registrationBean;
+    }
 
     @Bean
     public WebMvcConfigurer corsConfigurer() {
