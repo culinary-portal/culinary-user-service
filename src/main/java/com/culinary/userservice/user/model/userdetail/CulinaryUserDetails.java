@@ -31,7 +31,7 @@ public record CulinaryUserDetails(User user) implements UserDetails, Serializabl
 
     @Override
     public boolean isAccountNonLocked() {
-        return this.user.isLocked();
+        return !this.user.isLocked();
     }
 
     @Override

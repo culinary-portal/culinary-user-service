@@ -13,14 +13,21 @@ server:
       timeout: 1m
       tracking-modes: cookie
 
+spring:
+  cloud:
+    gcp:
+      sql:
+        enabled: false
 
 admin.email: admin@admin.com
 default.user.photo.url: "N/A"
 
 custom.max.session: 1
 
-frontend.host: "http://localhost:4200"
-
+allowed.origins:
+  local: "http://localhost:4200"
+  cloud-front: "https://culinary-frontend-service-dot-culinary-portal.lm.r.appspot.com/"
+  cloud-api: "https://culinary-user-service-dot-culinary-portal.lm.r.appspot.com/"
 ### JDBC logs
 logging:
   level:
