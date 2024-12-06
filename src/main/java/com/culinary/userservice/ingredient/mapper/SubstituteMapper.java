@@ -52,7 +52,7 @@ public class SubstituteMapper {
 
             substitute.setIngredient1(ingredient1);
             substitute.setIngredient2(ingredient2);
-            substitute.setProportionI1I2(dto.proportionI1I2());
+            if (dto.proportionI1I2() != null) substitute.setProportionI1I2(dto.proportionI1I2());
         }
     }
 

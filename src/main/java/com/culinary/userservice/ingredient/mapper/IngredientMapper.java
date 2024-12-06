@@ -19,13 +19,14 @@ public class IngredientMapper {
     }
 
     public static void updateEntityFromDto(Ingredient entity, PutIngredientDTO dto) {
-        entity.setName(dto.name());
-        entity.setFat(dto.fat());
-        entity.setProtein(dto.protein());
-        entity.setCarbohydrate(dto.carbohydrate());
-        entity.setKcal(dto.kcal());
-        entity.setIsVegan(dto.isVegan());
-        entity.setIsGlutenFree(dto.isGlutenFree());
+        if (entity == null || dto == null) throw new IllegalArgumentException("Entity and DTO must not be null");
+        if (dto.name() != null) entity.setName(dto.name());
+        if (dto.fat() != null) entity.setFat(dto.fat());
+        if (dto.protein() != null) entity.setProtein(dto.protein());
+        if (dto.carbohydrate() != null) entity.setCarbohydrate(dto.carbohydrate());
+        if (dto.kcal() != null) entity.setKcal(dto.kcal());
+        if (dto.isVegan() != null) entity.setIsVegan(dto.isVegan());
+        if (dto.isGlutenFree() != null) entity.setIsGlutenFree(dto.isGlutenFree());
     }
 
     public static IngredientDTO toDto(Ingredient ingredient) {

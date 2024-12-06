@@ -16,13 +16,16 @@ import static com.culinary.userservice.recipe.util.RecipeUtils.*;
 public class GeneralRecipeMapper {
 
     public static GeneralRecipe updateEntity(GeneralRecipe entity, PutGeneralRecipeDTO dto, Recipe baseRecipe) {
-        entity.setName(dto.name());
-        entity.setMealType(GeneralRecipe.MealType.valueOf(dto.mealType().toUpperCase().trim()));
-        entity.setPhotoUrl(dto.photoUrl());
-        entity.setDescription(dto.description());
-        entity.setSteps(dto.steps());
-        entity.setBaseRecipe(baseRecipe);
-        entity.setReviews(new ArrayList<>());
+        if (entity == null || dto == null) throw new IllegalArgumentException("Entity and DTO must not be null");
+        entity.setName(dto.name() != null ? dto.name() : entity.getName());
+        entity.setMealType(dto.mealType() != null ?
+                GeneralRecipe.MealType.valueOf(dto.mealType().toUpperCase().trim()) : entity.getMealType());
+        entity.setPhotoUrl(dto.photoUrl() != null ? dto.photoUrl() : entity.getPhotoUrl());
+        entity.setDescription(dto.description() != null ? dto.description() : entity.getDescription());
+        entity.setSteps(dto.steps() != null ? dto.steps() : entity.getSteps());
+        entity.setBaseRecipe(baseRecipe != null ? baseRecipe : entity.getBaseRecipe());
+        entity.setReviews(entity.getReviews() != null ? entity.getReviews() : new ArrayList<>());
+
         return entity;
     }
 

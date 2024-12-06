@@ -29,7 +29,7 @@ public class DietTypeService {
     public DietTypeDTO updateDietType(long id, DietTypeDTO dietTypeDTO) {
         DietType dietType = dietTypeRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("DietType not found"));
-        dietType.setDietType(dietTypeDTO.dietType());
+        if (dietTypeDTO.dietType() != null) dietType.setDietType(dietTypeDTO.dietType());
         dietType = dietTypeRepository.save(dietType);
         return DietTypeMapper.toDto(dietType);
     }

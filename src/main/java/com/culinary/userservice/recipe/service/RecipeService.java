@@ -65,17 +65,21 @@ public class RecipeService {
     public Recipe updateRecipe(long id, PutRecipeDTO dto) {
         Recipe recipe = recipeRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Recipe not found"));
-        recipe.setName(dto.name());
-        recipe.setDescription(dto.description());
-        recipe.setDietType(dietTypeService.getDietTypeEntityByType(dto.dietType()));
-        Recipe finalRecipe = recipe;
-        recipe.setContains(dto.contains()
-                .stream()
-                .map(e -> ContainsMapper.toEntity(e, finalRecipe, ingredientService.findEntityById(e.ingredientId())))
-                .collect(toList()));
+
+        if (dto.name() != null) recipe.setName(dto.name());
+        if (dto.description() != null) recipe.setDescription(dto.description());
+        if (dto.dietType() != null) recipe.setDietType(dietTypeService.getDietTypeEntityByType(dto.dietType()));
+        if (dto.contains() != null) {
+            recipe.setContains(dto.contains().stream()
+                    .map(e -> ContainsMapper.toEntity(
+                            e, recipe, ingredientService.findEntityById(e.ingredientId())
+                    )).collect(toList()));
+        }
+
         recipeRepository.save(recipe);
         return recipe;
     }
+
 
     public RecipeDTO updateRecipeDTO(long id, PutRecipeDTO dto) {
         return RecipeMapper.toDto(updateRecipe(id, dto));
