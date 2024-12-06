@@ -26,9 +26,9 @@ public class SpecificController {
         return ResponseEntity.ok(specifics);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<SpecificDTO> getSpecificById(@PathVariable long id) {
-        SpecificDTO specific = specificService.findById(id);
+    @GetMapping("/{specificId}")
+    public ResponseEntity<SpecificDTO> getSpecificById(@PathVariable long specificId) {
+        SpecificDTO specific = specificService.findById(specificId);
         return ResponseEntity.ok(specific);
     }
 
@@ -38,16 +38,16 @@ public class SpecificController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdSpecific);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<SpecificDTO> updateSpecific(@PathVariable long id,
+    @PutMapping("/{specificId}")
+    public ResponseEntity<SpecificDTO> updateSpecific(@PathVariable long specificId,
                                                       @RequestBody PutSpecificDTO specificDto) {
-        SpecificDTO updatedSpecific = specificService.update(id, specificDto);
+        SpecificDTO updatedSpecific = specificService.update(specificId, specificDto);
         return ResponseEntity.ok(updatedSpecific);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteSpecific(@PathVariable long id) {
-        specificService.delete(id);
+    @DeleteMapping("/{specificId}")
+    public ResponseEntity<Void> deleteSpecific(@PathVariable long specificId) {
+        specificService.delete(specificId);
         return ResponseEntity.noContent().build();
     }
 

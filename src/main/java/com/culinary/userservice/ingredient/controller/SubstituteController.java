@@ -28,9 +28,9 @@ public class SubstituteController {
         return ResponseEntity.ok(substitutes);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<GetSubstituteDTO> getSubstituteById(@PathVariable long id) {
-        GetSubstituteDTO substitute = substituteService.findById(id);
+    @GetMapping("/{substituteId}")
+    public ResponseEntity<GetSubstituteDTO> getSubstituteById(@PathVariable long substituteId) {
+        GetSubstituteDTO substitute = substituteService.findById(substituteId);
         return ResponseEntity.ok(substitute);
     }
 
@@ -41,15 +41,15 @@ public class SubstituteController {
     }
 
 
-    @PutMapping("/{id}")
-    public ResponseEntity<SubstituteDTO> updateSubstitute(@PathVariable long id, @RequestBody PutSubstituteDTO substituteDto) {
-        SubstituteDTO updatedSubstitute = substituteService.update(id, substituteDto);
+    @PutMapping("/{substituteId}")
+    public ResponseEntity<SubstituteDTO> updateSubstitute(@PathVariable long substituteId, @RequestBody PutSubstituteDTO substituteDto) {
+        SubstituteDTO updatedSubstitute = substituteService.update(substituteId, substituteDto);
         return ResponseEntity.ok(updatedSubstitute);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteSubstitute(@PathVariable long id) {
-        substituteService.delete(id);
+    @DeleteMapping("/{substituteId}")
+    public ResponseEntity<Void> deleteSubstitute(@PathVariable long substituteId) {
+        substituteService.delete(substituteId);
         return ResponseEntity.noContent().build();
     }
 

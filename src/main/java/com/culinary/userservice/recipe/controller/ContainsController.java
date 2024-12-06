@@ -22,21 +22,21 @@ public class ContainsController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdContains);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ContainsDTO> updateContains(@PathVariable long id, @RequestBody ContainsDTO containsDTO) {
-        ContainsDTO updatedContains = containsService.updateContains(id, containsDTO);
+    @PutMapping("/{containsId}")
+    public ResponseEntity<ContainsDTO> updateContains(@PathVariable long containsId, @RequestBody ContainsDTO containsDTO) {
+        ContainsDTO updatedContains = containsService.updateContains(containsId, containsDTO);
         return ResponseEntity.ok(updatedContains);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteContains(@PathVariable long id) {
-        containsService.deleteContains(id);
+    @DeleteMapping("/{containsId}")
+    public ResponseEntity<Void> deleteContains(@PathVariable long containsId) {
+        containsService.deleteContains(containsId);
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ContainsDTO> getContainsById(@PathVariable long id) {
-        ContainsDTO containsDTO = containsService.getContainsById(id);
+    @GetMapping("/{containsId}")
+    public ResponseEntity<ContainsDTO> getContainsById(@PathVariable long containsId) {
+        ContainsDTO containsDTO = containsService.getContainsById(containsId);
         return ResponseEntity.ok(containsDTO);
     }
 

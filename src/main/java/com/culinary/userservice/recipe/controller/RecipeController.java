@@ -26,21 +26,21 @@ public class RecipeController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdRecipe);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<RecipeDTO> updateRecipe(@PathVariable long id, @RequestBody PutRecipeDTO recipeContainsDTO) {
-        RecipeDTO updatedRecipe = recipeService.updateRecipeDTO(id, recipeContainsDTO);
+    @PutMapping("/{recipeId}")
+    public ResponseEntity<RecipeDTO> updateRecipe(@PathVariable long recipeId, @RequestBody PutRecipeDTO recipeContainsDTO) {
+        RecipeDTO updatedRecipe = recipeService.updateRecipeDTO(recipeId, recipeContainsDTO);
         return ResponseEntity.ok(updatedRecipe);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteRecipe(@PathVariable long id) {
-        recipeService.deleteRecipe(id);
+    @DeleteMapping("/{recipeId}")
+    public ResponseEntity<Void> deleteRecipe(@PathVariable long recipeId) {
+        recipeService.deleteRecipe(recipeId);
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<RecipeDetailsDTO> getRecipeById(@PathVariable long id) {
-        RecipeDetailsDTO recipe = recipeService.getRecipeById(id);
+    @GetMapping("/{recipeId}")
+    public ResponseEntity<RecipeDetailsDTO> getRecipeById(@PathVariable long recipeId) {
+        RecipeDetailsDTO recipe = recipeService.getRecipeById(recipeId);
         return ResponseEntity.ok(recipe);
     }
 

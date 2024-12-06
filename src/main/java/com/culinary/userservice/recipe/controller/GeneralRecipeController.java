@@ -24,21 +24,21 @@ public class GeneralRecipeController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdGeneralRecipe);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<GetGeneralRecipeDTO> updateGeneralRecipe(@PathVariable long id, @RequestBody PutGeneralRecipeDTO generalRecipeDTO) {
-        GetGeneralRecipeDTO updatedGeneralRecipe = generalRecipeService.updateGeneralRecipe(id, generalRecipeDTO);
+    @PutMapping("/{generalRecipeId}")
+    public ResponseEntity<GetGeneralRecipeDTO> updateGeneralRecipe(@PathVariable long generalRecipeId, @RequestBody PutGeneralRecipeDTO generalRecipeDTO) {
+        GetGeneralRecipeDTO updatedGeneralRecipe = generalRecipeService.updateGeneralRecipe(generalRecipeId, generalRecipeDTO);
         return ResponseEntity.ok(updatedGeneralRecipe);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteGeneralRecipe(@PathVariable long id) {
-        generalRecipeService.deleteGeneralRecipe(id);
+    @DeleteMapping("/{generalRecipeId}")
+    public ResponseEntity<Void> deleteGeneralRecipe(@PathVariable long generalRecipeId) {
+        generalRecipeService.deleteGeneralRecipe(generalRecipeId);
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<GetGeneralRecipeDTO> getGeneralRecipeById(@PathVariable long id) {
-        GetGeneralRecipeDTO generalRecipeDTO = generalRecipeService.getGeneralRecipeById(id);
+    @GetMapping("/{generalRecipeId}")
+    public ResponseEntity<GetGeneralRecipeDTO> getGeneralRecipeById(@PathVariable long generalRecipeId) {
+        GetGeneralRecipeDTO generalRecipeDTO = generalRecipeService.getGeneralRecipeById(generalRecipeId);
         return ResponseEntity.ok(generalRecipeDTO);
     }
 

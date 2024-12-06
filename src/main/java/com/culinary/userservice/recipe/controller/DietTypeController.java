@@ -22,21 +22,21 @@ public class DietTypeController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdDietType);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<DietTypeDTO> updateDietType(@PathVariable long id, @RequestBody DietTypeDTO dietTypeDTO) {
-        DietTypeDTO updatedDietType = dietTypeService.updateDietType(id, dietTypeDTO);
+    @PutMapping("/{dietTypeId}")
+    public ResponseEntity<DietTypeDTO> updateDietType(@PathVariable long dietTypeId, @RequestBody DietTypeDTO dietTypeDTO) {
+        DietTypeDTO updatedDietType = dietTypeService.updateDietType(dietTypeId, dietTypeDTO);
         return ResponseEntity.ok(updatedDietType);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteDietType(@PathVariable long id) {
-        dietTypeService.deleteDietType(id);
+    @DeleteMapping("/{dietTypeId}")
+    public ResponseEntity<Void> deleteDietType(@PathVariable long dietTypeId) {
+        dietTypeService.deleteDietType(dietTypeId);
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<DietTypeDTO> getDietTypeById(@PathVariable long id) {
-        DietTypeDTO dietTypeDTO = dietTypeService.getDietTypeById(id);
+    @GetMapping("/{dietTypeId}")
+    public ResponseEntity<DietTypeDTO> getDietTypeById(@PathVariable long dietTypeId) {
+        DietTypeDTO dietTypeDTO = dietTypeService.getDietTypeById(dietTypeId);
         return ResponseEntity.ok(dietTypeDTO);
     }
 

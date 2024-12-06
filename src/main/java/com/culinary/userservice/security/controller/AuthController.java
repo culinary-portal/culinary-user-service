@@ -57,9 +57,9 @@ public class AuthController {
         return "Admin name is " + authentication.getName();
     }
 
-    @PutMapping("/password/{id}")
-    public String updatePassword(HttpServletRequest request, HttpServletResponse response, @PathVariable Long id, @RequestBody String password) {
-        return authService.changePassword(request, response, id, password);
+    @PutMapping("/password/{userId}")
+    public String updatePassword(HttpServletRequest request, HttpServletResponse response, @PathVariable Long userId, @RequestBody String password) {
+        return authService.changePassword(request, response, userId, password);
     }
 
     @GetMapping("/logout")
