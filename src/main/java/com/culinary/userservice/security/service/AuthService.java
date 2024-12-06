@@ -140,6 +140,7 @@ public class AuthService {
         return UserMapper.toUserDetailsDTO(userService.getLoggedUser());
     }
 
+    @Transactional
     public String changePassword(HttpServletRequest request, HttpServletResponse response,
                                  Long id, String password) {
         String newPassword = password.trim();

@@ -43,6 +43,7 @@ public class UserService {
 
     }
 
+    @Transactional
     public User getUserEntityById(Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
@@ -78,6 +79,7 @@ public class UserService {
                 .collect(Collectors.toSet());
     }
 
+    @Transactional
     private User getUserEntityById(long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User not found with id " + userId));
@@ -112,6 +114,7 @@ public class UserService {
                 .collect(Collectors.toSet());
     }
 
+    @Transactional
     public Set<GeneralRecipeViewDTO> deleteFavoriteRecipe(long userId, long recipeId) {
         User user = getUserEntityById(userId);
         user.getFavoriteRecipes().remove(generalRecipeService.getGeneralRecipeEntityById(recipeId));
@@ -122,6 +125,7 @@ public class UserService {
                 .collect(Collectors.toSet());
     }
 
+    @Transactional
     public Set<DietTypeDTO> deleteFavoriteDiet(long userId, long dietId) {
         User user = getUserEntityById(userId);
         user.getPreferredDiets().remove(dietTypeService.getDietTypeEntityById(dietId));
@@ -132,6 +136,7 @@ public class UserService {
                 .collect(Collectors.toSet());
     }
 
+    @Transactional
     public UserDetailsDTO updateUser(long userId, PutUserDTO dto) {
         User user = getUserEntityById(userId);
         UserMapper.updateUser(user, dto);

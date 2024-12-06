@@ -28,6 +28,7 @@ public class ContainsService {
         return ContainsMapper.toDto(contains);
     }
 
+    @Transactional
     public Contains createContainsEntity(ContainsDTO containsDTO) {
         return ContainsMapper.toEntity(containsDTO,
                 recipeService.getRecipeEntityById(containsDTO.recipeId()),

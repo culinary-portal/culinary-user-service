@@ -56,6 +56,7 @@ public class DietTypeService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public DietType getDietTypeEntityByType(String dietType) {
         return dietTypeRepository.findDietTypeByDietTypeIgnoreCase(dietType)
                 .orElseThrow(() -> new NotFoundException("Diet type not found"));
