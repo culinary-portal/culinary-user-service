@@ -54,7 +54,7 @@ public class SpecificService {
     public SpecificDTO update(long id, PutSpecificDTO specificDto) {
         Specific specific = specificRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Specific not found"));
-        specific.setLikes(specificDto.likes());
+        if (specificDto.likes() != null) specific.setLikes(specificDto.likes());
         Specific updatedSpecific = specificRepository.save(specific);
         return SpecificMapper.toDto(updatedSpecific);
     }

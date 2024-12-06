@@ -38,10 +38,14 @@ public class UserMapper {
     }
 
     public static User updateUser(User user, PutUserDTO dto) {
-        user.setEmail(dto.email());
-        user.setPhotoUrl(dto.photoUrl());
-        user.setUserName(dto.userName());
-        user.setBirthdate(dto.birthdate());
+        if (user == null || dto == null) throw new IllegalArgumentException("User and DTO must not be null");
+
+        if (dto.email() != null) user.setEmail(dto.email());
+        if (dto.photoUrl() != null) user.setPhotoUrl(dto.photoUrl());
+        if (dto.userName() != null) user.setUserName(dto.userName());
+        if (dto.birthdate() != null) user.setBirthdate(dto.birthdate());
+
         return user;
     }
+
 }

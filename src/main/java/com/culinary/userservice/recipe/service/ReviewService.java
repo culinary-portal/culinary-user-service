@@ -32,16 +32,16 @@ public class ReviewService {
         return ReviewMapper.toDto(savedReview);
     }
 
-    @Transactional
     public ReviewDTO updateReview(long id, PutReviewDTO dto) {
         Review review = reviewRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Review not found"));
 
-        review.setOpinion(dto.opinion());
-        review.setRating(dto.rating());
-        Review updatedReview = reviewRepository.save(review);
-        return ReviewMapper.toDto(updatedReview);
+        if (dto.opinion() != null) review.setOpinion(dto.opinion());
+        if (dto.rating() != null) review.setRating(dto.rating());
+
+        return ReviewMapper.toDto(reviewRepository.save(review));
     }
+
 
     @Transactional
     public void deleteReview(long id) {
