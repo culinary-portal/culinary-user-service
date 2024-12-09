@@ -14,6 +14,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockedStatic;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 import java.util.List;
@@ -38,6 +40,8 @@ class GeneralRecipeServiceTest {
 
     private EasyRandom easyRandom;
     private PodamFactoryImpl podamFactory;
+    @Mock
+    private Pageable pageable;
 
     @BeforeEach
     void setUp() {
@@ -131,10 +135,10 @@ class GeneralRecipeServiceTest {
             when(generalRecipeRepository.findAll()).thenReturn(generalRecipes);
             when(GeneralRecipeMapper.toGetDTO(any(GeneralRecipe.class))).thenReturn(podamFactory.manufacturePojo(GetGeneralRecipeDTO.class));
 
-            List<GetGeneralRecipeDTO> result = generalRecipeService.getFilteredGeneralRecipes(empty(), empty(), empty(), empty(), empty());
+            Page<GetGeneralRecipeDTO> result = generalRecipeService.getFilteredGeneralRecipes(empty(), empty(), empty(), empty(), empty(), pageable);
 
             assertNotNull(result);
-            assertEquals(5, result.size());
+            assertEquals(5, result.getTotalElements());
             verify(generalRecipeRepository).findAll();
         }
     }
@@ -148,10 +152,10 @@ class GeneralRecipeServiceTest {
             when(generalRecipeRepository.findByNameRegex(anyString())).thenReturn(generalRecipes);
             when(GeneralRecipeMapper.toGetDTO(any(GeneralRecipe.class))).thenReturn(podamFactory.manufacturePojo(GetGeneralRecipeDTO.class));
 
-            List<GetGeneralRecipeDTO> result = generalRecipeService.getFilteredGeneralRecipes(Optional.of("Salad"), empty(), empty(), empty(), empty());
+            Page<GetGeneralRecipeDTO> result = generalRecipeService.getFilteredGeneralRecipes(Optional.of("Salad"), empty(), empty(), empty(), empty(), pageable);
 
             assertNotNull(result);
-            assertEquals(5, result.size());
+            assertEquals(5, result.getTotalElements());
             verify(generalRecipeRepository).findByNameRegex("Salad");
         }
     }

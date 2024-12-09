@@ -4,6 +4,9 @@ import com.culinary.userservice.recipe.dto.general.GetGeneralRecipeDTO;
 import com.culinary.userservice.recipe.dto.general.PutGeneralRecipeDTO;
 import com.culinary.userservice.recipe.service.GeneralRecipeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,13 +46,16 @@ public class GeneralRecipeController {
     }
 
     @GetMapping
-    public ResponseEntity<List<GetGeneralRecipeDTO>> getGeneralRecipesByFiltered(
+    public ResponseEntity<Page<GetGeneralRecipeDTO>> getGeneralRecipesByFiltered(
             @RequestParam Optional<String> name,
             @RequestParam Optional<String> mealType,
             @RequestParam Optional<Integer> minCalories,
             @RequestParam Optional<Integer> maxCalories,
-            @RequestParam Optional<List<String>> dietTypes) {
-        List<GetGeneralRecipeDTO> generalRecipes = generalRecipeService.getFilteredGeneralRecipes(name, mealType, minCalories, maxCalories, dietTypes);
+            @RequestParam Optional<List<String>> dietTypes,
+            @PageableDefault(size = 10, sort = "name") Pageable pageable) {
+
+        Page<GetGeneralRecipeDTO> generalRecipes = generalRecipeService.getFilteredGeneralRecipes(
+                name, mealType, minCalories, maxCalories, dietTypes, pageable);
         return ResponseEntity.ok(generalRecipes);
     }
 }
