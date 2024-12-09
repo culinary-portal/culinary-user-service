@@ -8,16 +8,18 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
+import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisIndexedHttpSession;
 import org.springframework.session.web.context.AbstractHttpSessionApplicationInitializer;
 
 
 @Configuration
-@EnableRedisIndexedHttpSession
 @Slf4j
 @RequiredArgsConstructor
 @Profile({"!local & !test & !integration"})
+@EnableRedisRepositories
+@EnableRedisIndexedHttpSession
 public class RedisConfig extends AbstractHttpSessionApplicationInitializer {
 
     private final RedisProperties redisProperties;
