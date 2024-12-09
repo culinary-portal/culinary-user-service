@@ -15,8 +15,10 @@ spring:
         encoded-key: ${GCP_SA_JSON}
   data:
     redis:
-      host: localhost
-      password: session
+      host: 10.241.218.123
       port: 6379
-      url: redis://localhost:6379
+      ssl:
+        enabled: false
 
+  redis:
+    ssl=false:

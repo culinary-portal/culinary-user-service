@@ -1,5 +1,4 @@
 server:
-  port: 8080
   servlet:
     session:
       cookie:
@@ -35,7 +34,7 @@ logging:
       hibernate: ERROR
       springframework:
         jdbc: TRACE
-        security: TRACE
+        security: ERROR
 
 
 
