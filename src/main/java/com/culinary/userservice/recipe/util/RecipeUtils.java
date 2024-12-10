@@ -16,7 +16,8 @@ public class RecipeUtils {
             return 0;
         }
         int sum = contains.stream()
-                .mapToInt(contain -> (int) (contain.getIngredient().getKcal() * contain.getAmount() * 0.01))
+                .mapToInt(contain -> (int) (contain.getIngredient().getKcal() * contain.getAmount() * 0.01
+                        * Double.valueOf(contain.getMeasure())))
                 .sum();
         return sum;
     }
@@ -26,7 +27,8 @@ public class RecipeUtils {
             return 0d;
         }
         double sum = contains.stream()
-                .mapToInt(contain -> (int) (contain.getIngredient().getFat() * contain.getAmount() * 0.01))
+                .mapToInt(contain -> (int) (contain.getIngredient().getFat() * contain.getAmount() * 0.01
+                        * Double.valueOf(contain.getMeasure())))
                 .sum();
         return sum;
     }
@@ -36,7 +38,8 @@ public class RecipeUtils {
             return 0d;
         }
         int sum = contains.stream()
-                .mapToInt(contain -> (int) (contain.getIngredient().getProtein() * contain.getAmount() * 0.01))
+                .mapToInt(contain -> (int) (contain.getIngredient().getProtein() * contain.getAmount() * 0.01
+                        * Double.valueOf(contain.getMeasure())))
                 .sum();
         return sum;
     }
@@ -46,7 +49,8 @@ public class RecipeUtils {
             return 0d;
         }
         double sum = contains.stream()
-                .mapToInt(contain -> (int) (contain.getIngredient().getCarbohydrate() * contain.getAmount() * 0.01))
+                .mapToInt(contain -> (int) (contain.getIngredient().getCarbohydrate() * contain.getAmount() * 0.01
+                        * Double.valueOf(contain.getMeasure())))
                 .sum();
         return sum;
     }
