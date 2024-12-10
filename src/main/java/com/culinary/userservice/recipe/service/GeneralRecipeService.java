@@ -9,9 +9,6 @@ import com.culinary.userservice.recipe.model.Recipe;
 import com.culinary.userservice.recipe.repository.GeneralRecipeRepository;
 import com.culinary.userservice.user.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -77,21 +74,15 @@ public class GeneralRecipeService {
                 .collect(toList());
     }
 
-
-
-    public Page<GetGeneralRecipeDTO> getFilteredGeneralRecipes(Optional<String> name,
+    public List<GetGeneralRecipeDTO> getFilteredGeneralRecipes(Optional<String> name,
                                                                Optional<String> mealType,
                                                                Optional<Integer> minCalories,
                                                                Optional<Integer> maxCalories,
-                                                               Optional<List<String>> dietTypes,
-                                                               Pageable pageable) {
+                                                               Optional<List<String>> dietTypes) {
         List<GeneralRecipe> allRecipes;
 
-        if (name.isPresent()) {
-            allRecipes = generalRecipeRepository.findByNameRegex(name.get());
-        } else {
-            allRecipes = generalRecipeRepository.findAll();
-        }
+        if (name.isPresent()) allRecipes = generalRecipeRepository.findByNameRegex(name.get());
+        else allRecipes = generalRecipeRepository.findAll();
 
         Predicate<GeneralRecipe> combinedPredicate = recipe -> true;
 
@@ -115,21 +106,12 @@ public class GeneralRecipeService {
                     dietTypes.get().stream()
                             .map(String::toUpperCase)
                             .map(String::trim)
-                            .anyMatch(dietType ->
-                                    dietType.equalsIgnoreCase(recipe.getBaseRecipe().getDietType().getDietType())));
+                            .anyMatch(dietType -> dietType.equalsIgnoreCase(recipe.getBaseRecipe().getDietType().getDietType())));
         }
 
-        List<GetGeneralRecipeDTO> filteredRecipes = allRecipes.stream()
+        return allRecipes.stream()
                 .filter(combinedPredicate)
                 .map(GeneralRecipeMapper::toGetDTO)
-                .toList();
-
-        int start = (int) pageable.getOffset();
-        int end = Math.min(start + pageable.getPageSize(), filteredRecipes.size());
-
-        List<GetGeneralRecipeDTO> paginatedRecipes = filteredRecipes.subList(start, end);
-
-        return new PageImpl<>(paginatedRecipes, pageable, filteredRecipes.size());
+                .collect(Collectors.toList());
     }
-
 }

@@ -9,8 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import uk.co.jemos.podam.api.PodamFactory;
@@ -46,30 +44,20 @@ public class GeneralRecipeControllerTest {
         podamFactory = new PodamFactoryImpl();
     }
 
-//    @Test
-//    public void testGetAllGeneralRecipesByFiltered() throws Exception {
-//        List<GetGeneralRecipeDTO> recipeList = IntStream.range(0, 5)
-//                .mapToObj(i -> podamFactory.manufacturePojo(GetGeneralRecipeDTO.class))
-//                .collect(Collectors.toList());
-//
-//        Page<GetGeneralRecipeDTO> recipePage = new PageImpl<>(recipeList);
-//
-//        when(generalRecipeService.getFilteredGeneralRecipes(any(), any(), any(), any(), any(), any()))
-//                .thenReturn(recipePage);
-//
-//        mockMvc.perform(get("/api/general-recipes")
-//                        .param("page", "0")
-//                        .param("size", "5"))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.content").isArray())
-//                .andExpect(jsonPath("$.content.length()").value(5))
-//                .andExpect(jsonPath("$.content[0].generalRecipeId").isNotEmpty())
-//                .andExpect(jsonPath("$.content[1].generalRecipeId").isNotEmpty());
-//
-//        verify(generalRecipeService, times(1))
-//                .getFilteredGeneralRecipes(any(), any(), any(), any(), any(), any());
-//    }
+    @Test
+    public void testGetAllGeneralRecipesByFiltered() throws Exception {
+        List<GetGeneralRecipeDTO> recipeList = IntStream.range(0, 5)
+                .mapToObj(i -> podamFactory.manufacturePojo(GetGeneralRecipeDTO.class))
+                .collect(Collectors.toList());
+        when(generalRecipeService.getFilteredGeneralRecipes(any(), any(), any(), any(), any())).thenReturn(recipeList);
 
+        mockMvc.perform(get("/api/general-recipes"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].generalRecipeId").isNotEmpty())
+                .andExpect(jsonPath("$[1].generalRecipeId").isNotEmpty());
+
+        verify(generalRecipeService, times(1)).getFilteredGeneralRecipes(any(), any(), any(), any(), any());
+    }
 
     @Test
     public void testGetGeneralRecipeById() throws Exception {
