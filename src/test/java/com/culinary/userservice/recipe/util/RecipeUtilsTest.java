@@ -19,6 +19,7 @@ class RecipeUtilsTest {
         Contains contains = mock(Contains.class);
         Ingredient ingredient = mock(Ingredient.class);
         when(contains.getIngredient()).thenReturn(ingredient);
+        when(contains.getMeasure()).thenReturn("1");
         when(contains.getAmount()).thenReturn(100.0F);
         when(ingredient.getKcal()).thenReturn(200.0);
 
@@ -32,6 +33,7 @@ class RecipeUtilsTest {
         Contains contains = mock(Contains.class);
         Ingredient ingredient = mock(Ingredient.class);
         when(contains.getIngredient()).thenReturn(ingredient);
+        when(contains.getMeasure()).thenReturn("1");
         when(contains.getAmount()).thenReturn(100.0F);
         when(ingredient.getFat()).thenReturn(10.0);
 
@@ -45,6 +47,7 @@ class RecipeUtilsTest {
         Contains contains = mock(Contains.class);
         Ingredient ingredient = mock(Ingredient.class);
         when(contains.getIngredient()).thenReturn(ingredient);
+        when(contains.getMeasure()).thenReturn("1");
         when(contains.getAmount()).thenReturn(100f);
         when(ingredient.getProtein()).thenReturn(15.0);
 
@@ -58,6 +61,7 @@ class RecipeUtilsTest {
         Contains contains = mock(Contains.class);
         Ingredient ingredient = mock(Ingredient.class);
         when(contains.getIngredient()).thenReturn(ingredient);
+        when(contains.getMeasure()).thenReturn("1");
         when(contains.getAmount()).thenReturn(100.0f);
         when(ingredient.getCarbohydrate()).thenReturn(20.0);
 
