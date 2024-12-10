@@ -43,9 +43,9 @@ VALUES (1, 'Pancakes with Syrup', 'Fluffy pancakes with maple syrup', 1),
        (3, 'Grilled Steak', 'Juicy grilled steak with herbs', 3);
 
 INSERT INTO contains (amount, measure, recipe_id, ingredient_id)
-VALUES (123, 'grams', 1, 1),
-       (125, 'grams', 2, 2),
-       (185, 'millilitre', 3, 3);
+VALUES (123, '1', 1, 1),
+       (125, '1', 2, 2),
+       (185, '1', 3, 3);
 
 INSERT INTO substitute (ingredient1_id, ingredient2_id, proportion_i1_i2)
 VALUES (1, 3, 0.5),
