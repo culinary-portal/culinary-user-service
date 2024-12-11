@@ -30,6 +30,7 @@ public class GeneralRecipeService {
 
     private final GeneralRecipeRepository generalRecipeRepository;
     private final RecipeService recipeService;
+    private List<GeneralRecipe> allGeneralRecipes = new ArrayList<>();
 
     public GetGeneralRecipeDTO createGeneralRecipe(PutGeneralRecipeDTO dto) {
         GeneralRecipe entity = new GeneralRecipe();
@@ -79,10 +80,14 @@ public class GeneralRecipeService {
                                                                Optional<Integer> minCalories,
                                                                Optional<Integer> maxCalories,
                                                                Optional<List<String>> dietTypes) {
-        List<GeneralRecipe> allRecipes;
+        if (allGeneralRecipes == null || this.allGeneralRecipes.isEmpty()) {
+            this.allGeneralRecipes = generalRecipeRepository.findAll();}
+        List<GeneralRecipe> allRecipes = this.allGeneralRecipes;
+        if (allRecipes.isEmpty())
 
-        if (name.isPresent()) allRecipes = generalRecipeRepository.findByNameRegex(name.get());
-        else allRecipes = generalRecipeRepository.findAll();
+        if (name.isPresent()) allRecipes = allRecipes.stream().filter(e -> e.getName()
+                .toLowerCase().contains(name.get().toLowerCase())).toList();
+        else allRecipes = allGeneralRecipes;
 
         Predicate<GeneralRecipe> combinedPredicate = recipe -> true;
 
