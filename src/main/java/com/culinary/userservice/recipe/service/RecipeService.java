@@ -1,11 +1,13 @@
 package com.culinary.userservice.recipe.service;
 
 import com.culinary.userservice.ingredient.service.IngredientService;
+import com.culinary.userservice.recipe.dto.general.GetGeneralRecipeDTO;
 import com.culinary.userservice.recipe.dto.recipe.GetRecipeDTO;
 import com.culinary.userservice.recipe.dto.recipe.PutRecipeDTO;
 import com.culinary.userservice.recipe.dto.recipe.RecipeDTO;
 import com.culinary.userservice.recipe.dto.recipe.RecipeDetailsDTO;
 import com.culinary.userservice.recipe.mapper.ContainsMapper;
+import com.culinary.userservice.recipe.mapper.GeneralRecipeMapper;
 import com.culinary.userservice.recipe.mapper.RecipeMapper;
 import com.culinary.userservice.recipe.model.DietType;
 import com.culinary.userservice.recipe.model.GeneralRecipe;
@@ -126,6 +128,20 @@ public class RecipeService {
         return user.getModifiedRecipes().stream()
                 .map(RecipeMapper::toGetRecipeDTO)
                 .collect(Collectors.toSet());
+    }
+
+    @Transactional(readOnly = true)
+    public Set<GetGeneralRecipeDTO> getModificationsDetails(long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("User not found"));
+        Set<Recipe> modifiedRecipes = user.getModifiedRecipes();
+        Set<GeneralRecipe> generalRecipes = new HashSet<>();
+        for (Recipe recipe : modifiedRecipes) {
+            GeneralRecipe generalRecipe = recipe.getGeneralRecipe();
+            generalRecipe.setBaseRecipe(recipe);
+            generalRecipes.add(generalRecipe);
+        }
+
+        return generalRecipes.stream().map(GeneralRecipeMapper::toGetDTO).collect(Collectors.toSet());
     }
 
     public Set<PutRecipeDTO> addModification(long userId, PutRecipeDTO dto) {
