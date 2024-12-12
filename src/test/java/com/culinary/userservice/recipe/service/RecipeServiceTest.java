@@ -1,6 +1,7 @@
 package com.culinary.userservice.recipe.service;
 
 import com.culinary.userservice.ingredient.service.IngredientService;
+import com.culinary.userservice.recipe.dto.recipe.GetRecipeDTO;
 import com.culinary.userservice.recipe.dto.recipe.PutRecipeDTO;
 import com.culinary.userservice.recipe.dto.recipe.RecipeDTO;
 import com.culinary.userservice.recipe.dto.recipe.RecipeDetailsDTO;
@@ -117,7 +118,7 @@ class RecipeServiceTest {
         user.setModifiedRecipes(new HashSet<>());
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
 
-        Set<PutRecipeDTO> result = recipeService.getModifications(1L);
+        Set<GetRecipeDTO> result = recipeService.getModifications(1L);
 
         assertEquals(0, result.size());
     }

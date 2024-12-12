@@ -1,5 +1,6 @@
 package com.culinary.userservice.recipe.controller;
 
+import com.culinary.userservice.recipe.dto.recipe.GetRecipeDTO;
 import com.culinary.userservice.recipe.dto.recipe.PutRecipeDTO;
 import com.culinary.userservice.recipe.dto.recipe.RecipeDTO;
 import com.culinary.userservice.recipe.dto.recipe.RecipeDetailsDTO;
@@ -130,9 +131,10 @@ public class RecipeControllerTest {
     @Test
     public void testGetModifications() throws Exception {
         Long userId = 1L;
-        Set<PutRecipeDTO> modifications = IntStream.range(0, 3)
-                .mapToObj(i -> podamFactory.manufacturePojo(PutRecipeDTO.class))
+        Set<GetRecipeDTO> modifications = IntStream.range(0, 3)
+                .mapToObj(i -> podamFactory.manufacturePojo(GetRecipeDTO.class))
                 .collect(Collectors.toSet());
+
         when(recipeService.getModifications(userId)).thenReturn(modifications);
 
         mockMvc.perform(get("/api/recipes/{userId}/modifications", userId))

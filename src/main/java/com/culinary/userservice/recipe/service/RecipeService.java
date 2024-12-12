@@ -1,6 +1,7 @@
 package com.culinary.userservice.recipe.service;
 
 import com.culinary.userservice.ingredient.service.IngredientService;
+import com.culinary.userservice.recipe.dto.recipe.GetRecipeDTO;
 import com.culinary.userservice.recipe.dto.recipe.PutRecipeDTO;
 import com.culinary.userservice.recipe.dto.recipe.RecipeDTO;
 import com.culinary.userservice.recipe.dto.recipe.RecipeDetailsDTO;
@@ -120,10 +121,10 @@ public class RecipeService {
     }
 
     @Transactional(readOnly = true)
-    public Set<PutRecipeDTO> getModifications(long userId) {
+    public Set<GetRecipeDTO> getModifications(long userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("User not found"));
         return user.getModifiedRecipes().stream()
-                .map(RecipeMapper::toRecipeContainsDTO)
+                .map(RecipeMapper::toGetRecipeDTO)
                 .collect(Collectors.toSet());
     }
 

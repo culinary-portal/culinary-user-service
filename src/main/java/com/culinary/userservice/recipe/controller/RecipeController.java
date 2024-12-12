@@ -1,5 +1,6 @@
 package com.culinary.userservice.recipe.controller;
 
+import com.culinary.userservice.recipe.dto.recipe.GetRecipeDTO;
 import com.culinary.userservice.recipe.dto.recipe.PutRecipeDTO;
 import com.culinary.userservice.recipe.dto.recipe.RecipeDTO;
 import com.culinary.userservice.recipe.dto.recipe.RecipeDetailsDTO;
@@ -51,8 +52,8 @@ public class RecipeController {
     }
 
     @GetMapping("/{userId}/modifications")
-    public ResponseEntity<Set<PutRecipeDTO>> getModifications(@PathVariable long userId) {
-        Set<PutRecipeDTO> modifications = recipeService.getModifications(userId);
+    public ResponseEntity<Set<GetRecipeDTO>> getModifications(@PathVariable long userId) {
+        Set<GetRecipeDTO> modifications = recipeService.getModifications(userId);
         return ResponseEntity.ok(modifications);
     }
 
