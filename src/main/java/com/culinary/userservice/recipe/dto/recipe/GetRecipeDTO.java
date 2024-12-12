@@ -6,6 +6,7 @@ import java.util.List;
 
 
 public record GetRecipeDTO(
+        long recipeId,
         String name,
         String description,
         String dietType,

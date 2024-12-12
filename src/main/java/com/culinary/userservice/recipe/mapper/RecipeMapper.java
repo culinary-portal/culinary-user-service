@@ -70,6 +70,7 @@ public class RecipeMapper {
 
     public static GetRecipeDTO toGetRecipeDTO(Recipe dto) {
         return new GetRecipeDTO(
+                dto.getRecipeId(),
                 dto.getName(),
                 dto.getDescription(),
                 dto.getDietType().getDietType(),
