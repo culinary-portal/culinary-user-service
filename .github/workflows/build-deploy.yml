@@ -2,10 +2,6 @@ name: Deploy to GAE with GAR
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 jobs:
   deploy:
