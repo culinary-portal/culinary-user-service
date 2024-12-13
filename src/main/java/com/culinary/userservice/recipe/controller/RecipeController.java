@@ -64,6 +64,12 @@ public class RecipeController {
         return ResponseEntity.ok(modifications);
     }
 
+    @GetMapping("/{userId}/modificationsDetails/{recipeId}")
+    public ResponseEntity<Set<GetGeneralRecipeDTO>> getModificationsDetails(@PathVariable long userId, @PathVariable long recipeId) {
+        Set<GetGeneralRecipeDTO> modifications = recipeService.getModificationsDetails(userId, recipeId);
+        return ResponseEntity.ok(modifications);
+    }
+
     @PostMapping("/{userId}/modifications")
     public ResponseEntity<Set<PutRecipeDTO>> addModification(@PathVariable long userId, @RequestBody PutRecipeDTO recipeContainsDTO) {
         Set<PutRecipeDTO> modifications = recipeService.addModification(userId, recipeContainsDTO);

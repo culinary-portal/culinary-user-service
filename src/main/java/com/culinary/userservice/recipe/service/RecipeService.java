@@ -144,6 +144,20 @@ public class RecipeService {
         return generalRecipes.stream().map(GeneralRecipeMapper::toGetDTO).collect(Collectors.toSet());
     }
 
+    @Transactional(readOnly = true)
+    public Set<GetGeneralRecipeDTO> getModificationsDetails(long userId, long recipeId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("User not found"));
+        Set<Recipe> modifiedRecipes = user.getModifiedRecipes();
+        Set<GeneralRecipe> generalRecipes = new HashSet<>();
+        for (Recipe recipe : modifiedRecipes) {
+            GeneralRecipe generalRecipe = recipe.getGeneralRecipe();
+            generalRecipe.setBaseRecipe(recipe);
+            generalRecipes.add(generalRecipe);
+        }
+
+        return generalRecipes.stream().filter(e -> e.getBaseRecipe().getRecipeId() == recipeId).map(GeneralRecipeMapper::toGetDTO).collect(Collectors.toSet());
+    }
+
     public Set<PutRecipeDTO> addModification(long userId, PutRecipeDTO dto) {
         User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("User not found"));
         GeneralRecipe generalRecipe = generalRecipeRepository.findById(dto.generalRecipeId())
