@@ -7,7 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Type;
+
 
 import java.util.HashSet;
 import java.util.List;
@@ -42,10 +42,10 @@ public class Recipe {
     @JoinColumn(name = "diet_type_id", referencedColumnName = "diet_type_id")
     private DietType dietType;
 
-    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Contains> contains;
 
-    @ManyToMany(mappedBy = "modifiedRecipes", cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "modifiedRecipes", cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JsonBackReference
     private Set<User> usersWhoModified = new HashSet<>();
 
